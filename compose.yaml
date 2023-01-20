@@ -1,0 +1,45 @@
+services:
+  frontend:
+    build:
+      context: frontend
+      target: dev-envs
+    ports:
+      - 3000:3000
+    stdin_open: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+    networks:
+      - react-nest
+    depends_on:
+      - backend
+
+  backend:
+    restart: always
+    build:
+      context: backend
+      target: dev-envs
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - mongo
+    networks:
+      - nest-mongo
+      - react-nest
+    expose:
+      - 3000
+  mongo:
+    container_name: mongo
+    restart: always
+    image: mongo:4.2.0
+    volumes:
+      - ./data:/data/db
+    networks:
+      - nest-mongo
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+networks:
+  react-nest:
+  nest-mongo:
