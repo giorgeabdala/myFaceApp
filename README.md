@@ -102,7 +102,7 @@ Our main goal to create a containers, it starts from here. As you can see there 
 - Second is __server__ which is __backend - Express(NodeJS)__. I used a name server here, it's totally on you to name it __backend__.
 - Third is __mongo__ which is db __MongoDB__.
 
-##### Service app (backend - NodeJS)
+##### ServiceSchema app (backend - NodeJS)
 
 We make image of app from our `Dockerfile`, explanation below.
 
@@ -115,7 +115,7 @@ __Explanation of service server__
 backend(server) `DockerFile`.
 - Mapping the host port to the container port.
 
-##### Service mongo
+##### ServiceSchema mongo
 
 We add another service called **mongo** but this time instead of building it from `DockerFile` we write all the instruction here directly. We simply pull down the standard __mongo image__ from the [DockerHub](https://hub.docker.com/) registry as we have done it for Node image.
 
