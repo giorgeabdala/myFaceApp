@@ -1,10 +1,12 @@
+import {Result} from "../utils/result";
+
 export class Email {
 
     private constructor(readonly address: string) {}
 
-    public static create(address: string): Email {
-        if (!this.isValid(address)) throw new Error('Invalid email address');
-        return new Email(address);
+    public static create(address: string): Result<Email> {
+        if (!this.isValid(address)) return Result.fail('Invalid email address');
+        return  Result.ok(new Email(address));
     }
 
     private static isValid(address: string): boolean {

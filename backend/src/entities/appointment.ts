@@ -1,5 +1,6 @@
 import {Professional} from './professional';
 import {Client} from './client';
+import {Result} from "../utils/result";
 
 export enum Status {
     PENDING,
@@ -20,27 +21,25 @@ export class Appointment {
                 readonly professional: Professional,
                 readonly client: Client,
                 public status: Status,
-                readonly id?: number) {
-        if (!this.validateEndDate(startDate, endDate)) throw new Error('Invalid end date');
-        if (!this.validatePrice(price)) throw new Error('Invalid price');
-        if (!this.validateStartDate(startDate)) throw new Error('Invalid start date');
+                readonly id?: number) {}
 
+    public static create(startDate: Date, endDate: Date, price: number, professional: Professional, client: Client, status: Status, id?: number): Result<Appointment> {
+        if (!this.validateStartDate(startDate)) return Result.fail("Data de início do atendimento invalida");
+        if (!this.validateEndDate(startDate, endDate)) return Result.fail("Data fim do atendimento invalida");
+        if (!this.validatePrice(price)) return Result.fail("Valor do atendimento invalido");
+
+        return Result.ok<Appointment>(new Appointment(startDate, endDate, price, professional, client, status, id))
     }
 
-    public static create(startDate: Date, endDate: Date, price: number, professional: Professional, client: Client, status: Status, id?: number): Appointment {
-        return new Appointment(startDate, endDate, price, professional, client, status, id);
-
-    }
-
-    private validatePrice(price: number): boolean {
+    private static validatePrice(price: number): boolean {
         return price > 0;
     }
 
-   private validateEndDate(startDate: Date, endDate: Date): boolean {
-        return startDate < endDate && endDate > new Date('01/01/2023');
+   private static validateEndDate(startDate: Date, endDate: Date):boolean {
+       return startDate < endDate && endDate > new Date('01/01/2023');
     }
 
-    private validateStartDate(startDate: Date): boolean {
+    private static  validateStartDate(startDate: Date): boolean {
         return startDate > new Date("01/01/2023");
     }
 

@@ -1,11 +1,12 @@
+import {Result} from "../utils/result";
 
 export class Phone {
 
     private constructor(readonly DDD: string, readonly number: string) {}
 
-    public static create(DDD: string, number: string): Phone {
-        if (!this.isValid(DDD, number)) throw new Error('Invalid phone number');
-        return new Phone(DDD, number);
+    public static create(DDD: string, number: string): Result<Phone> {
+        if (!this.isValid(DDD, number)) return Result.fail('Invalid phone number');
+        return Result.ok(new Phone(DDD, number));
     }
 
     private static isValid(DDD: string, number: string): boolean {

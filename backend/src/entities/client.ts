@@ -1,27 +1,31 @@
 import {User} from "./user";
 import {Phone} from "./phone";
 import {Email} from "./email";
+import {Result} from "../utils/result";
 
 export class Client implements User {
 private annotations: string = '';
+private email: Email;
 
 
-    private constructor(readonly name: string, DDD: string, readonly cellPhone: Phone,  readonly email?: Email, readonly id?: number) {}
+    private constructor(readonly name: string, readonly cellPhone: Phone,  readonly emailOrError?: Email, readonly id?: number) {}
 
-        public static create(name: string, DDD: string, number: string, emailAddress?: string, id?: number): Client {
-            if (!this.isValidName(name)) throw new Error('Invalid name');
-            const phone = Phone.create(DDD, number);
-            const email = emailAddress ? Email.create(emailAddress) : undefined
+    public static create(name: string, DDD: string, number: string, emailAddress?: string, id?: number): Result<Client> {
+        const phoneOrError = Phone.create(DDD, number);
+        const emailOrError = emailAddress ? Email.create(emailAddress) : Result.ok<Email>();
+        const isvalidName = this.isValidName(name);
 
-            return new Client(name, DDD, phone, email, id);
-        }
+        if (phoneOrError.isFailure) return Result.fail('Invalid phone number');
+        if (!isvalidName) return Result.fail('Invalid name');
+        if (emailOrError.isFailure) return Result.fail('Invalid email');
+        return Result.ok<Client>(new Client(name, phoneOrError.getValue(), emailOrError.getValue(), id))
+    }
 
         private static isValidName(name: string): boolean {
-            return name.length >= 2;
+            return name.length >= 2 ;
         }
 
         setAnnotations(annotations: string) {
-            if (!this.isValidAnnotations(annotations)) throw new Error('Invalid annotations');
             this.annotations = annotations;
         }
 
@@ -29,9 +33,6 @@ private annotations: string = '';
             return this.annotations;
         }
 
-        private isValidAnnotations(annotations: string): boolean {
-            return annotations.length >= 5;
-        }
 
 
 }

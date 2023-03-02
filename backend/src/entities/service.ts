@@ -1,19 +1,21 @@
+import {Result} from "../utils/result";
+
 export class Service {
 
-    private constructor(readonly name: string, readonly description: string) {
-        if (!this.validateName(name)) throw new Error('Invalid name');
-        if (!this.validateDescription(description)) throw new Error('Invalid description');
+    private constructor(readonly name: string, readonly description: string) {}
+
+    public static create(name: string, description: string): Result<Service> {
+        if (!this.validateName(name)) return Result.fail('Invalid name');
+        if (!this.validateDescription(description)) return Result.fail('Invalid description');
+
+        return Result.ok(new Service(name, description));
     }
 
-    public static create(name: string, description: string): Service {
-        return new Service(name, description);
-    }
-
-    private validateName(name: string): boolean {
+    private static validateName(name: string): boolean {
         return name.length >= 5;
     }
 
-    private validateDescription(description: string): boolean {
+    private static validateDescription(description: string): boolean {
         return description.length <= 100;
     }
 
