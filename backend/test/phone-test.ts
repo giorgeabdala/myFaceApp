@@ -1,5 +1,5 @@
 import jest from 'jest';
-import { Phone } from '../src/entities/phone';
+import { Phone } from '../src/domain/entities/phone';
 
 describe('Deve testar a criação de phones', () => {
     it('Deve criar um telefone válido', () => {

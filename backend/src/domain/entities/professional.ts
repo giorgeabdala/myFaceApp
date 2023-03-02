@@ -1,14 +1,14 @@
 import {User} from "./user";
 import {Phone} from "./phone";
 import {Email} from "./email";
-import {Result} from "../utils/result";
+import {Result} from "../../utils/result";
 
 export class Professional implements User {
 
 
-    private constructor(readonly name: string, readonly cellPhone: Phone,  private email: Email, readonly id?: number ) {}
+    private constructor(readonly id: string, readonly name: string, readonly cellPhone: Phone,  private email: Email ) {}
 
-    public static create(name: string, DDD: string, number: string, emailAddress: string, id?: number): Result<Professional> {
+    public static create(id: string, name: string, DDD: string, number: string, emailAddress: string): Result<Professional> {
         const phoneOrError = Phone.create(DDD, number);
         const emailOrError = Email.create(emailAddress);
         const validName = this.validateName(name);
@@ -17,7 +17,7 @@ export class Professional implements User {
         if (!validName) return Result.fail('Invalid name');
         if (emailOrError.isFailure) return Result.fail('Invalid email');
 
-        return Result.ok<Professional>(new Professional(name, phoneOrError.getValue(), emailOrError.getValue(), id))
+        return Result.ok<Professional>(new Professional(id,name, phoneOrError.getValue(), emailOrError.getValue()))
     }
 
     private static validateName(name: string): boolean {

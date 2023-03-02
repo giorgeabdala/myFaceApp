@@ -1,14 +1,14 @@
-import {Result} from "../utils/result";
+import {Result} from "../../utils/result";
 
 export class Service {
 
-    private constructor(readonly name: string, readonly description: string) {}
+    private constructor(readonly id: string, readonly name: string, readonly description: string) {}
 
-    public static create(name: string, description: string): Result<Service> {
+    public static create(id: string, name: string, description: string): Result<Service> {
         if (!this.validateName(name)) return Result.fail('Invalid name');
         if (!this.validateDescription(description)) return Result.fail('Invalid description');
 
-        return Result.ok(new Service(name, description));
+        return Result.ok(new Service(id,name, description));
     }
 
     private static validateName(name: string): boolean {
