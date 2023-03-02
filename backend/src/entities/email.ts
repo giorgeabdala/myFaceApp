@@ -1,11 +1,13 @@
 export class Email {
 
-    constructor(readonly address: string) {
+    private constructor(readonly address: string) {}
+
+    public static create(address: string): Email {
         if (!this.isValid(address)) throw new Error('Invalid email address');
-        this.address = address;
+        return new Email(address);
     }
 
-    private isValid(address: string): boolean {
+    private static isValid(address: string): boolean {
         const regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
         return regex.test(address);
     }

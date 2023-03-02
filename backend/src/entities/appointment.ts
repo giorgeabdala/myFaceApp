@@ -13,7 +13,7 @@ export enum Status {
 export class Appointment {
 
 
-    constructor(
+    private constructor(
                 readonly startDate: Date,
                 readonly endDate: Date,
                 readonly price: number,
@@ -24,6 +24,11 @@ export class Appointment {
         if (!this.validateEndDate(startDate, endDate)) throw new Error('Invalid end date');
         if (!this.validatePrice(price)) throw new Error('Invalid price');
         if (!this.validateStartDate(startDate)) throw new Error('Invalid start date');
+
+    }
+
+    public static create(startDate: Date, endDate: Date, price: number, professional: Professional, client: Client, status: Status, id?: number): Appointment {
+        return new Appointment(startDate, endDate, price, professional, client, status, id);
 
     }
 

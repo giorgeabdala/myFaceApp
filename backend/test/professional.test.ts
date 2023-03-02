@@ -8,7 +8,7 @@ import {Email} from "../src/entities/email";
 describe('Deve testar a criação de profissionais', () => {
     it('Deve criar um profissional válido', () => {
         const name = 'Jô';
-        const professional = new Professional(name, new Phone('41','985691112'), new Email('giorgeabdala@gmail.com'));
+        const professional =  Professional.create(name, '41','985691112', 'giorgeabdala@gmail.com');
 
         expect(professional.name).toBe(name);
         expect(professional.cellPhone.DDD).toBe('41');
@@ -16,18 +16,18 @@ describe('Deve testar a criação de profissionais', () => {
     });
 
     it('Deve lançar um erro ao criar um profissional com nome inválido', () => {
-        expect(() => new Professional('J',new Phone('41','985691112'), new Email('giorgeabdala@gmail.com'))).toThrow();
+        expect(() => Professional.create('J','41','985691112', 'giorgeabdala@gmail.com')).toThrow();
     } );
 
     it('Deve lançar um erro ao criar um profissional com DDD inválido', () => {
-        expect(() => new Professional('João',new Phone('4','985691112'), new Email('giorgeabdala@gmail.com'))).toThrow();
+        expect(() => Professional.create('João','4','985691112', 'giorgeabdala@gmail.com')).toThrow();
     } );
 
     it('Deve lançar um erro ao criar um profissional com número inválido', () => {
-        expect(() => new Professional('João',new Phone('41','98569111'), new Email('giorgeabdala@gmail.com'))).toThrow();
+        expect(() => Professional.create('João','41','98569111', 'giorgeabdala@gmail.com')).toThrow();
     } );
 
     it('Deve lançar um erro ao criar um profissional com email inválido', () => {
-        expect(() => new Professional('João',new Phone('41','985691111'), new Email('giorgeabdala@gmail'))).toThrow();
+        expect(() => Professional.create('João','41','985691111', 'giorgeabdala@gmail')).toThrow();
     } );
 } );

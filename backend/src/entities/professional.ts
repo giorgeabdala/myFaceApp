@@ -4,12 +4,16 @@ import {Email} from "./email";
 
 export class Professional implements User {
 
-    constructor(readonly name: string, readonly cellPhone: Phone, readonly email: Email, readonly id?: number ) {
+
+    private constructor(readonly name: string, readonly cellPhone: Phone,  private email: Email, readonly id?: number ) {}
+
+    public static create(name: string, DDD: string, number: string, emailAddress: string, id?: number): Professional {
         if (!this.validateName(name)) throw new Error('Nome inválido');
+        return new Professional(name, Phone.create(DDD, number), Email.create(emailAddress), id);
     }
 
 
-    private validateName(name: string): boolean {
+    private static validateName(name: string): boolean {
         return name.length >= 2;
     }
 
