@@ -1,7 +1,7 @@
 import jest from 'jest';
-import {Professional} from '../src/domain/entities/professional';
-import {Phone} from "../src/domain/entities/phone";
-import {Email} from "../src/domain/entities/email";
+import {Professional} from '../../src/domain/entities/professional';
+import {Phone} from "../../src/domain/entities/phone";
+import {Email} from "../../src/domain/entities/email";
 
 
 

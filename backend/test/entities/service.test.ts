@@ -1,5 +1,5 @@
 import jest from 'jest';
-import { Service } from '../src/domain/entities/service';
+import { Service } from '../../src/domain/entities/service';
 
 describe('Deve testar a criação de técnicas', () => {
     it('Deve criar uma técnica válida', () => {

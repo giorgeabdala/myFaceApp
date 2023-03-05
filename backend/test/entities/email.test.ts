@@ -1,5 +1,5 @@
 import jest from 'jest';
-import { Email } from '../src/domain/entities/email';
+import { Email } from '../../src/domain/entities/email';
 
 describe('Deve testar a criação de emails', () => {
     it('Deve criar um email válido', () => {

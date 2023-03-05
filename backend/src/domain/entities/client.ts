@@ -10,7 +10,7 @@ private email: Email;
 
     private constructor(readonly id:  string, readonly name: string, readonly cellPhone: Phone,  readonly emailOrError?: Email) {}
 
-    public static create(id: string,name: string, DDD: string, number: string, emailAddress?: string): Result<Client> {
+    public static create(id: string, name: string, DDD: string, number: string, emailAddress?: string): Result<Client> {
         const phoneOrError = Phone.create(DDD, number);
         const emailOrError = emailAddress ? Email.create(emailAddress) : Result.ok<Email>();
         const isvalidName = this.isValidName(name);
@@ -31,6 +31,12 @@ private email: Email;
 
         getAnnotations(): string {
             return this.annotations;
+        }
+
+        public get Email(): string {
+            if (!this.email) return undefined;
+            if (!this.email.address) return undefined;
+            return this.email.address;
         }
 
 

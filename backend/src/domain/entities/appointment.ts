@@ -48,6 +48,14 @@ export class Appointment {
         return this.endDate.getTime() - this.startDate.getTime();
     }
 
+    public getProfessionalId(): string {
+        return this.professional.id;
+    }
+
+    public getClientId(): string {
+        return this.client.id;
+    }
+
 
 
 

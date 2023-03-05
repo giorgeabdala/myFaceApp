@@ -1,0 +1,52 @@
+import {Appointment, Status} from '../../../domain/entities/appointment';
+import {IAppointmentRepository} from "../../../domain/adapters/IAppointmentRepository";
+import {Client} from "../../../domain/entities/client";
+import {Professional} from "../../../domain/entities/professional";
+
+export default class implements IAppointmentRepository {
+    appointments: Appointment[] = [];
+
+
+    constructor() {
+        const startDate = new Date(); // data atual
+        const endDate = new Date(new Date().getTime() + (60 * 60 * 1000));
+
+        const clientOne = Client.create('1', 'João', '11', '999999999', 'giorgeabdala@gmail.com').getValue();
+        const clientTwo  = Client.create('2', 'Maria', '11', '999999999', 'giorgeabdala@gmail.com').getValue();
+        const clientThree = Client.create('3', "José", '11', '999999999', 'giorgeabdala@gmail.com').getValue();
+
+        const professionalOne = Professional.create('1', 'João', '11', '999999999', 'joao@gmail.com').getValue();
+        const professionalTwo =    Professional.create('2', 'Maria', '11', '999999999', 'maria@gmail.com').getValue();
+        const professionalThree =     Professional.create('3', 'José', '11', '999999999', 'jose@gmail.com').getValue();
+
+        this.appointments = [
+            Appointment.create('1', startDate, endDate, 100, professionalOne, clientOne, Status.CONFIRMED).getValue(),
+            Appointment.create('2', startDate, endDate, 58.62, professionalTwo, clientTwo, Status.FINISHED).getValue(),
+            Appointment.create('3', startDate, endDate, 99.5, professionalThree, clientThree, Status.CANCELED).getValue()
+        ];
+    }
+
+    async save(appointment: Appointment): Promise<void> {
+        this.appointments.push(appointment);
+    }
+
+    async update(appointment: Appointment): Promise<Appointment> {
+        const index = this.appointments.findIndex((value) => value.id === appointment.id);
+        this.appointments[index] = appointment;
+        return this.appointments[index];
+    }
+
+    async findById(id: string): Promise<Appointment> {
+        return this.appointments.find((value) => value.id === id    );
+    }
+
+    async findByProfessionalId(idProfessional: string): Promise<Appointment[]> {
+        return this.appointments.filter((value) => value.getProfessionalId() === idProfessional);
+    }
+
+    async findByClientId(idClient: string): Promise<Appointment[]> {
+        return this.appointments.filter((value) => value.getClientId() === idClient);
+    }
+}
+
+

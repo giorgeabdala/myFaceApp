@@ -1,9 +1,9 @@
 import jest from 'jest';
-import {Appointment, Status} from '../src/domain/entities/appointment';
-import {Professional} from "../src/domain/entities/professional";
-import {Client} from "../src/domain/entities/client";
-import {Email} from "../src/domain/entities/email";
-import {Phone} from "../src/domain/entities/phone";
+import {Appointment, Status} from '../../src/domain/entities/appointment';
+import {Professional} from "../../src/domain/entities/professional";
+import {Client} from "../../src/domain/entities/client";
+import {Email} from "../../src/domain/entities/email";
+import {Phone} from "../../src/domain/entities/phone";
 
 let professional: Professional;
 let client: Client;
@@ -28,11 +28,14 @@ describe('Deve testar a criação de agendamentos', () => {
         expect(appointment.endDate).toBeInstanceOf(Date);
         expect(appointment.price).toBe(100);
         expect(appointment.professional).toBe(professional);
+        expect(appointment.getProfessionalId()).toBe(professional.id);
+        expect(appointment.getClientId()).toBe(client.id);
         expect(appointment.client).toBe(client);
         expect(appointment.status).toBe(status);
     } );
     it('Deve lançar um erro ao criar um agendamento com data de início inválida', () => {
-        expect(() => Appointment.create('1',new Date('01/01/2022'), new Date(), 100, professional, client, status).isFailure);
+        const appointmentOrError =  Appointment.create('1',new Date('01/01/2022'), new Date(), 100, professional, client, status);
+        expect(appointmentOrError.isFailure).toBe(true);
     } );
     it('Deve lançar um erro ao criar um agendamento com data de fim inválida', () => {
         expect(() => Appointment.create('1',new Date(), new Date(''), 100, professional, client, status).isFailure);

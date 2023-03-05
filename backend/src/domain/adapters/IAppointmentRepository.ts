@@ -1,10 +1,11 @@
 import {Appointment} from "../entities/appointment";
 
-public interface IAppointmentRepository {
-     create(appointment: Appointment): Promise<Appointment>;
+export interface IAppointmentRepository {
+     save(appointment: Appointment): Promise<void>;
      update(appointment: Appointment): Promise<Appointment>;
-     findById(id: number): Promise<Appointment>;
-     findByProfessionalId(idProfessional: number): Promise<Appointment[]>;
-     findByClientId(idClient: number): Promise<Appointment[]>;
-
+     findById(id: string): Promise<Appointment>;
+     findByProfessionalId(idProfessional: string): Promise<Appointment[]>;
+     findByClientId(idClient: string): Promise<Appointment[]>;
 }
+
+

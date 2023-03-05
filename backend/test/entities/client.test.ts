@@ -1,6 +1,5 @@
-import jest from 'jest';
-import {Client} from '../src/domain/entities/client';
-import {Phone} from "../src/domain/entities/phone";
+import vitest from "vitest";
+import {Client} from '../../src/domain/entities/client';
 
 let client: Client;
 
