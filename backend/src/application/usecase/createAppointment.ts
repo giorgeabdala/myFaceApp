@@ -7,7 +7,7 @@ import {IProfessionalRepository} from "../../domain/adapters/IProfessionalReposi
 import IClientRepository from "../../domain/adapters/IClientRepository";
 
 
-export default class CreateAppointmentUseCase{
+export default class CreateAppointment {
     constructor(readonly appointmentRepository: IAppointmentRepository, readonly professionalRepository: IProfessionalRepository, readonly clientRepository: IClientRepository) {}
 
     public async execute(input: CreateAppointmentInput): Promise<Result<CreateAppointmentOutput>> {

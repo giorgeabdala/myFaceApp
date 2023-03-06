@@ -4,7 +4,7 @@ import {Result} from "../../utils/result";
 import { v4 as uuidv4 } from 'uuid';
 import {CreateProfessionalInput, CreateProfessionalOutput} from "../dto/createProfessionalDTO";
 
-export class CreateProfessionalUseCase {
+export class CreateProfessional {
 
     constructor(private professionalRepository: IProfessionalRepository) {
     }

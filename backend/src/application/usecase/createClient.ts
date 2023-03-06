@@ -5,7 +5,7 @@ import {Result} from "../../utils/result";
 import {v4 as uuidv4} from 'uuid';
 
 
-export default class CreateClientUseCase {
+export default class CreateClient {
     constructor(readonly clientRepository: IClientRepository) {}
 
     async execute(input: CreateClientInput): Promise<Result<CreateClientOutput>> {

@@ -22,7 +22,8 @@ export default class implements IAppointmentRepository {
         this.appointments = [
             Appointment.create('1', startDate, endDate, 100, professionalOne, clientOne, Status.CONFIRMED).getValue(),
             Appointment.create('2', startDate, endDate, 58.62, professionalTwo, clientTwo, Status.FINISHED).getValue(),
-            Appointment.create('3', startDate, endDate, 99.5, professionalThree, clientThree, Status.CANCELED).getValue()
+            Appointment.create('3', startDate, endDate, 99.5, professionalThree, clientThree, Status.CANCELED).getValue(),
+            Appointment.create('3', startDate, endDate, 99.5, professionalTwo, clientOne, Status.CANCELED).getValue()
         ];
     }
 

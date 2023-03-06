@@ -1,5 +1,4 @@
-import jest from 'jest';
-import CreateAppointmentUseCase from "../../src/application/usecase/createAppointmentUseCase";
+import CreateAppointment from "../../src/application/usecase/createAppointment";
 import {CreateAppointmentInput} from "../../src/application/dto/createAppointmentDTO";
 import {Status} from "../../src/domain/entities/appointment";
 import { validate as uuidValidate } from 'uuid';
@@ -10,7 +9,9 @@ import AppointmentRepositoryMemory from "../../src/infra/repository/memory/Appoi
 import ClientRepositoryMemory from "../../src/infra/repository/memory/ClientRepositoryMemory";
 import ProfessionalRepositoryMemory from "../../src/infra/repository/memory/ProfessionalRepositoryMemory";
 import {UpdateAppointmentInput} from "../../src/application/dto/updateAppointmentDTO";
-import updateAppointmentUseCase from "../../src/application/usecase/updateAppointmentUseCase";
+import updateAppointment from "../../src/application/usecase/updateAppointment";
+import getAppointmentByClient from "../../src/application/usecase/getAppointmentByClient";
+import getAppointmentByProfessional from "../../src/application/usecase/getAppointmentByProfessional";
 
 let startDate: Date;
 let endDate: Date;
@@ -41,7 +42,7 @@ beforeEach(() => {
 
 describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
     it('Deve criar um agendamento iniciando agora e com termino em 1 hora', async () => {
-        const useCase = new CreateAppointmentUseCase(appointmentRepository, professionalRepository, clientRepository);
+        const useCase = new CreateAppointment(appointmentRepository, professionalRepository, clientRepository);
         const outputOrError = await useCase.execute(createInput);
         expect(outputOrError.isSuccess).toBeTruthy();
         const output = outputOrError.getValue();
@@ -56,7 +57,7 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
     });
 
     it('Deve criar um Agendamento e depois  atualizar o valor, o horário e o status de um agendamento', async () => {
-        const createUseCase = new CreateAppointmentUseCase(appointmentRepository, professionalRepository, clientRepository);
+        const createUseCase = new CreateAppointment(appointmentRepository, professionalRepository, clientRepository);
         const createOutput = (await createUseCase.execute(createInput)).getValue();
 
         const updateStartDate = new Date(new Date().getTime() + (60 * 60 * 1000));
@@ -73,7 +74,7 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
             Status.CANCELED
         );
 
-        const useCase = new updateAppointmentUseCase(appointmentRepository);
+        const useCase = new updateAppointment(appointmentRepository);
         const outputOrError = await useCase.execute(updateInput);
         expect(outputOrError.isSuccess).toBeTruthy();
         const output = outputOrError.getValue();
@@ -87,5 +88,24 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
 
     });
 
-})
+    it('Deve buscar os agendamentos de um cliente específico', async () => {
+        const useCase = new getAppointmentByClient(appointmentRepository);
+        const outputOrError = await useCase.execute('1');
+        expect(outputOrError.isSuccess).toBeTruthy();
+        const output = outputOrError.getValue();
+        expect(output.length).toBe(2);
+        expect(output[0].clientId).toBe('1');
+        expect(output[1].clientId).toBe('1');
+        });
 
+    it ('Deve buscar os agendamentos de um profissional específico', async () => {
+        const useCase = new getAppointmentByProfessional(appointmentRepository);
+        const outputOrError = await useCase.execute('2');
+        expect(outputOrError.isSuccess).toBeTruthy();
+        const output = outputOrError.getValue();
+        expect(output.length).toBe(2);
+        expect(output[0].professionalId).toBe('2');
+        expect(output[1].professionalId).toBe('2');
+    });
+
+});

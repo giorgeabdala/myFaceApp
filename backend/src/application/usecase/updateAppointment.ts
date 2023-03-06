@@ -7,7 +7,7 @@ import ClientRepositoryMemory from "../../infra/repository/memory/ClientReposito
 import {CreateAppointmentOutput} from "../dto/createAppointmentDTO";
 
 
-export default class updateAppointmentUseCase {
+export default class updateAppointment {
     constructor(private readonly appointmentRepository: IAppointmentRepository) {}
 
     async execute(input: UpdateAppointmentInput): Promise<Result<UpdateAppointmentOutput>> {

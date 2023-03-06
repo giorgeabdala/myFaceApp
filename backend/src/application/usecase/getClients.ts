@@ -2,7 +2,7 @@ import {Result} from "../../utils/result";
 import IClientRepository from "../../domain/adapters/IClientRepository";
 import GetClientsOutput from "../dto/getClientsOutput";
 
-export default class GetClientsUseCase {
+export default class GetClients {
 
     constructor(readonly clientRepository: IClientRepository){}
 

@@ -1,7 +1,7 @@
 import jest from 'jest';
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import ProfessionalRepositoryMemory from "../../src/infra/repository/memory/ProfessionalRepositoryMemory";
-import {CreateProfessionalUseCase} from "../../src/application/usecase/createProfessionalUseCase";
+import {CreateProfessional} from "../../src/application/usecase/createProfessional";
 import { validate as uuidValidate } from 'uuid';
 
 let repository: IProfessionalRepository;
@@ -13,7 +13,7 @@ beforeEach(() => {
 describe('Deve testar a criação de profissionais', () => {
     it('Deve criar um profissional válido', async () => {
 
-        const createProfessionalUseCase = new CreateProfessionalUseCase(repository);
+        const createProfessionalUseCase = new CreateProfessional(repository);
         const input = {
             name: 'Jô',
             DDD: '41',
@@ -32,7 +32,7 @@ describe('Deve testar a criação de profissionais', () => {
     });
 
     it('Deve lançar um erro ao criar um profissional com nome inválido', async () => {
-        const createProfessionalUseCase = new CreateProfessionalUseCase(repository);
+        const createProfessionalUseCase = new CreateProfessional(repository);
         const input = {
             name: 'J',
             DDD: '41',

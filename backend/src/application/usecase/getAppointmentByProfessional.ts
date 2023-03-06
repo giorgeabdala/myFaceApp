@@ -1,0 +1,39 @@
+import {IAppointmentRepository} from "../../domain/adapters/IAppointmentRepository";
+import {Status} from "../../domain/entities/appointment";
+import {Result} from "../../utils/result";
+
+type getAppointmentOutput = {
+    id: string,
+    startDate: Date,
+    endDate: Date,
+    price: number,
+    professionalId: string,
+    clientId: string,
+    status: Status
+}
+
+export default class getAppointmentByProfessional {
+    constructor(readonly appointmentRepository: IAppointmentRepository) {}
+
+    public async execute(professionalId: string): Promise<Result<getAppointmentOutput[]>> {
+        const appointments = await this.appointmentRepository.findByProfessionalId(professionalId);
+        const appointmentsOutput: getAppointmentOutput[] = [];
+        if (!appointments) return Result.ok<getAppointmentOutput[]>(appointmentsOutput);
+
+        appointments.forEach(appointment => {
+            appointmentsOutput.push({
+                id: appointment.id,
+                startDate: appointment.startDate,
+                endDate: appointment.endDate,
+                price: appointment.price,
+                professionalId: appointment.getProfessionalId(),
+                clientId: appointment.getClientId(),
+                status: appointment.status
+            });
+        });
+
+        return Result.ok(appointmentsOutput);
+
+
+    }
+}
