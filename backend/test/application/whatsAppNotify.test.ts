@@ -32,8 +32,8 @@ describe('Deve testar o envio de notificação via WhatsApp', async () => {
             clientId: '1'
         }
         const outputOrError = await useCase.execute(input);
-        expect(outputOrError.isSuccess).toBeTruthy();
-        const output = outputOrError.getValue();
+        expect(outputOrError.ok).toBeTruthy();
+        const output = outputOrError.unwrap();
         expect(output.result).toBeTruthy();
         expect(output.msg).toBe('Notificação enviada com sucesso');
 

@@ -1,12 +1,13 @@
-import {Result} from "../../utils/result";
+import { Ok, Err, Result } from 'ts-results';
 
 export class Phone {
 
     private constructor(readonly DDD: string, readonly number: string) {}
 
-    public static create(DDD: string, number: string): Result<Phone> {
-        if (!this.isValid(DDD, number)) return Result.fail('Invalid phone number');
-        return Result.ok(new Phone(DDD, number));
+    public static create(DDD: string, number: string): Result<Phone, string> {
+        if (!this.isValid(DDD, number)) return new Err('Invalid phone number');
+        const phone = new Phone(DDD, number);
+        return Ok<Phone>(phone);
     }
 
     private static isValid(DDD: string, number: string): boolean {

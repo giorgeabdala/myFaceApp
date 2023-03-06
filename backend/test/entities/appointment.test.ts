@@ -1,9 +1,6 @@
-import jest from 'jest';
 import {Appointment, Status} from '../../src/domain/entities/appointment';
 import {Professional} from "../../src/domain/entities/professional";
 import {Client} from "../../src/domain/entities/client";
-import {Email} from "../../src/domain/entities/email";
-import {Phone} from "../../src/domain/entities/phone";
 
 let professional: Professional;
 let client: Client;
@@ -12,8 +9,8 @@ let startDate: Date;
 let endDate: Date;
 
 beforeEach(() => {
-    professional =  Professional.create('1', 'João', '11', '999999999', 'giorgeabdala@gmail.com').getValue();
-    client =  Client.create('1', 'Maria', '11', '999999999', 'giorgeabdala@gmail.com').getValue();
+    professional =  Professional.create('1', 'João', '11', '999999999', 'giorgeabdala@gmail.com').unwrap();
+    client =  Client.create('1', 'Maria', '11', '999999999', 'giorgeabdala@gmail.com').unwrap();
     status = Status.CONFIRMED;
 
     startDate = new Date(); // data atual
@@ -22,7 +19,7 @@ beforeEach(() => {
 
 describe('Deve testar a criação de agendamentos', () => {
     it('Deve criar um agendamento válido', () => {// adiciona uma hora
-        const appointment = Appointment.create('2',startDate, endDate, 100, professional, client, status).getValue();
+        const appointment = Appointment.create('2',startDate, endDate, 100, professional, client, status).unwrap();
         expect(appointment.id).toBe('2');
         expect(appointment.startDate).toBeInstanceOf(Date);
         expect(appointment.endDate).toBeInstanceOf(Date);
@@ -35,25 +32,25 @@ describe('Deve testar a criação de agendamentos', () => {
     } );
     it('Deve lançar um erro ao criar um agendamento com data de início inválida', () => {
         const appointmentOrError =  Appointment.create('1',new Date('01/01/2022'), new Date(), 100, professional, client, status);
-        expect(appointmentOrError.isFailure).toBe(true);
+        expect(appointmentOrError.err).toBe(true);
     } );
     it('Deve lançar um erro ao criar um agendamento com data de fim inválida', () => {
-        expect(() => Appointment.create('1',new Date(), new Date(''), 100, professional, client, status).isFailure);
+        expect(() => Appointment.create('1',new Date(), new Date(''), 100, professional, client, status).err);
     } );
     it('Deve lançar um erro ao criar um agendamento com preço inválido', () => {
-        expect(() => Appointment.create('1',new Date(), new Date(), -100, professional, client, status).isFailure);
+        expect(() => Appointment.create('1',new Date(), new Date(), -100, professional, client, status).err);
     } );
     it('Deve lançar um erro ao criar um agendamento com profissional inválido', () => {
-        expect(() => Appointment.create('1',new Date(), new Date(), 100, Professional.create('1','', '11', '999999999', 'giorgeabdala@gmail.com').getValue(), client, status).isFailure);
+        expect(() => Appointment.create('1',new Date(), new Date(), 100, Professional.create('1','', '11', '999999999', 'giorgeabdala@gmail.com').unwrap(), client, status).err);
 } );
     it('Deve lançar um erro ao criar um agendamento com cliente inválido', () => {
-        expect(() => Appointment.create('1', new Date(), new Date(), 100, professional,  Client.create('', '11', '999999999', 'giorgeabdala@gmail.com').getValue(), status).isFailure);
+        expect(() => Appointment.create('1', new Date(), new Date(), 100, professional,  Client.create('', '11', '999999999', 'giorgeabdala@gmail.com').unwrap(), status).err);
     } );
     it ('Deve lançar um erro ao criar um agendamento com data de início maior que a data de fim', () => {
-        expect(() => Appointment.create('1', endDate, startDate, 100, professional, client, status).isFailure);
+        expect(() => Appointment.create('1', endDate, startDate, 100, professional, client, status).err);
     } );
     it ('Deve retornar a duração do antendimento em milisegundos', () => {
-        const appointment = Appointment.create('1', startDate, endDate, 100, professional, client, status).getValue();
+        const appointment = Appointment.create('1', startDate, endDate, 100, professional, client, status).unwrap();
         expect(appointment.calculateDuration()).toBe(endDate.getTime() - startDate.getTime());
     } );
 

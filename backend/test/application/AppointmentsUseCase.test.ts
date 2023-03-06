@@ -44,8 +44,8 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
     it('Deve criar um agendamento iniciando agora e com termino em 1 hora', async () => {
         const useCase = new CreateAppointment(appointmentRepository, professionalRepository, clientRepository);
         const outputOrError = await useCase.execute(createInput);
-        expect(outputOrError.isSuccess).toBeTruthy();
-        const output = outputOrError.getValue();
+        expect(outputOrError.ok).toBeTruthy();
+        const output = outputOrError.unwrap();
         expect(output.id).toBeTruthy();
         expect(uuidValidate(output.id)).toBeTruthy();
         expect(output.startDate).toBe(createInput.startDate);
@@ -58,7 +58,7 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
 
     it('Deve criar um Agendamento e depois  atualizar o valor, o horário e o status de um agendamento', async () => {
         const createUseCase = new CreateAppointment(appointmentRepository, professionalRepository, clientRepository);
-        const createOutput = (await createUseCase.execute(createInput)).getValue();
+        const createOutput = (await createUseCase.execute(createInput)).unwrap();
 
         const updateStartDate = new Date(new Date().getTime() + (60 * 60 * 1000));
         const updateEndDate = new Date(new Date().getTime() + (2 * 60 * 60 * 1000));
@@ -76,8 +76,8 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
 
         const useCase = new updateAppointment(appointmentRepository);
         const outputOrError = await useCase.execute(updateInput);
-        expect(outputOrError.isSuccess).toBeTruthy();
-        const output = outputOrError.getValue();
+        expect(outputOrError.ok).toBeTruthy();
+        const output = outputOrError.unwrap();
         expect(output.id).toBe(updateInput.id);
         expect(output.startDate).toBe(updateInput.startDate);
         expect(output.endDate).toBe(updateInput.endDate);
@@ -91,8 +91,8 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
     it('Deve buscar os agendamentos de um cliente específico', async () => {
         const useCase = new getAppointmentByClient(appointmentRepository);
         const outputOrError = await useCase.execute('1');
-        expect(outputOrError.isSuccess).toBeTruthy();
-        const output = outputOrError.getValue();
+        expect(outputOrError.ok).toBeTruthy();
+        const output = outputOrError.unwrap();
         expect(output.length).toBe(2);
         expect(output[0].clientId).toBe('1');
         expect(output[1].clientId).toBe('1');
@@ -101,8 +101,8 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
     it ('Deve buscar os agendamentos de um profissional específico', async () => {
         const useCase = new getAppointmentByProfessional(appointmentRepository);
         const outputOrError = await useCase.execute('2');
-        expect(outputOrError.isSuccess).toBeTruthy();
-        const output = outputOrError.getValue();
+        expect(outputOrError.ok).toBeTruthy();
+        const output = outputOrError.unwrap();
         expect(output.length).toBe(2);
         expect(output[0].professionalId).toBe('2');
         expect(output[1].professionalId).toBe('2');

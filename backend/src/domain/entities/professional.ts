@@ -1,23 +1,23 @@
 import {User} from "./user";
 import {Phone} from "./phone";
 import {Email} from "./email";
-import {Result} from "../../utils/result";
+import { Ok, Err, Result } from 'ts-results';
 
 export class Professional implements User {
 
 
     private constructor(readonly id: string, readonly name: string, readonly cellPhone: Phone, readonly email: Email ) {}
 
-    public static create(id: string, name: string, DDD: string, number: string, emailAddress: string): Result<Professional> {
+    public static create(id: string, name: string, DDD: string, number: string, emailAddress: string): Result<Professional, string> {
         const phoneOrError = Phone.create(DDD, number);
         const emailOrError = Email.create(emailAddress);
         const validName = this.validateName(name);
 
-        if (phoneOrError.isFailure) return Result.fail('Invalid phone number');
-        if (!validName) return Result.fail('Nome inválido');
-        if (emailOrError.isFailure) return Result.fail('Invalid email');
+        if (phoneOrError.err) return new Err('Invalid phone number');
+        if (!validName) return new Err('Nome inválido');
+        if (emailOrError.err) return new Err('Invalid email');
 
-        return Result.ok<Professional>(new Professional(id,name, phoneOrError.getValue(), emailOrError.getValue()))
+        return Ok<Professional>(new Professional(id,name, phoneOrError.unwrap(), emailOrError.unwrap()))
     }
 
     private static validateName(name: string): boolean {

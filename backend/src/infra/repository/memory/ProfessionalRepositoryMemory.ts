@@ -7,9 +7,9 @@ export default class ProfessionalRepositoryMemory implements IProfessionalReposi
 
     constructor() {
         this.professionals = [
-            Professional.create('1', 'João', '11', '999999999', 'joao@gmail.com').getValue(),
-            Professional.create('2', 'Maria', '11', '999999999', 'maria@gmail.com').getValue(),
-            Professional.create('3', 'José', '11', '999999999', 'jose@gmail.com').getValue()];
+            Professional.create('1', 'João', '11', '999999999', 'joao@gmail.com').unwrap(),
+            Professional.create('2', 'Maria', '11', '999999999', 'maria@gmail.com').unwrap(),
+            Professional.create('3', 'José', '11', '999999999', 'jose@gmail.com').unwrap()];
     }
 
     async findByEmail(email: string): Promise<Professional> {

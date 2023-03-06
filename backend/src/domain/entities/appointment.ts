@@ -1,6 +1,6 @@
 import {Professional} from './professional';
 import {Client} from './client';
-import {Result} from "../../utils/result";
+import { Ok, Err, Result } from 'ts-results';
 
 export enum Status {
     PENDING,
@@ -24,12 +24,12 @@ export class Appointment {
                 public status: Status,
                 ) {}
 
-    public static create(id: string, startDate: Date, endDate: Date, price: number, professional: Professional, client: Client, status: Status): Result<Appointment> {
-        if (!this.validateStartDate(startDate)) return Result.fail("Data de início do atendimento invalida");
-        if (!this.validateEndDate(startDate, endDate)) return Result.fail("Data fim do atendimento invalida");
-        if (!this.validatePrice(price)) return Result.fail("Valor do atendimento invalido");
+    public static create(id: string, startDate: Date, endDate: Date, price: number, professional: Professional, client: Client, status: Status): Result<Appointment, string> {
+        if (!this.validateStartDate(startDate)) return new Err("Data de início do atendimento invalida");
+        if (!this.validateEndDate(startDate, endDate)) return new Err("Data fim do atendimento invalida");
+        if (!this.validatePrice(price)) return new Err("Valor do atendimento invalido");
 
-        return Result.ok<Appointment>(new Appointment(id,startDate, endDate, price, professional, client, status))
+        return Ok<Appointment>(new Appointment(id,startDate, endDate, price, professional, client, status))
     }
 
     private static validatePrice(price: number): boolean {

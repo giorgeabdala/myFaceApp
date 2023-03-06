@@ -1,14 +1,14 @@
-import {Result} from "../../utils/result";
+import { Ok, Err, Result } from 'ts-results';
 
 export class Service {
 
     private constructor(readonly id: string, readonly name: string, readonly description: string) {}
 
-    public static create(id: string, name: string, description: string): Result<Service> {
-        if (!this.validateName(name)) return Result.fail('Invalid name');
-        if (!this.validateDescription(description)) return Result.fail('Invalid description');
+    public static create(id: string, name: string, description: string): Result<Service, string> {
+        if (!this.validateName(name)) return new Err('Invalid name');
+        if (!this.validateDescription(description)) return new Err('Invalid description');
 
-        return Result.ok(new Service(id,name, description));
+        return Ok(new Service(id,name, description));
     }
 
     private static validateName(name: string): boolean {

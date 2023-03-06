@@ -1,21 +1,19 @@
 import {UpdateAppointmentInput, UpdateAppointmentOutput} from "../dto/updateAppointmentDTO";
 import {IAppointmentRepository} from "../../domain/adapters/IAppointmentRepository";
 import {Appointment} from "../../domain/entities/appointment";
-import {Result} from "../../utils/result";
-import {IProfessionalRepository} from "../../domain/adapters/IProfessionalRepository";
-import ClientRepositoryMemory from "../../infra/repository/memory/ClientRepositoryMemory";
+import { Ok, Err, Result } from 'ts-results';
 import {CreateAppointmentOutput} from "../dto/createAppointmentDTO";
 
 
 export default class updateAppointment {
     constructor(private readonly appointmentRepository: IAppointmentRepository) {}
 
-    async execute(input: UpdateAppointmentInput): Promise<Result<UpdateAppointmentOutput>> {
+    async execute(input: UpdateAppointmentInput): Promise<Result<UpdateAppointmentOutput, string>> {
        const appointment = await this.appointmentRepository.findById(input.id);
-       if (!appointment) return Result.fail('Erro ao atualizar agendamento. Agendamento não encontrado');
+       if (!appointment) return new Err('Erro ao atualizar agendamento. Agendamento não encontrado');
        const appointmentOrError = Appointment.create(input.id, input.startDate, input.endDate, input.price, appointment.professional, appointment.client, input.status);
-       if (appointmentOrError.isFailure) return Result.fail('Erro ao atualizar agendamento ' + appointmentOrError.error);
-       const updatedAppointment = await this.appointmentRepository.update(appointmentOrError.getValue());
+       if (appointmentOrError.err) return new Err('Erro ao atualizar agendamento ' + appointmentOrError.err);
+       const updatedAppointment = await this.appointmentRepository.update(appointmentOrError.unwrap());
        const output =
            new UpdateAppointmentOutput(updatedAppointment.id,
                updatedAppointment.startDate,
@@ -25,7 +23,7 @@ export default class updateAppointment {
                updatedAppointment.getClientId(),
                updatedAppointment.status
     )
-        if (!output) return Result.fail('Erro ao atualizar agendamento. Output não gerado');
-        return Result.ok<CreateAppointmentOutput>(output);
+        if (!output) return new Err('Erro ao atualizar agendamento. Output não gerado');
+        return Ok<CreateAppointmentOutput>(output);
     }
 }

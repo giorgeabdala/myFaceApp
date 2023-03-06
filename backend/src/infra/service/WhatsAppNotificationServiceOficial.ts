@@ -24,7 +24,7 @@ export default  class WhatsAppNotificationServiceOficial implements IWhatsAppNot
 
     public async send(DDD: string, number: string, message: string): Promise<void> {
         const response = await axios.post(endpoint, data, {headers: headers});
-        console.log(response.data);
+        console.log(response.status);
 }
 
 }

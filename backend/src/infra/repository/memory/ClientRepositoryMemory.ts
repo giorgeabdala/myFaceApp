@@ -7,9 +7,9 @@ export default class ClientRepositoryMemory implements IClientRepository {
 
     constructor() {
         this.clients = [
-            Client.create('1', 'João', '11', '999999999', 'giorgeabdala@gmail.com').getValue(),
-            Client.create('2', 'Maria', '11', '999999999', 'giorgeabdala@gmail.com').getValue(),
-            Client.create('3', "José", '11', '999999999', 'giorgeabdala@gmail.com').getValue(),
+            Client.create('1', 'João', '11', '999999999', 'giorgeabdala@gmail.com').unwrap(),
+            Client.create('2', 'Maria', '11', '999999999', 'giorgeabdala@gmail.com').unwrap(),
+            Client.create('3', "José", '11', '999999999', 'giorgeabdala@gmail.com').unwrap(),
         ];
     }
 

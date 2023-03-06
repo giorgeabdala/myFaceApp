@@ -11,19 +11,19 @@ export default class implements IAppointmentRepository {
         const startDate = new Date(); // data atual
         const endDate = new Date(new Date().getTime() + (60 * 60 * 1000));
 
-        const clientOne = Client.create('1', 'João', '11', '999999999', 'giorgeabdala@gmail.com').getValue();
-        const clientTwo  = Client.create('2', 'Maria', '11', '999999999', 'giorgeabdala@gmail.com').getValue();
-        const clientThree = Client.create('3', "José", '11', '999999999', 'giorgeabdala@gmail.com').getValue();
+        const clientOne = Client.create('1', 'João', '11', '999999999', 'giorgeabdala@gmail.com').unwrap();
+        const clientTwo  = Client.create('2', 'Maria', '11', '999999999', 'giorgeabdala@gmail.com').unwrap();
+        const clientThree = Client.create('3', "José", '11', '999999999', 'giorgeabdala@gmail.com').unwrap();
 
-        const professionalOne = Professional.create('1', 'João', '11', '999999999', 'joao@gmail.com').getValue();
-        const professionalTwo =    Professional.create('2', 'Maria', '11', '999999999', 'maria@gmail.com').getValue();
-        const professionalThree =     Professional.create('3', 'José', '11', '999999999', 'jose@gmail.com').getValue();
+        const professionalOne = Professional.create('1', 'João', '11', '999999999', 'joao@gmail.com').unwrap();
+        const professionalTwo =    Professional.create('2', 'Maria', '11', '999999999', 'maria@gmail.com').unwrap();
+        const professionalThree =     Professional.create('3', 'José', '11', '999999999', 'jose@gmail.com').unwrap();
 
         this.appointments = [
-            Appointment.create('1', startDate, endDate, 100, professionalOne, clientOne, Status.CONFIRMED).getValue(),
-            Appointment.create('2', startDate, endDate, 58.62, professionalTwo, clientTwo, Status.FINISHED).getValue(),
-            Appointment.create('3', startDate, endDate, 99.5, professionalThree, clientThree, Status.CANCELED).getValue(),
-            Appointment.create('3', startDate, endDate, 99.5, professionalTwo, clientOne, Status.CANCELED).getValue()
+            Appointment.create('1', startDate, endDate, 100, professionalOne, clientOne, Status.CONFIRMED).unwrap(),
+            Appointment.create('2', startDate, endDate, 58.62, professionalTwo, clientTwo, Status.FINISHED).unwrap(),
+            Appointment.create('3', startDate, endDate, 99.5, professionalThree, clientThree, Status.CANCELED).unwrap(),
+            Appointment.create('3', startDate, endDate, 99.5, professionalTwo, clientOne, Status.CANCELED).unwrap()
         ];
     }
 

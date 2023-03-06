@@ -1,11 +1,6 @@
-import jest from 'jest';
-import {Client} from '../../src/domain/entities/client';
 import IClientRepository from "../../src/domain/adapters/IClientRepository";
 import ClientRepositoryMemory from "../../src/infra/repository/memory/ClientRepositoryMemory";
-import GetClientsOutput from "../../src/application/dto/getClientsOutput";
-import { validate as uuidValidate } from 'uuid';
 import GetClients from "../../src/application/usecase/getClients";
-
 
 let repository: IClientRepository;
 
@@ -17,9 +12,9 @@ describe('Deve testar a busca de todos os clientes', () => {
     it('Deve buscar todos os clientes', async () => {
         const useCase = new GetClients(repository);
         const outputOrError = await useCase.execute();
-        expect(outputOrError.isSuccess).toBe(true);
+        expect(outputOrError.ok).toBe(true);
 
-        const output = outputOrError.getValue();
+        const output = outputOrError.unwrap();
         expect(output).toBeInstanceOf(Array);
         expect(output[0].id).toBeTruthy();
         expect(output[0].name).toBeTruthy();

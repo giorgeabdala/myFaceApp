@@ -1,6 +1,6 @@
 import {IAppointmentRepository} from "../../domain/adapters/IAppointmentRepository";
 import {Status} from "../../domain/entities/appointment";
-import {Result} from "../../utils/result";
+import { Ok, Result } from 'ts-results';
 
 type getAppointmentOutput = {
     id: string,
@@ -15,10 +15,10 @@ type getAppointmentOutput = {
 export default class getAppointmentByProfessional {
     constructor(readonly appointmentRepository: IAppointmentRepository) {}
 
-    public async execute(professionalId: string): Promise<Result<getAppointmentOutput[]>> {
+    public async execute(professionalId: string): Promise<Result<getAppointmentOutput[], string>> {
         const appointments = await this.appointmentRepository.findByProfessionalId(professionalId);
         const appointmentsOutput: getAppointmentOutput[] = [];
-        if (!appointments) return Result.ok<getAppointmentOutput[]>(appointmentsOutput);
+        if (!appointments) return Ok<getAppointmentOutput[]>(appointmentsOutput);
 
         appointments.forEach(appointment => {
             appointmentsOutput.push({
@@ -32,7 +32,7 @@ export default class getAppointmentByProfessional {
             });
         });
 
-        return Result.ok(appointmentsOutput);
+        return Ok(appointmentsOutput);
 
 
     }

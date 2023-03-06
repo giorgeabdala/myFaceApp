@@ -16,9 +16,9 @@ describe('CreateClient', () => {
         const input = new CreateClientInput('Giorge Abdala', '41', '985691112');
         const useCase = new CreateClient(clientRepository);
         const outputOrError = await useCase.execute(input);
-        expect(outputOrError.isSuccess).toBe(true);
+        expect(outputOrError.ok).toBe(true);
 
-        const output = outputOrError.getValue();
+        const output = outputOrError.unwrap();
         expect(output).toBeInstanceOf(CreateClientOutput);
         expect(output.id).not.toBeNull();
         expect(uuidValidate(output.id)).toBe(true);

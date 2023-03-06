@@ -1,12 +1,12 @@
-import {Result} from "../../utils/result";
+import { Ok, Err, Result } from 'ts-results';
 
 export class Email {
 
     private constructor(readonly address: string) {}
 
-    public static create(address: string): Result<Email> {
-        if (!this.isValid(address)) return Result.fail('Invalid email address');
-        return  Result.ok(new Email(address));
+    public static create(address: string): Result<Email, string> {
+        if (!this.isValid(address)) return new Err('Invalid email address');
+        return  Ok(new Email(address));
     }
 
     private static isValid(address: string): boolean {
