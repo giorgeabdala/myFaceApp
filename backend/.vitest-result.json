@@ -1,0 +1,23 @@
+{
+  "numTotalTestSuites": 1,
+  "numPassedTestSuites": 0,
+  "numFailedTestSuites": 1,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 0,
+  "numPassedTests": 0,
+  "numFailedTests": 0,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "startTime": 1678136914011,
+  "success": false,
+  "testResults": [
+    {
+      "assertionResults": [],
+      "startTime": 1678136914011,
+      "endTime": 1678136914011,
+      "status": "passed",
+      "message": "Transform failed with 1 error:\n/home/abdala/dev/projects/myface/backend/test/application/getEventCalendarByProfessionalDate.ts:4:1: ERROR: Expected \")\" but found end of file",
+      "name": "/home/abdala/dev/projects/myface/backend/test/application/getEventCalendarByProfessionalDate.ts"
+    }
+  ]
+}

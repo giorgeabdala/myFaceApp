@@ -22,7 +22,7 @@ beforeEach(() => {
     service = new WhatsAppNotificationServiceOficial();
 } );
 
-describe('Deve testar o envio de notificação via WhatsApp', async () => {
+describe('Deve testar o envio de notificação via WhatsApp', () => {
     it('Deve enviar uma notificação de agendamento para o cliente', async () => {
         const useCase = new sendWhatsAppNotification(appointmentRepository,
             professionalRepository, clientRepository, service );

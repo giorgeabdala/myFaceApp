@@ -4,6 +4,7 @@ import {IProfessionalRepository} from "../../domain/adapters/IProfessionalReposi
 import IClientRepository from "../../domain/adapters/IClientRepository";
 import IWhatsAppNotificationService from "../../domain/adapters/IWhatsAppNotificationService";
 import dayjs from 'dayjs';
+//import * as dayjs from 'dayjs'
 
 export type sendWhatsAppNotificationInput = {
     appointmentId: string,
