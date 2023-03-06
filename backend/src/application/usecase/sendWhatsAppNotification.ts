@@ -3,6 +3,7 @@ import { Ok, Err, Result } from 'ts-results';
 import {IProfessionalRepository} from "../../domain/adapters/IProfessionalRepository";
 import IClientRepository from "../../domain/adapters/IClientRepository";
 import IWhatsAppNotificationService from "../../domain/adapters/IWhatsAppNotificationService";
+import dayjs from 'dayjs';
 
 export type sendWhatsAppNotificationInput = {
     appointmentId: string,
@@ -14,7 +15,7 @@ export type sendWhatsAppNotificationOutput = {
     result: boolean,
     msg: string
 }
-const MSG = 'Olá, seu agendamento foi confirmado com sucesso!'
+const MSG = 'Notificação enviada com sucesso';
 
 export default class sendWhatsAppNotification {
 
@@ -27,9 +28,13 @@ export default class sendWhatsAppNotification {
         if (!appointment) return new Err('Não foi possível enviar a notificação. Agendamento não encontrado');
         if (!professional) return new Err('Não foi possível enviar a notificação. Profissional não encontrado');
         if (!client) return new Err('Não foi possível enviar a notificação. Cliente não encontrado');
-        const send = await this.notification.send(client.cellPhone.DDD, client.cellPhone.number, MSG);
 
-        return Ok<sendWhatsAppNotificationOutput>({result: true, msg: 'Notificação enviada com sucesso'});
+        const appointmentDate = dayjs(appointment.startDate).format('DD/MM/YYYY');
+        const appointmentHour = dayjs(appointment.startDate).format('HH:mm');
+        const send = await this.notification.send(client.cellPhone.DDD, client.cellPhone.number, client.name, appointmentDate, appointmentHour);
+
+        if (send.err) return new Err('Não foi possível enviar a notificação. ' + send.err);
+        return Ok<sendWhatsAppNotificationOutput>({result: true, msg: MSG});
     }
 
 }
