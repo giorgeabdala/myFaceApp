@@ -7,7 +7,7 @@ import sendWhatsAppNotification, {
 } from "../../src/application/usecase/sendWhatsAppNotification";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import IWhatsAppNotificationService from "../../src/domain/adapters/IWhatsAppNotificationService";
-import WhatsAppNotificationService from "../../src/infra/service/WhatsAppNotificationService";
+import WhatsAppNotificationServiceOficial from "../../src/infra/service/WhatsAppNotificationServiceOficial";
 import ProfessionalRepositoryMemory from "../../src/infra/repository/memory/ProfessionalRepositoryMemory";
 
 let appointmentRepository: IAppointmentRepository;
@@ -19,7 +19,7 @@ beforeEach(() => {
     appointmentRepository = new AppointmentRepositoryMemory();
     clientRepository = new ClientRepositoryMemory();
     professionalRepository = new ProfessionalRepositoryMemory();
-    service = new WhatsAppNotificationService();
+    service = new WhatsAppNotificationServiceOficial();
 } );
 
 describe('Deve testar o envio de notificação via WhatsApp', async () => {
