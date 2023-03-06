@@ -18,8 +18,6 @@ const MSG = 'Olá, seu agendamento foi confirmado com sucesso!'
 
 export default class sendWhatsAppNotification {
 
-    ;
-
     constructor(readonly appointmentRepository: IAppointmentRepository, readonly professionalRepository: IProfessionalRepository, readonly clientRepository: IClientRepository, readonly notification: IWhatsAppNotificationService) {}
 
     public async execute(input: sendWhatsAppNotificationInput): Promise<Result<sendWhatsAppNotificationOutput>> {
