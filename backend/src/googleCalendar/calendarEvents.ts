@@ -3,7 +3,7 @@ const {google} = require('googleapis');
 
 export class CalendarEventReader {
     private calendarId: string;
-    private API_KEY = 'AIzaSyBx4lbcO1WYmMSlz-Tlur4lecnUDtHkqhs';
+
 
     constructor(calendarId: string) {
         this.calendarId = calendarId;
@@ -25,6 +25,7 @@ export class CalendarEventReader {
             const events = await calendar.events.list({
                 calendarId: this.calendarId,
                 timeMin: (new Date()).toISOString(),
+                timeMax: (new Date(new Date().ge)).toISOString(),
                 maxResults: 10,
                 singleEvents: true,
                 orderBy: 'startTime',

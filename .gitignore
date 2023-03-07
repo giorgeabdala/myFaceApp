@@ -3,4 +3,4 @@ backend/node_modules/
 .idea/
 data
 *.log
-/backend/src/googleCalendar/credentials.json
+/backend/src/infra/service/googleCalendar/credentials.json
