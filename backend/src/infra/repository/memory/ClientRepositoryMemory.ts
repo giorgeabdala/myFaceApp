@@ -13,6 +13,7 @@ export default class ClientRepositoryMemory implements IClientRepository {
         ];
     }
 
+
     async save(client: Client): Promise<void> {
         this.clients.push(client);
     }

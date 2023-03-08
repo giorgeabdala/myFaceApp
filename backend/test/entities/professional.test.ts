@@ -8,12 +8,15 @@ import {Email} from "../../src/domain/entities/email";
 describe('Deve testar a criação de profissionais', () => {
     it('Deve criar um profissional válido', () => {
         const name = 'Jô';
-        const professional =  Professional.create('2',name, '41','985691112', 'giorgeabdala@gmail.com').unwrap();
+        const professional =  Professional.create('2',name, '41','985691112', 'giorgeabdala@gmail.com', 'calendarId').unwrap();
 
         expect(professional.id).toBe('2');
         expect(professional.name).toBe(name);
         expect(professional.cellPhone.DDD).toBe('41');
         expect(professional.cellPhone.number).toBe('985691112');
+        expect(professional.email.address).toBe('giorgeabdala@gmail.com');
+        expect(professional.calendarId).toBe('calendarId');
+
     });
 
     it('Deve lançar um erro ao criar um profissional com nome inválido', () => {

@@ -1,5 +1,6 @@
 import IGoogleCalendarService from "../../domain/adapters/IGoogleCalendarService";
-import {Ok, Result} from "ts-results";
+import {Err, Ok, Result} from "ts-results";
+import {IProfessionalRepository} from "../../domain/adapters/IProfessionalRepository";
 
 export type ListEventsProfessionalInput = {
     professionalId: string;
@@ -15,10 +16,11 @@ export type ListEventsProfessionalOutput = {
 
 export default class listEventsCalendarByProfessionalDate {
     private output: ListEventsProfessionalOutput[] = [];
-    constructor(private calendarService: IGoogleCalendarService) {}
+    constructor(readonly calendarService: IGoogleCalendarService, readonly professionalRepository: IProfessionalRepository) {}
 
     async execute(input: ListEventsProfessionalInput): Promise<Result<ListEventsProfessionalOutput[], string>> {
-        const eventsOrNone =await this.calendarService.findByDate(input.professionalId, input.date);
+        const professional = await this.professionalRepository.findById(input.professionalId);
+        const eventsOrNone =await this.calendarService.findByDate(professional.calendarId, input.date);
         if (eventsOrNone.none) return new Ok(this.output);
         const events = eventsOrNone.unwrap();
         events.forEach(event => {

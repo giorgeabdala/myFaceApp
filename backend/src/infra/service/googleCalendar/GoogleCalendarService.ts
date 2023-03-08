@@ -3,9 +3,11 @@ import {calendar_v3, google} from "googleapis";
 import IGoogleCalendarService from "../../../domain/adapters/IGoogleCalendarService";
 import Schema$Event = calendar_v3.Schema$Event;
 
+const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 
 export default class GoogleCalendarService implements IGoogleCalendarService {
     private calendar: calendar_v3.Calendar;
+
     constructor() {
         this.calendar = google.calendar({version: 'v3'});
     }
@@ -13,7 +15,7 @@ export default class GoogleCalendarService implements IGoogleCalendarService {
     private async autenticate() {
         const auth = new google.auth.GoogleAuth({
             keyFile: './src/infra/service/googleCalendar/token.json',
-            scopes: 'https://www.googleapis.com/auth/calendar.readonly',
+            scopes: SCOPES,
         });
         google.options({auth});
     }
@@ -31,7 +33,6 @@ export default class GoogleCalendarService implements IGoogleCalendarService {
             //singleEvents: true,
             //orderBy: 'startTime',
         });
-
         const eventsList = events.data.items;
         if(!eventsList) return None;
         return new Some(events.data.items);

@@ -11,12 +11,12 @@ export default class implements IAppointmentRepository {
         const startDate = new Date(); // data atual
         const endDate = new Date(new Date().getTime() + (60 * 60 * 1000));
 
-        const clientOne = Client.create('1', 'João', '11', '999999999', 'giorgeabdala@gmail.com').unwrap();
-        const clientTwo  = Client.create('2', 'Maria', '11', '999999999', 'giorgeabdala@gmail.com').unwrap();
-        const clientThree = Client.create('3', "José", '11', '999999999', 'giorgeabdala@gmail.com').unwrap();
+        const clientOne = Client.create('1', 'Giorge', '11', '999999999', 'giorgeabdala@gmail.com').unwrap();
+        const clientTwo  = Client.create('2', 'Jo', '11', '999999999', 'giorgeabdala@gmail.com').unwrap();
+        const clientThree = Client.create('3', "bruna", '11', '999999999', 'giorgeabdala@gmail.com').unwrap();
 
-        const professionalOne = Professional.create('1', 'João', '11', '999999999', 'joao@gmail.com').unwrap();
-        const professionalTwo =    Professional.create('2', 'Maria', '11', '999999999', 'maria@gmail.com').unwrap();
+        const professionalOne = Professional.create('1', 'Mara', '11', '999999999', 'joao@gmail.com', 'j2ialadmckmcdne2i7bmfvsovs@group.calendar.google.com').unwrap();
+        const professionalTwo =    Professional.create('2', 'Giorge', '11', '999999999', 'maria@gmail.com').unwrap();
         const professionalThree =     Professional.create('3', 'José', '11', '999999999', 'jose@gmail.com').unwrap();
 
         this.appointments = [
