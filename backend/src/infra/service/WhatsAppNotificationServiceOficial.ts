@@ -52,8 +52,6 @@ const hello_world =
 
 export default  class WhatsAppNotificationServiceOficial implements IWhatsAppNotificationService {
 
-    constructor() {}
-
     public async send(DDD: string, number: string, clientName: string, appointmentDate: string, appointmentHour: string): Promise<Result<Response, Response>> {
         data.to = '55' + DDD + number;
         data.template.components[0].parameters[0].text = clientName;

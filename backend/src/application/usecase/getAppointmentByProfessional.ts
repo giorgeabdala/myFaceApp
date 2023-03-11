@@ -12,7 +12,7 @@ type getAppointmentOutput = {
     status: Status
 }
 
-export default class getAppointmentByProfessional {
+export default class GetAppointmentByProfessional {
     constructor(readonly appointmentRepository: IAppointmentRepository) {}
 
     public async execute(professionalId: string): Promise<Result<getAppointmentOutput[], string>> {

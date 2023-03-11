@@ -1,5 +1,5 @@
 import IGoogleCalendarService from "../../domain/adapters/IGoogleCalendarService";
-import {Err, Ok, Result} from "ts-results";
+import {Ok, Result} from "ts-results";
 import {IProfessionalRepository} from "../../domain/adapters/IProfessionalRepository";
 
 export type ListEventsProfessionalInput = {
@@ -14,7 +14,7 @@ export type ListEventsProfessionalOutput = {
     endDateTime: string;
 }
 
-export default class listEventsCalendarByProfessionalDate {
+export default class ListEventsCalendarByProfessionalDate {
     private output: ListEventsProfessionalOutput[] = [];
     constructor(readonly calendarService: IGoogleCalendarService, readonly professionalRepository: IProfessionalRepository) {}
 

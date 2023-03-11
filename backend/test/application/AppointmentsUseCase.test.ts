@@ -9,9 +9,9 @@ import AppointmentRepositoryMemory from "../../src/infra/repository/memory/Appoi
 import ClientRepositoryMemory from "../../src/infra/repository/memory/ClientRepositoryMemory";
 import ProfessionalRepositoryMemory from "../../src/infra/repository/memory/ProfessionalRepositoryMemory";
 import {UpdateAppointmentInput} from "../../src/application/dto/updateAppointmentDTO";
-import updateAppointment from "../../src/application/usecase/updateAppointment";
+import UpdateAppointment from "../../src/application/usecase/updateAppointment";
 import getAppointmentByClient from "../../src/application/usecase/getAppointmentByClient";
-import getAppointmentByProfessional from "../../src/application/usecase/getAppointmentByProfessional";
+import GetAppointmentByProfessional from "../../src/application/usecase/getAppointmentByProfessional";
 
 let startDate: Date;
 let endDate: Date;
@@ -74,7 +74,7 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
             Status.CANCELED
         );
 
-        const useCase = new updateAppointment(appointmentRepository);
+        const useCase = new UpdateAppointment(appointmentRepository);
         const outputOrError = await useCase.execute(updateInput);
         expect(outputOrError.ok).toBeTruthy();
         const output = outputOrError.unwrap();
@@ -99,7 +99,7 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
         });
 
     it ('Deve buscar os agendamentos de um profissional específico', async () => {
-        const useCase = new getAppointmentByProfessional(appointmentRepository);
+        const useCase = new GetAppointmentByProfessional(appointmentRepository);
         const outputOrError = await useCase.execute('2');
         expect(outputOrError.ok).toBeTruthy();
         const output = outputOrError.unwrap();

@@ -1,10 +1,6 @@
-import {Professional} from "../../domain/entities/professional";
 import {IProfessionalRepository} from "../../domain/adapters/IProfessionalRepository";
 import {Err, Ok, Result} from "ts-results";
-import path from "path";
 import IGoogleCalendarService from "../../domain/adapters/IGoogleCalendarService";
-
-
 
 export type GoogleRequestUserConsentInput = {
     professionalId: string;

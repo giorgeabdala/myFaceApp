@@ -2,7 +2,7 @@ import {IAppointmentRepository} from "../../src/domain/adapters/IAppointmentRepo
 import AppointmentRepositoryMemory from "../../src/infra/repository/memory/AppointmentRepositoryMemory";
 import IClientRepository from "../../src/domain/adapters/IClientRepository";
 import ClientRepositoryMemory from "../../src/infra/repository/memory/ClientRepositoryMemory";
-import sendWhatsAppNotification, {sendWhatsAppNotificationInput} from "../../src/application/usecase/sendWhatsAppNotification";
+import SendWhatsAppNotification, {sendWhatsAppNotificationInput} from "../../src/application/usecase/sendWhatsAppNotification";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import IWhatsAppNotificationService from "../../src/domain/adapters/IWhatsAppNotificationService";
 import WhatsAppNotificationServiceOficial from "../../src/infra/service/WhatsAppNotificationServiceOficial";
@@ -22,7 +22,7 @@ beforeEach(() => {
 
 describe('Deve testar o envio de notificação via WhatsApp', () => {
     it('Deve enviar uma notificação de agendamento para o cliente', async () => {
-        const useCase = new sendWhatsAppNotification(appointmentRepository,
+        const useCase = new SendWhatsAppNotification(appointmentRepository,
             professionalRepository, clientRepository, service );
         const input : sendWhatsAppNotificationInput = {
             appointmentId: '1',

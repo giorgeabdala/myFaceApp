@@ -18,7 +18,7 @@ export type sendWhatsAppNotificationOutput = {
 }
 const MSG = 'Notificação enviada com sucesso';
 
-export default class sendWhatsAppNotification {
+export default class SendWhatsAppNotification {
 
     constructor(readonly appointmentRepository: IAppointmentRepository, readonly professionalRepository: IProfessionalRepository, readonly clientRepository: IClientRepository, readonly notification: IWhatsAppNotificationService) {}
 
