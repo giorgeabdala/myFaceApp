@@ -1,9 +1,8 @@
 import {Professional} from "../../domain/entities/professional";
 import {IProfessionalRepository} from "../../domain/adapters/IProfessionalRepository";
 import {Err, Ok, Result} from "ts-results";
-import GoogleCalendarUserRequestService from "../../infra/service/googleCalendar/GoogleCalendarUserRequestService";
 import path from "path";
-import {promises as fs} from "fs";
+import IGoogleCalendarService from "../../domain/adapters/IGoogleCalendarService";
 
 const CREDENTIALS_PATH = path.join(__dirname, '../../credentials/google/google-app.json');
 const  TOKEN_PATH = path.join(__dirname, '../../credentials/google/');
@@ -19,7 +18,7 @@ export type GoogleRequestUserConsentOutput = {
 }
 
 export default class GoogleRequestUserConsent {
-    constructor(readonly professionalRepository: IProfessionalRepository, readonly userRequestService: GoogleCalendarUserRequestService) {}
+    constructor(readonly professionalRepository: IProfessionalRepository, readonly userRequestService: IGoogleCalendarService) {}
 
     async execute(input: GoogleRequestUserConsentInput): Promise<Result<GoogleRequestUserConsentOutput, string>> {
         const tokenFullPath = TOKEN_PATH + input.professionalId + '.json';

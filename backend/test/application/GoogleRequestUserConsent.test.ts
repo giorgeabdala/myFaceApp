@@ -5,20 +5,21 @@ import GoogleRequestUserConsent, {
 } from "../../src/application/usecase/GoogleRequestUserConsent";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import ProfessionalRepositoryMemory from "../../src/infra/repository/memory/ProfessionalRepositoryMemory";
-import GoogleCalendarUserRequestService from "../../src/infra/service/googleCalendar/GoogleCalendarUserRequestService";
 import { describe, test } from 'vitest'
 import {Ok, Result} from "ts-results";
 import { vi } from 'vitest'
+import IGoogleCalendarService from "../../src/domain/adapters/IGoogleCalendarService";
+import GoogleCalendarService from "../../src/infra/service/googleCalendar/GoogleCalendarService";
 
 let professionalRepository: IProfessionalRepository;
-let userRequestService : GoogleCalendarUserRequestService;
+let userRequestService : IGoogleCalendarService;
 
 beforeEach(() => {
     //definir timeout ppara 5 minutos
     professionalRepository = new ProfessionalRepositoryMemory();
 
-   // userRequestService = new GoogleCalendarUserRequestService();
-    userRequestService = <GoogleCalendarUserRequestService>{
+    userRequestService = new GoogleCalendarService();
+    userRequestService = <IGoogleCalendarService>{
         requestAuthorization: async (credentialsPath: string, tokenPath: string): Promise<Result<string, string>> => {
             return Ok('token');
         }
