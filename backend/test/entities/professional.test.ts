@@ -3,7 +3,7 @@ import {Professional} from '../../src/domain/entities/professional';
 import {Phone} from "../../src/domain/entities/phone";
 import {Email} from "../../src/domain/entities/email";
 
-
+let token_fake = 'ya29.a0AVvZVsqhy2IuwRzf3oXF3fghuK66R9JEj-sFauMPcRX2BNGNQGOEThQIMXrqj17yODiYCwc0MSj8acdK8D-pg2D8aDxRR6py8HXe_ZeYq_n9uGSDMDDCImwceyeaXfvXet1iJn8Udgt-AbKtHGv4IGY_oWeEaCgYKAYoSARASFQGbdwaIfp7To16JuD9otalGC6lMRA0163';
 
 describe('Deve testar a criação de profissionais', () => {
     it('Deve criar um profissional válido', () => {
@@ -16,7 +16,6 @@ describe('Deve testar a criação de profissionais', () => {
         expect(professional.cellPhone.number).toBe('985691112');
         expect(professional.email.address).toBe('giorgeabdala@gmail.com');
         expect(professional.calendarId).toBe('calendarId');
-
     });
 
     it('Deve lançar um erro ao criar um profissional com nome inválido', () => {
@@ -34,4 +33,8 @@ describe('Deve testar a criação de profissionais', () => {
     it('Deve lançar um erro ao criar um profissional com email inválido', () => {
         expect(() => Professional.create('1', 'João','41','985691111', 'giorgeabdala@gmail').err);
     } );
+
+
+
+
 } );

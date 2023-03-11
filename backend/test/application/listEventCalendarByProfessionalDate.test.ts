@@ -3,9 +3,10 @@ import dayjs from "dayjs";
 import GoogleCalendarService from "../../src/infra/service/googleCalendar/GoogleCalendarService";
 import ProfessionalRepositoryMemory from "../../src/infra/repository/memory/ProfessionalRepositoryMemory";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
+import IGoogleCalendarService from "../../src/domain/adapters/IGoogleCalendarService";
 
 let input: ListEventsProfessionalInput;
-let googleService: IProfessionalRepository;
+let googleService: IGoogleCalendarService;
 let professionalRepository: IProfessionalRepository;
 
 beforeEach(() => {

@@ -4,12 +4,12 @@ import {Err, Ok, Result} from "ts-results";
 
 const endpoint = 'https://graph.facebook.com/v15.0/116366861390558/messages';
 const headers = {
-    'Authorization': 'Bearer EAAfUan3WpakBADuDAlyUg06asGZCf7rIEkTOJiB9E1kNlH1eDMyn9hZBwDq0tPEFVd6SFfKXGAjISoAIVYOJSFgXTJWZBqdQRbtPRvIqkZA1we8HRTkSkR3mpPWZChdL1kjaw9uGeSaS2Wf4G5BXssN3FcVPYDYzCIk8C74UKwsZBBbGwPv6DrFO6sx2b1rZBWpZCXDFAROnZBgZDZD',
+    'Authorization': 'Bearer EAAfUan3WpakBAEQOes2YrhzYCrGJlo0MDvoZAu6dZBZCPgRJ5UynN32WhhZACSUZBIvQc7MDK4lCqK0sUZBqYX8iX6ooUnpG0z2ISZCzfVaTZB5RqHiKmw55QLlWKEcRN9sSiw4MKPNMPeEjOunQ5C8dNZBspZB9CmupoPF0jU1oLxIsZALA6c1FlgAvse188u8UpDiZCsDEfI327AZDZD',
     'Content-Type': 'application/json',
 };
 const data = {
     'messaging_product': 'whatsapp',
-    'to': '',
+    'to': '5541995691111',
     'type': 'template',
     'template': {
         'name': 'confirmacao_agendamento',
@@ -22,15 +22,15 @@ const data = {
                 'parameters': [
                     {
                         'type': 'text',
-                        'text': 'Nome do cliente',
+                        'text': '<nome_do_cliente>',
                     },
                     {
                         'type': 'text',
-                        'text': 'Data do agendamento',
+                        'text': '<data_do_agendamento>',
                     },
                     {
                         'type': 'text',
-                        'text': 'Horário do agendamento',
+                        'text': '<horario_do_agendamento>',
                     }
                 ],
             } ],

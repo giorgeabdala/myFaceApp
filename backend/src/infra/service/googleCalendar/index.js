@@ -12,7 +12,7 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 
 //Pega crednciais e armazena o token no mesmo diretorio
 const TOKEN_PATH = path.join(__dirname, 'token.json');
-const CREDENTIALS_PATH = path.join(__dirname, 'credentials.json');
+const CREDENTIALS_PATH = path.join(__dirname, '../../../credentials/google-app.json');
 
 /**
  * Reads previously authorized credentials from the save file.
@@ -53,11 +53,12 @@ async function saveCredentials(client) {
  *
  */
 async function authorize() {
-    let client = await loadSavedCredentialsIfExist();
+/*    let client = await loadSavedCredentialsIfExist();
     if (client) {
         return client;
-    }
-    client = await authenticate({
+    }*/
+
+    const client = await authenticate({
         scopes: SCOPES,
         keyfilePath: CREDENTIALS_PATH,
     });

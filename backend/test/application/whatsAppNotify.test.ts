@@ -2,9 +2,7 @@ import {IAppointmentRepository} from "../../src/domain/adapters/IAppointmentRepo
 import AppointmentRepositoryMemory from "../../src/infra/repository/memory/AppointmentRepositoryMemory";
 import IClientRepository from "../../src/domain/adapters/IClientRepository";
 import ClientRepositoryMemory from "../../src/infra/repository/memory/ClientRepositoryMemory";
-import sendWhatsAppNotification, {
-    sendWhatsAppNotificationInput
-} from "../../src/application/usecase/sendWhatsAppNotification";
+import sendWhatsAppNotification, {sendWhatsAppNotificationInput} from "../../src/application/usecase/sendWhatsAppNotification";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import IWhatsAppNotificationService from "../../src/domain/adapters/IWhatsAppNotificationService";
 import WhatsAppNotificationServiceOficial from "../../src/infra/service/WhatsAppNotificationServiceOficial";

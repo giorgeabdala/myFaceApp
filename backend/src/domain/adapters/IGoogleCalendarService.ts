@@ -4,5 +4,5 @@ import Schema$Event = calendar_v3.Schema$Event;
 
 
 export default interface IGoogleCalendarService {
-    findByDate(calendarId: string, date: string): Promise<Option<Schema$Event[]>>;
+    findEventByDate(calendarId: string, date: string): Promise<Option<Schema$Event[]>>;
 }

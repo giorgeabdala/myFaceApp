@@ -2,6 +2,8 @@ import {None, Option, Some} from "ts-results";
 import {calendar_v3, google} from "googleapis";
 import IGoogleCalendarService from "../../../domain/adapters/IGoogleCalendarService";
 import Schema$Event = calendar_v3.Schema$Event;
+import {Server} from "http";
+
 
 const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 
@@ -12,15 +14,13 @@ export default class GoogleCalendarService implements IGoogleCalendarService {
         this.calendar = google.calendar({version: 'v3'});
     }
 
-    private async autenticate() {
-        const auth = new google.auth.GoogleAuth({
-            keyFile: './src/infra/service/googleCalendar/token.json',
-            scopes: SCOPES,
-        });
-        google.options({auth});
+    private parseDate(str: string): Date {
+        const [year, month, day] = str.split('-').map(Number);
+        return new Date(year, month - 1, day);
     }
 
-    async findByDate(calendarId: string, date: string): Promise<Option<Schema$Event[]>> {
+
+    public async findEventByDate(calendarId: string, date: string): Promise<Option<Schema$Event[]>> {
         await this.autenticate();
         const timeMin = this.parseDate(date);
         const nextDay = new Date(timeMin.getTime());
@@ -30,8 +30,6 @@ export default class GoogleCalendarService implements IGoogleCalendarService {
             timeMin: timeMin.toISOString(),
             timeMax: nextDay.toISOString(),
             maxResults: 100,
-            //singleEvents: true,
-            //orderBy: 'startTime',
         });
         const eventsList = events.data.items;
         if(!eventsList) return None;
@@ -39,8 +37,10 @@ export default class GoogleCalendarService implements IGoogleCalendarService {
     }
 
 
-    private parseDate(str: string): Date {
-        const [year, month, day] = str.split('-').map(Number);
-        return new Date(year, month - 1, day);
+    private async autenticate() {
+        const auth = new google.auth.GoogleAuth({
+            keyFile: './src/infra/service/googleCalendar/token.json', scopes: SCOPES});
+        google.options({auth});
     }
+
 }

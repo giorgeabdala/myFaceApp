@@ -44,4 +44,43 @@ describe('Deve testar a criação de profissionais', () => {
         //expect(outputOrError.err).toBe('Nome inválido');
     });
 
+    it('Deve lançar um erro ao criar um profissional com DDD inválido', async () => {
+        const createProfessionalUseCase = new CreateProfessional(repository);
+        const input = {
+            name: 'João',
+            DDD: '4',
+            number: '985691112',
+            email: 'giorgeabdala@gm.com'
+        }
+        const outputOrError = await createProfessionalUseCase.execute(input);
+        expect(outputOrError.err).toBe(true);
 } );
+
+    it('Deve lançar um erro ao criar um profissional com número inválido', async () => {
+        const createProfessionalUseCase = new CreateProfessional(repository);
+        const input = {
+            name: 'João',
+            DDD: '41',
+            number: '98569111',
+            email: 'giorgeabdala@gmail.com'
+        }
+        const outputOrError = await createProfessionalUseCase.execute(input);
+        expect(outputOrError.err).toBe(true);
+} );
+
+    it('Deve lançar um erro ao criar um profissional com email inválido', async () => {
+        const createProfessionalUseCase = new CreateProfessional(repository);
+        const input = {
+            name: 'João',
+            DDD: '41',
+            number: '985691111',
+            email: 'giorgeabdala@gmail'
+        }
+        const outputOrError = await createProfessionalUseCase.execute(input);
+        expect(outputOrError.err).toBe(true);
+    } );
+
+
+
+
+    } );

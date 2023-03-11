@@ -3,9 +3,8 @@ import {Phone} from "./phone";
 import {Email} from "./email";
 import { Ok, Err, Result } from 'ts-results';
 
+
 export class Professional implements User {
-
-
     private constructor(readonly id: string, readonly name: string, readonly cellPhone: Phone, readonly email: Email, readonly calendarId?: string) {}
 
     public static create(id: string, name: string, DDD: string, number: string, emailAddress: string, calendarId?: string): Result<Professional, string> {
@@ -17,7 +16,13 @@ export class Professional implements User {
         if (!validName) return new Err('Nome inválido');
         if (emailOrError.err) return new Err('Invalid email');
 
-        return Ok<Professional>(new Professional(id,name, phoneOrError.unwrap(), emailOrError.unwrap(), calendarId))
+
+        const professional = new Professional(id,name,
+            phoneOrError.unwrap(),
+            emailOrError.unwrap(),
+            calendarId);
+
+        return Ok(professional);
     }
 
     private static validateName(name: string): boolean {
