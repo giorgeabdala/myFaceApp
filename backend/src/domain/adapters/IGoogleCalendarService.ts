@@ -5,5 +5,5 @@ import Schema$Event = calendar_v3.Schema$Event;
 
 export default interface IGoogleCalendarService {
     findEventByDate(calendarId: string, date: string, tokenPath: string): Promise<Option<Schema$Event[]>>;
-    requestAuthorization(credentialsPath: string, tokenPath: string): Promise<Result<string,string>>;
+    requestAuthorization(professionalId: string): Promise<Result<string,string>>;
 }
