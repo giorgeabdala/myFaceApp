@@ -11,7 +11,13 @@ export default class GetClients {
         if (!clients) return new Err('Erro ao buscar Clientes');
         const clientsOtput: GetClientsOutput[] = [];
         clients.forEach(client => {
-            clientsOtput.push(new GetClientsOutput(client.id, client.name, client.cellPhone.DDD, client.cellPhone.number, client.Email));
+            clientsOtput.push(new GetClientsOutput(
+                client.id,
+                client.name,
+                client.lastName,
+                client.cellPhone.DDD,
+                client.cellPhone.number,
+                client.email));
         } )
         return Ok<GetClientsOutput[]>(clientsOtput);
     }

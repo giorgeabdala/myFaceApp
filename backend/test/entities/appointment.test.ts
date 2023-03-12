@@ -9,8 +9,8 @@ let startDate: Date;
 let endDate: Date;
 
 beforeEach(() => {
-    professional =  Professional.create('1', 'João', '11', '999999999', 'giorgeabdala@gmail.com').unwrap();
-    client =  Client.create('1', 'Maria', '11', '999999999', 'giorgeabdala@gmail.com').unwrap();
+    professional =  Professional.create('1', 'João','last', '11', '999999999', 'giorgeabdala@gmail.com').unwrap();
+    client =  Client.create('1', 'Maria', 'last','11', '999999999', 'giorgeabdala@gmail.com').unwrap();
     status = Status.CONFIRMED;
 
     startDate = new Date(); // data atual

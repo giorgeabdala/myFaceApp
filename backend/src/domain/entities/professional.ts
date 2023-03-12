@@ -2,22 +2,23 @@ import {User} from "./user";
 import {Phone} from "./phone";
 import {Email} from "./email";
 import { Ok, Err, Result } from 'ts-results';
+import Name from "./Name";
 
 
 export class Professional implements User {
-    private constructor(readonly id: string, readonly name: string, readonly cellPhone: Phone, readonly email: Email, readonly calendarId?: string) {}
+    private constructor(readonly id: string, readonly name: Name, readonly cellPhone: Phone, readonly _email: Email, readonly calendarId?: string) {}
 
-    public static create(id: string, name: string, DDD: string, number: string, emailAddress: string, calendarId?: string): Result<Professional, string> {
+    public static create(id: string, firstName: string, lastName: string, DDD: string, number: string, emailAddress: string, calendarId?: string): Result<Professional, string> {
         const phoneOrError = Phone.create(DDD, number);
         const emailOrError = Email.create(emailAddress);
-        const validName = this.validateName(name);
+        const nameOrError= Name.create(firstName, lastName);
 
         if (phoneOrError.err) return new Err('Invalid phone number');
-        if (!validName) return new Err('Nome inválido');
         if (emailOrError.err) return new Err('Invalid email');
+        if (nameOrError.err) return new Err(nameOrError.val);
 
 
-        const professional = new Professional(id,name,
+        const professional = new Professional(id, nameOrError.unwrap(),
             phoneOrError.unwrap(),
             emailOrError.unwrap(),
             calendarId);
@@ -25,16 +26,16 @@ export class Professional implements User {
         return Ok(professional);
     }
 
-    private static validateName(name: string): boolean {
-        return name.length >= 2 ;
+    public get email(): string {
+        return this._email.address
     }
 
-    public getId(): string {
-        return this.id;
+    public get firstName(): string {
+        return this.name.first;
     }
 
-    public getEmail(): string {
-        return this.email.address
+    public get lastName(): string {
+        return this.name.last;
     }
 
 }

@@ -10,11 +10,17 @@ export default class CreateClient {
 
     async execute(input: CreateClientInput): Promise<Result<CreateClientOutput,string>> {
         const id = uuidv4();
-        const clientOrError = Client.create(id,input.name, input.DDD, input.number, input.email);
+        const clientOrError = Client.create(id,input.firstName, input.lastName, input.DDD, input.number, input.email);
         if (clientOrError.err) return new Err(clientOrError.val);
         const client = clientOrError.unwrap();
         await this.clientRepository.save(client);
-        const output = new CreateClientOutput(client.id, client.name, client.cellPhone.DDD, client.cellPhone.number, client.Email);
+        const output = new CreateClientOutput(
+            client.id,
+            client.firstName,
+            client.lastName,
+            client.cellPhone.DDD,
+            client.cellPhone.number,
+            client.email);
         if (!output) return new Err('Erro ao criar Cliente');
 
         return Ok<CreateClientOutput>(output);

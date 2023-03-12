@@ -7,13 +7,13 @@ export default class ProfessionalRepositoryMemory implements IProfessionalReposi
 
     constructor() {
         this.professionals = [
-            Professional.create('1', 'Mara', '11', '999999999', 'joao@gmail.com', 'j2ialadmckmcdne2i7bmfvsovs@group.calendar.google.com').unwrap(),
-            Professional.create('2', 'Maria', '11', '999999999', 'maria@gmail.com').unwrap(),
-            Professional.create('3', 'José', '11', '999999999', 'jose@gmail.com').unwrap()];
+            Professional.create('1', 'Mara','last', '11', '999999999', 'joao@gmail.com', 'j2ialadmckmcdne2i7bmfvsovs@group.calendar.google.com').unwrap(),
+            Professional.create('2', 'Maria', 'last','11', '999999999', 'maria@gmail.com').unwrap(),
+            Professional.create('3', 'José', 'last', '11', '999999999', 'jose@gmail.com').unwrap()];
     }
 
     async findByEmail(email: string): Promise<Professional> {
-        const professional = this.professionals.find(professional => professional.getEmail() === email);
+        const professional = this.professionals.find(professional => professional.email === email);
         return Promise.resolve(professional);
     }
 
@@ -22,7 +22,7 @@ export default class ProfessionalRepositoryMemory implements IProfessionalReposi
     }
 
     findById(id: string): Promise<Professional> | undefined {
-        const professional = this.professionals.find(professional => professional.getId() === id);
+        const professional = this.professionals.find(professional => professional.id === id);
         return Promise.resolve(professional);
     }
 }

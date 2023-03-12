@@ -17,7 +17,8 @@ describe('Deve testar a busca de todos os clientes', () => {
         const output = outputOrError.unwrap();
         expect(output).toBeInstanceOf(Array);
         expect(output[0].id).toBeTruthy();
-        expect(output[0].name).toBeTruthy();
+        expect(output[0].firstName).toBeTruthy();
+        expect(output[0].lastName).toBeTruthy();
         expect(output[0].number).toBeTruthy();
         expect(output[0].DDD).toBeTruthy();
     } );

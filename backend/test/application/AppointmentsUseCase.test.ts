@@ -1,6 +1,6 @@
 import CreateAppointment from "../../src/application/usecase/createAppointment";
 import {CreateAppointmentInput} from "../../src/application/dto/createAppointmentDTO";
-import {Status} from "../../src/domain/entities/appointment";
+import {PaymentStatus, Status} from "../../src/domain/entities/appointment";
 import { validate as uuidValidate } from 'uuid';
 import {IAppointmentRepository} from "../../src/domain/adapters/IAppointmentRepository";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
@@ -34,7 +34,9 @@ beforeEach(() => {
         99.99,
         '1',
         '1',
-        Status.CONFIRMED
+        Status.CONFIRMED,
+           PaymentStatus.PAID
+
     );
 
 } );
@@ -46,17 +48,19 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
         const outputOrError = await useCase.execute(createInput);
         expect(outputOrError.ok).toBeTruthy();
         const output = outputOrError.unwrap();
-        expect(output.id).toBeTruthy();
         expect(uuidValidate(output.id)).toBeTruthy();
-        expect(output.startDate).toBe(createInput.startDate);
-        expect(output.endDate).toBe(createInput.endDate);
-        expect(output.price).toBe(createInput.price);
-        expect(output.professionalId).toBe(createInput.professionalId);
-        expect(output.clientId).toBe(createInput.clientId);
-        expect(output.status).toBe(createInput.status);
+        const appointment = await appointmentRepository.findById (output.id);
+        expect(appointment.id).toBeTruthy();
+        expect(appointment.startDate).toBe(createInput.startDate);
+        expect(appointment.endDate).toBe(createInput.endDate);
+        expect(appointment.price).toBe(createInput.price);
+        expect(appointment.getProfessionalId()).toBe(createInput.professionalId);
+        expect(appointment.getClientId()).toBe(createInput.clientId);
+        expect(appointment.status).toBe(createInput.status);
+        expect(appointment.paymentStatus).toBe(createInput.paymentStatus);
     });
 
-    it('Deve criar um Agendamento e depois  atualizar o valor, o horário e o status de um agendamento', async () => {
+    it('Deve criar um Agendamento e depois  atualizar o valor, o horário e os status de um agendamento e pagamento', async () => {
         const createUseCase = new CreateAppointment(appointmentRepository, professionalRepository, clientRepository);
         const createOutput = (await createUseCase.execute(createInput)).unwrap();
 
@@ -71,20 +75,22 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
             updatePrice,
             createOutput.professionalId,
             createOutput.clientId,
-            Status.CANCELED
+            Status.CANCELED,
+            PaymentStatus.PENDING
         );
-
         const useCase = new UpdateAppointment(appointmentRepository);
         const outputOrError = await useCase.execute(updateInput);
         expect(outputOrError.ok).toBeTruthy();
-        const output = outputOrError.unwrap();
-        expect(output.id).toBe(updateInput.id);
-        expect(output.startDate).toBe(updateInput.startDate);
-        expect(output.endDate).toBe(updateInput.endDate);
-        expect(output.price).toBe(updateInput.price);
-        expect(output.professionalId).toBe(updateInput.professionalId);
-        expect(output.clientId).toBe(updateInput.clientId);
-        expect(output.status).toBe(updateInput.status);
+
+        const appointment = await appointmentRepository.findById (createOutput.id);
+        expect(appointment.id).toBe(updateInput.id);
+        expect(appointment.startDate).toBe(updateInput.startDate);
+        expect(appointment.endDate).toBe(updateInput.endDate);
+        expect(appointment.price).toBe(updateInput.price);
+        expect(appointment.getProfessionalId()).toBe(updateInput.professionalId);
+        expect(appointment.getClientId()).toBe(updateInput.clientId);
+        expect(appointment.status).toBe(updateInput.status);
+        expect(appointment.paymentStatus).toBe(updateInput.paymentStatus);
 
     });
 

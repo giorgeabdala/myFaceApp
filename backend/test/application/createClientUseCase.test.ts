@@ -12,7 +12,7 @@ beforeEach(() => {
 
 describe('CreateClient', () => {
     it('Deve criar um cliente', async () => {
-        const input = new CreateClientInput('Giorge Abdala', '41', '985691112');
+        const input = new CreateClientInput('Giorge', 'Abdala', '41', '985691112');
         const useCase = new CreateClient(clientRepository);
         const outputOrError = await useCase.execute(input);
         expect(outputOrError.ok).toBe(true);
@@ -21,7 +21,8 @@ describe('CreateClient', () => {
         expect(output).toBeInstanceOf(CreateClientOutput);
         expect(output.id).not.toBeNull();
         expect(uuidValidate(output.id)).toBe(true);
-        expect(output.name).toBe('Giorge Abdala');
+        expect(output.firstName).toBe('Giorge');
+        expect(output.lastName).toBe('Abdala');
         expect(output.DDD).toBe('41');
         expect(output.number).toBe('985691112');
     } );

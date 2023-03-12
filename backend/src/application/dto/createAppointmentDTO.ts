@@ -1,4 +1,4 @@
-import {Status} from "../../domain/entities/appointment";
+import {PaymentStatus, Status} from "../../domain/entities/appointment";
 
 export class CreateAppointmentInput {
 
@@ -8,7 +8,9 @@ export class CreateAppointmentInput {
         readonly price: number,
         readonly professionalId: string,
         readonly clientId: string,
-        readonly status: Status) {}
+        readonly status: Status,
+        readonly paymentStatus: PaymentStatus
+    ) {}
 }
 
 export class CreateAppointmentOutput {
@@ -19,7 +21,9 @@ export class CreateAppointmentOutput {
         readonly price: number,
         readonly professionalId: string,
         readonly clientId: string,
-        readonly status: Status)
+        readonly status: Status,
+        readonly paymentStatus: PaymentStatus
+    )
          {}
 }
 

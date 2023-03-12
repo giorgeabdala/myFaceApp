@@ -10,6 +10,12 @@ export enum Status {
     FINISHED
 }
 
+//enum para status do pagamento
+export enum PaymentStatus {
+    PENDING,
+    PAID,
+}
+
 
 export class Appointment {
 
@@ -22,14 +28,15 @@ export class Appointment {
                 readonly professional: Professional,
                 readonly client: Client,
                 public status: Status,
+                public paymentStatus: PaymentStatus = PaymentStatus.PENDING
                 ) {}
 
-    public static create(id: string, startDate: Date, endDate: Date, price: number, professional: Professional, client: Client, status: Status): Result<Appointment, string> {
+    public static create(id: string, startDate: Date, endDate: Date, price: number, professional: Professional, client: Client, status: Status, paymentStatus?: PaymentStatus): Result<Appointment, string> {
         if (!this.validateStartDate(startDate)) return new Err("Data de início do atendimento invalida");
         if (!this.validateEndDate(startDate, endDate)) return new Err("Data fim do atendimento invalida");
         if (!this.validatePrice(price)) return new Err("Valor do atendimento invalido");
 
-        return Ok<Appointment>(new Appointment(id,startDate, endDate, price, professional, client, status))
+        return Ok<Appointment>(new Appointment(id,startDate, endDate, price, professional, client, status, paymentStatus), )
     }
 
     private static validatePrice(price: number): boolean {
