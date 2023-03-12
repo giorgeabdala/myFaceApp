@@ -16,13 +16,12 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "vitest --watch",
     "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
+    "test:cov": "jest --coverage --config ./test/jest-e2e.json",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "jest": "jest --config ./test/jest-e2e.json",
     "vitest": "vitest --config vitest.config.ts",
-    "vitest:cov": "vitest --run --config vitest.config.ts --coverage",
-
+    "vitest:cov": "vitest run --config vitest.config.ts --coverage",
     "webstorm-integration": "vitest --watch --reporter=dot --reporter=json --outputFile=.vitest-result.json"
   },
   "dependencies": {

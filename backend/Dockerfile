@@ -15,7 +15,7 @@ EXPOSE 3000
 
 CMD [ "npm", "run", "dev" ]
 
-FROM development as dev-envs
+FROM development As dev-envs
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends git
 
