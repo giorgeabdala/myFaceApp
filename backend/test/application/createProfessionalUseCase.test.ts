@@ -1,4 +1,3 @@
-import jest from 'jest';
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import ProfessionalRepositoryMemory from "../../src/infra/repository/memory/ProfessionalRepositoryMemory";
 import {CreateProfessional} from "../../src/application/usecase/createProfessional";
@@ -41,7 +40,6 @@ describe('Deve testar a criação de profissionais', () => {
         }
         const outputOrError = await createProfessionalUseCase.execute(input);
         expect(outputOrError.err).toBe(true);
-        //expect(outputOrError.err).toBe('Nome inválido');
     });
 
     it('Deve lançar um erro ao criar um profissional com DDD inválido', async () => {

@@ -2,7 +2,7 @@ import GoogleRequestUserConsent, {
 } from "../../src/application/usecase/GoogleRequestUserConsent";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import ProfessionalRepositoryMemory from "../../src/infra/repository/memory/ProfessionalRepositoryMemory";
-import { describe, test } from 'vitest'
+import { describe } from 'vitest'
 import {Ok, Result} from "ts-results";
 import IGoogleCalendarService from "../../src/domain/adapters/IGoogleCalendarService";
 import GoogleCalendarService from "../../src/infra/service/googleCalendar/GoogleCalendarService";

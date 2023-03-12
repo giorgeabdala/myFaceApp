@@ -1,5 +1,4 @@
 import ListEventsCalendarByProfessionalDate, {ListEventsProfessionalInput} from "../../src/application/usecase/listEventsCalendarByPRofessionalDate";
-import dayjs from "dayjs";
 import GoogleCalendarService from "../../src/infra/service/googleCalendar/GoogleCalendarService";
 import ProfessionalRepositoryMemory from "../../src/infra/repository/memory/ProfessionalRepositoryMemory";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";

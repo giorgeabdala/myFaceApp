@@ -1,4 +1,3 @@
-import Jest from 'jest';
 import IClientRepository from "../../src/domain/adapters/IClientRepository";
 import ClientRepositoryMemory from "../../src/infra/repository/memory/ClientRepositoryMemory";
 import {CreateClientInput, CreateClientOutput} from "../../src/application/dto/createClientDTO";
