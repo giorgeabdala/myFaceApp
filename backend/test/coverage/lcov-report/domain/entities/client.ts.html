@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/42</span>
+                <span class='fraction'>49/49</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.33% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/15</span>
+                <span class='fraction'>12/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/42</span>
+                <span class='fraction'>49/49</span>
             </div>
         
             
@@ -104,7 +104,14 @@
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -115,19 +122,18 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">45x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-yes">50x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -144,31 +150,38 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">50x</span></td><td class="text"><pre class="prettyprint lang-js">import {User} from "./user";
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">45x</span></td><td class="text"><pre class="prettyprint lang-js">import {User} from "./user";
 import {Phone} from "./phone";
 import {Email} from "./email";
 import { Ok, Err, Result } from 'ts-results';
+import Name from "./Name";
 &nbsp;
 export class Client implements User {
 private annotations: string = '';
 &nbsp;
-    private constructor(readonly id: string, readonly name: string, readonly cellPhone: Phone, readonly email?: Email) {}
+    private constructor(readonly id: string, readonly name: Name, readonly cellPhone: Phone, readonly _email?: Email) {}
 &nbsp;
-    public static create(id: string, name: string, DDD: string, number: string, emailAddress?: string): Result&lt;Client, string&gt; {
+    public static create(id: string, firstName: string, lastName: string, DDD: string, number: string, emailAddress?: string): Result&lt;Client, string&gt; {
         const phoneOrError = Phone.create(DDD, number);
         const emailOrError = emailAddress ? Email.create(emailAddress) : Ok(undefined);
-        const isvalidName = this.isValidName(name);
+        const nameOrError = Name.create(firstName, lastName);
 &nbsp;
         if (phoneOrError.err) <span class="branch-0 cbranch-no" title="branch not covered" >return new Err('Invalid phone number');</span>
-        if (!isvalidName) <span class="branch-0 cbranch-no" title="branch not covered" >return new Err('Invalid name');</span>
+        if (nameOrError.err) <span class="branch-0 cbranch-no" title="branch not covered" >return new Err('Invalid name');</span>
         if (emailOrError.err) <span class="branch-0 cbranch-no" title="branch not covered" >return new Err('Invalid email');</span>
-        return new Ok(new Client(id,name,phoneOrError.unwrap(), emailOrError.unwrap()));
+        return new Ok(new Client(id,nameOrError.unwrap(),phoneOrError.unwrap(), emailOrError.unwrap()));
     }
 &nbsp;
-        private static isValidName(name: string): boolean {
-            return name.length &gt;= 2 ;
-        }
+&nbsp;
 &nbsp;
         setAnnotations(annotations: string) {
             this.annotations = annotations;
@@ -178,10 +191,18 @@ private annotations: string = '';
             return this.annotations;
         }
 &nbsp;
-        public get Email(): string {
-            if (!this.email) return undefined;
-            if (!this.email.address) <span class="branch-0 cbranch-no" title="branch not covered" >return undefined;</span>
-            return this.email.address;
+        public get email(): string {
+            if (!this._email) return undefined;
+            if (!this._email.address) <span class="branch-0 cbranch-no" title="branch not covered" >return undefined;</span>
+            return this._email.address;
+        }
+&nbsp;
+        public get firstName(): string {
+            return this.name.first;
+        }
+&nbsp;
+        public get lastName(): string {
+            return this.name.last;
         }
 &nbsp;
 &nbsp;
@@ -193,7 +214,7 @@ private annotations: string = '';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-12T06:45:35.847Z
+                at 2023-03-13T02:06:18.605Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

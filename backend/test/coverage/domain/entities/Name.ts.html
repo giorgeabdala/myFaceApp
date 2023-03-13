@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for application/usecase/GoogleRequestUserConsent.ts</title>
+    <title>Code coverage report for domain/entities/Name.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">application/usecase</a> GoogleRequestUserConsent.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">domain/entities</a> Name.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/23</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/23</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
@@ -81,63 +81,42 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">91x</span>
+<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">185x</span>
+<span class="cline-any cline-yes">185x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {IProfessionalRepository} from "../../domain/adapters/IProfessionalRepository";
-import {Err, Ok, Result} from "ts-results";
-import IGoogleCalendarService from "../../domain/adapters/IGoogleCalendarService";
-import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Err, Ok, Result} from "ts-results";
 &nbsp;
-export type GoogleRequestUserConsentInput = {
-    professionalId: string;
-}
 &nbsp;
-export type GoogleRequestUserConsentOutput = {
-    token: string;
-}
+export default class Name {
+    private constructor(readonly first: string, readonly last: string) {}
 &nbsp;
-export default class GoogleRequestUserConsent {
-&nbsp;
-    constructor(readonly userRequestService: IGoogleCalendarService) {}
-&nbsp;
-    async execute(input: GoogleRequestUserConsentInput): Promise&lt;Result&lt;GoogleRequestUserConsentOutput, string&gt;&gt; {
-        const authorizationToken = await this.userRequestService.requestAuthorization(input.professionalId);
-        if(authorizationToken.err) <span class="branch-0 cbranch-no" title="branch not covered" >return Err('Não foi possível obter o token de autorização');</span>
-        return Ok({token: authorizationToken.val});
+    public static create(firstName: string, lastName: string): Result&lt;Name, string&gt; {
+        if (!this.isValid(firstName)) return new Err('Nome inválido');
+        if (!this.isValid(lastName)) return new Err('Sobre nome inválido');
+        return Ok(new Name(firstName, lastName));
     }
+&nbsp;
+    private static isValid(name: string): boolean {
+        return name.length &gt;= 2 ;
+    }
+&nbsp;
+&nbsp;
 }
-&nbsp;
-&nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -145,7 +124,7 @@ export default class GoogleRequestUserConsent {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-13T02:06:18.605Z
+                at 2023-03-13T02:06:18.418Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
