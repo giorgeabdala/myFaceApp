@@ -1,29 +1,27 @@
 import {IAppointmentRepository} from "../../src/domain/adapters/IAppointmentRepository";
-import AppointmentRepositoryMemory from "../../src/infra/repository/memory/AppointmentRepositoryMemory";
 import IClientRepository from "../../src/domain/adapters/IClientRepository";
-import ClientRepositoryMemory from "../../src/infra/repository/memory/ClientRepositoryMemory";
 import SendWhatsAppNotification, {sendWhatsAppNotificationInput} from "../../src/application/usecase/sendWhatsAppNotification";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import IWhatsAppNotificationService from "../../src/domain/adapters/IWhatsAppNotificationService";
 import WhatsAppNotificationServiceOficial from "../../src/infra/service/WhatsAppNotificationServiceOficial";
-import ProfessionalRepositoryMemory from "../../src/infra/repository/memory/ProfessionalRepositoryMemory";
+import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
 
 let appointmentRepository: IAppointmentRepository;
 let clientRepository: IClientRepository;
 let professionalRepository: IProfessionalRepository;
 let service: IWhatsAppNotificationService;
+const factoryRepository = new MemoryRepositoryFactory();
 
 beforeEach(() => {
-    appointmentRepository = new AppointmentRepositoryMemory();
-    clientRepository = new ClientRepositoryMemory();
-    professionalRepository = new ProfessionalRepositoryMemory();
+    appointmentRepository = factoryRepository.createAppointmentsRepository();
+    clientRepository = factoryRepository.createClientRepository();
+    professionalRepository = factoryRepository.createProfessionalRepository();
     service = new WhatsAppNotificationServiceOficial();
 } );
 
 describe('Deve testar o envio de notificação via WhatsApp', () => {
     it('Deve enviar uma notificação de agendamento para o cliente', async () => {
-        const useCase = new SendWhatsAppNotification(appointmentRepository,
-            professionalRepository, clientRepository, service );
+        const useCase = new SendWhatsAppNotification(factoryRepository, service );
         const input : sendWhatsAppNotificationInput = {
             appointmentId: '1',
             professionalId: '1',

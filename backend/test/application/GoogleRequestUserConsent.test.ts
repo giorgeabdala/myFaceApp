@@ -1,19 +1,20 @@
 import GoogleRequestUserConsent, {
 } from "../../src/application/usecase/GoogleRequestUserConsent";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
-import ProfessionalRepositoryMemory from "../../src/infra/repository/memory/ProfessionalRepositoryMemory";
 import { describe } from 'vitest'
 import {Ok, Result} from "ts-results";
 import IGoogleCalendarService from "../../src/domain/adapters/IGoogleCalendarService";
 import GoogleCalendarService from "../../src/infra/service/googleCalendar/GoogleCalendarService";
 import settings from "../../src/infra/service/googleCalendar/settings";
+import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
 
+const factoryRepository = new MemoryRepositoryFactory();
 let professionalRepository: IProfessionalRepository;
 let userRequestService : IGoogleCalendarService;
 
 beforeEach(() => {
     //definir timeout ppara 5 minutos
-    professionalRepository = new ProfessionalRepositoryMemory();
+    professionalRepository = factoryRepository.createProfessionalRepository();
 
     userRequestService = new GoogleCalendarService();
     //mock do servico
@@ -23,7 +24,7 @@ beforeEach(() => {
 describe('Deve testar a solicitação de acesso ao Google Calendar', () => {
     it ('Deve pegar a autorização do usuário e salvar o token',  async () => {
         const input = {professionalId: '1',}
-        const usecase = new GoogleRequestUserConsent(professionalRepository, userRequestService);
+        const usecase = new GoogleRequestUserConsent(userRequestService);
         const response = await usecase.execute(input);
         expect(response.ok).toBe(true);
         const output = response.unwrap();

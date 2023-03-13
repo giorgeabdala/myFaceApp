@@ -1,16 +1,17 @@
 import ListEventsCalendarByProfessionalDate, {ListEventsProfessionalInput} from "../../src/application/usecase/listEventsCalendarByPRofessionalDate";
 import GoogleCalendarService from "../../src/infra/service/googleCalendar/GoogleCalendarService";
-import ProfessionalRepositoryMemory from "../../src/infra/repository/memory/ProfessionalRepositoryMemory";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import IGoogleCalendarService from "../../src/domain/adapters/IGoogleCalendarService";
+import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
 
 let input: ListEventsProfessionalInput;
 let googleService: IGoogleCalendarService;
 let professionalRepository: IProfessionalRepository;
+const factoryRepository = new MemoryRepositoryFactory();
 
 beforeEach(() => {
     googleService = new GoogleCalendarService();
-    professionalRepository = new ProfessionalRepositoryMemory();
+    professionalRepository =factoryRepository.createProfessionalRepository();
     const hoje = new Date();
 
     input = {
@@ -22,7 +23,7 @@ beforeEach(() => {
 
 describe('Deve testar a busca de eventos na agenda do Google Calendar', () => {
     it('Deve retornar um Array com todos os eventos de um profissional em um dia', async () => {
-        const usecase =  new ListEventsCalendarByProfessionalDate( googleService, professionalRepository )
+        const usecase =  new ListEventsCalendarByProfessionalDate( factoryRepository,googleService  )
         const eventsOrError = await usecase.execute(input);
         expect(eventsOrError.ok).toBe(true);
         expect(eventsOrError.unwrap()).toBeInstanceOf(Array);

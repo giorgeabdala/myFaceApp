@@ -1,6 +1,7 @@
 import IGoogleCalendarService from "../../domain/adapters/IGoogleCalendarService";
 import {Ok, Result} from "ts-results";
 import {IProfessionalRepository} from "../../domain/adapters/IProfessionalRepository";
+import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
 export type ListEventsProfessionalInput = {
     professionalId: string;
@@ -15,8 +16,12 @@ export type ListEventsProfessionalOutput = {
 }
 
 export default class ListEventsCalendarByProfessionalDate {
+    private professionalRepository: IProfessionalRepository = this.factoryRepository.createProfessionalRepository();
     private output: ListEventsProfessionalOutput[] = [];
-    constructor(readonly calendarService: IGoogleCalendarService, readonly professionalRepository: IProfessionalRepository) {}
+
+    constructor(readonly factoryRepository: IRepositoryFactory, readonly calendarService: IGoogleCalendarService) {
+        this.professionalRepository = factoryRepository.createProfessionalRepository();
+    }
 
     async execute(input: ListEventsProfessionalInput): Promise<Result<ListEventsProfessionalOutput[], string>> {
         const professional = await this.professionalRepository.findById(input.professionalId);

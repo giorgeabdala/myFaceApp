@@ -5,10 +5,21 @@ import {Appointment} from "../../domain/entities/appointment";
 import { v4 as uuidv4 } from 'uuid';
 import {IProfessionalRepository} from "../../domain/adapters/IProfessionalRepository";
 import IClientRepository from "../../domain/adapters/IClientRepository";
+import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
 
 export default class CreateAppointment {
-     constructor(readonly appointmentRepository: IAppointmentRepository, readonly professionalRepository: IProfessionalRepository, readonly clientRepository: IClientRepository) {}
+    private professionalRepository: IProfessionalRepository;
+    private clientRepository: IClientRepository;
+    private appointmentRepository: IAppointmentRepository;
+
+
+     constructor(readonly factoryRepository: IRepositoryFactory) {
+        this.professionalRepository = factoryRepository.createProfessionalRepository();
+        this.clientRepository = factoryRepository.createClientRepository();
+        this.appointmentRepository = factoryRepository.createAppointmentsRepository();
+     }
+
 
     public async execute(input: CreateAppointmentInput): Promise<Result<CreateAppointmentOutput, string>> {
         const id = uuidv4();

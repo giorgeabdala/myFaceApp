@@ -3,10 +3,14 @@ import {IProfessionalRepository} from "../../domain/adapters/IProfessionalReposi
 import { Ok, Err, Result } from 'ts-results';
 import { v4 as uuidv4 } from 'uuid';
 import {CreateProfessionalInput, CreateProfessionalOutput} from "../dto/createProfessionalDTO";
+import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
 export class CreateProfessional {
+    private professionalRepository: IProfessionalRepository;
 
-    constructor(private professionalRepository: IProfessionalRepository) {
+
+    constructor(readonly factoryRepository: IRepositoryFactory) {
+        this.professionalRepository = factoryRepository.createProfessionalRepository();
     }
 
     public async execute(input: CreateProfessionalInput): Promise<Result<CreateProfessionalOutput, string>> {

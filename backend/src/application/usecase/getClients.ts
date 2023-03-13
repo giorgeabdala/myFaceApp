@@ -1,10 +1,14 @@
 import { Ok, Err, Result } from 'ts-results';
 import IClientRepository from "../../domain/adapters/IClientRepository";
 import GetClientsOutput from "../dto/getClientsOutput";
+import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
 export default class GetClients {
+    private clientRepository: IClientRepository;
 
-    constructor(readonly clientRepository: IClientRepository){}
+    constructor(readonly factoryRepository: IRepositoryFactory){
+        this.clientRepository = factoryRepository.createClientRepository();
+    }
 
     public async execute(): Promise<Result<GetClientsOutput[],string>> {
         const clients = await this.clientRepository.findAll();

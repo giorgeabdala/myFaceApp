@@ -3,10 +3,14 @@ import {IAppointmentRepository} from "../../domain/adapters/IAppointmentReposito
 import {Appointment} from "../../domain/entities/appointment";
 import { Ok, Err, Result } from 'ts-results';
 import {CreateAppointmentOutput} from "../dto/createAppointmentDTO";
+import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
 
 export default class UpdateAppointment {
-    constructor(private readonly appointmentRepository: IAppointmentRepository) {}
+    private  appointmentRepository: IAppointmentRepository;
+    constructor(readonly factoryRepository: IRepositoryFactory) {
+        this.appointmentRepository = factoryRepository.createAppointmentsRepository();
+    }
 
     async execute(input: UpdateAppointmentInput): Promise<Result<UpdateAppointmentOutput, string>> {
        const appointment     = await this.appointmentRepository.findById(input.id);
@@ -21,7 +25,8 @@ export default class UpdateAppointment {
                updatedAppointment.price,
                updatedAppointment.getProfessionalId(),
                updatedAppointment.getClientId(),
-               updatedAppointment.status
+               updatedAppointment.status,
+                updatedAppointment.paymentStatus
     )
         if (!output) return new Err('Erro ao atualizar agendamento. Output não gerado');
         return Ok<CreateAppointmentOutput>(output);

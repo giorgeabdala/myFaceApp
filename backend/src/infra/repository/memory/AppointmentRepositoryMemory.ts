@@ -23,7 +23,7 @@ export default class implements IAppointmentRepository {
             Appointment.create('1', startDate, endDate, 100, professionalOne, clientOne, Status.CONFIRMED).unwrap(),
             Appointment.create('2', startDate, endDate, 58.62, professionalTwo, clientTwo, Status.FINISHED).unwrap(),
             Appointment.create('3', startDate, endDate, 99.5, professionalThree, clientThree, Status.CANCELED).unwrap(),
-            Appointment.create('3', startDate, endDate, 99.5, professionalTwo, clientOne, Status.CANCELED).unwrap()
+            Appointment.create('4', startDate, endDate, 99.5, professionalTwo, clientOne, Status.CANCELED).unwrap()
         ];
     }
 

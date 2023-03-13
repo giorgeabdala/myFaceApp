@@ -1,16 +1,17 @@
 import IClientRepository from "../../src/domain/adapters/IClientRepository";
-import ClientRepositoryMemory from "../../src/infra/repository/memory/ClientRepositoryMemory";
 import GetClients from "../../src/application/usecase/getClients";
+import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
 
 let repository: IClientRepository;
+const factoryRepository = new MemoryRepositoryFactory();
 
 beforeEach(() => {
-    repository = new ClientRepositoryMemory();
+    repository = factoryRepository.createClientRepository();
 } );
 
 describe('Deve testar a busca de todos os clientes', () => {
     it('Deve buscar todos os clientes', async () => {
-        const useCase = new GetClients(repository);
+        const useCase = new GetClients(factoryRepository);
         const outputOrError = await useCase.execute();
         expect(outputOrError.ok).toBe(true);
 

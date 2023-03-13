@@ -5,28 +5,25 @@ import { validate as uuidValidate } from 'uuid';
 import {IAppointmentRepository} from "../../src/domain/adapters/IAppointmentRepository";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import IClientRepository from "../../src/domain/adapters/IClientRepository";
-import AppointmentRepositoryMemory from "../../src/infra/repository/memory/AppointmentRepositoryMemory";
-import ClientRepositoryMemory from "../../src/infra/repository/memory/ClientRepositoryMemory";
-import ProfessionalRepositoryMemory from "../../src/infra/repository/memory/ProfessionalRepositoryMemory";
 import {UpdateAppointmentInput} from "../../src/application/dto/updateAppointmentDTO";
 import UpdateAppointment from "../../src/application/usecase/updateAppointment";
 import getAppointmentByClient from "../../src/application/usecase/getAppointmentByClient";
 import GetAppointmentByProfessional from "../../src/application/usecase/getAppointmentByProfessional";
+import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
+import IRepositoryFactory from "../../src/domain/factory/IRepositoryFactory";
 
+let factoryRepository: IRepositoryFactory;
 let startDate: Date;
 let endDate: Date;
-let appointmentRepository: IAppointmentRepository;
-let professionalRepository: IProfessionalRepository;
-let clientRepository: IClientRepository;
 let createInput: CreateAppointmentInput;
-let updateInput: UpdateAppointmentInput;
+let appointmentRepository: IAppointmentRepository;
 
 beforeEach(() => {
+
     startDate = new Date(); // data atual
     endDate = new Date(new Date().getTime() + (60 * 60 * 1000));
-    appointmentRepository = new AppointmentRepositoryMemory();
-    professionalRepository = new ProfessionalRepositoryMemory();
-    clientRepository = new ClientRepositoryMemory();
+    factoryRepository = new MemoryRepositoryFactory();
+    appointmentRepository = factoryRepository.createAppointmentsRepository();
 
     createInput = new CreateAppointmentInput(
         startDate,
@@ -44,11 +41,12 @@ beforeEach(() => {
 
 describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
     it('Deve criar um agendamento iniciando agora e com termino em 1 hora', async () => {
-        const useCase = new CreateAppointment(appointmentRepository, professionalRepository, clientRepository);
+        const useCase = new CreateAppointment(factoryRepository);
         const outputOrError = await useCase.execute(createInput);
         expect(outputOrError.ok).toBeTruthy();
         const output = outputOrError.unwrap();
         expect(uuidValidate(output.id)).toBeTruthy();
+
         const appointment = await appointmentRepository.findById (output.id);
         expect(appointment.id).toBeTruthy();
         expect(appointment.startDate).toBe(createInput.startDate);
@@ -61,7 +59,7 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
     });
 
     it('Deve criar um Agendamento e depois  atualizar o valor, o horário e os status de um agendamento e pagamento', async () => {
-        const createUseCase = new CreateAppointment(appointmentRepository, professionalRepository, clientRepository);
+        const createUseCase = new CreateAppointment(factoryRepository);
         const createOutput = (await createUseCase.execute(createInput)).unwrap();
 
         const updateStartDate = new Date(new Date().getTime() + (60 * 60 * 1000));
@@ -78,10 +76,9 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
             Status.CANCELED,
             PaymentStatus.PENDING
         );
-        const useCase = new UpdateAppointment(appointmentRepository);
+        const useCase = new UpdateAppointment(factoryRepository);
         const outputOrError = await useCase.execute(updateInput);
         expect(outputOrError.ok).toBeTruthy();
-
         const appointment = await appointmentRepository.findById (createOutput.id);
         expect(appointment.id).toBe(updateInput.id);
         expect(appointment.startDate).toBe(updateInput.startDate);
@@ -95,7 +92,7 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
     });
 
     it('Deve buscar os agendamentos de um cliente específico', async () => {
-        const useCase = new getAppointmentByClient(appointmentRepository);
+        const useCase = new getAppointmentByClient(factoryRepository);
         const outputOrError = await useCase.execute('1');
         expect(outputOrError.ok).toBeTruthy();
         const output = outputOrError.unwrap();
@@ -105,7 +102,7 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
         });
 
     it ('Deve buscar os agendamentos de um profissional específico', async () => {
-        const useCase = new GetAppointmentByProfessional(appointmentRepository);
+        const useCase = new GetAppointmentByProfessional(factoryRepository);
         const outputOrError = await useCase.execute('2');
         expect(outputOrError.ok).toBeTruthy();
         const output = outputOrError.unwrap();

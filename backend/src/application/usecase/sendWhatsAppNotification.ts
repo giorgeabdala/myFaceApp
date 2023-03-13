@@ -4,6 +4,7 @@ import {IProfessionalRepository} from "../../domain/adapters/IProfessionalReposi
 import IClientRepository from "../../domain/adapters/IClientRepository";
 import IWhatsAppNotificationService from "../../domain/adapters/IWhatsAppNotificationService";
 import dayjs from 'dayjs';
+import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
 export type sendWhatsAppNotificationInput = {
     appointmentId: string,
@@ -18,8 +19,15 @@ export type sendWhatsAppNotificationOutput = {
 const MSG = 'Notificação enviada com sucesso';
 
 export default class SendWhatsAppNotification {
+    private  appointmentRepository: IAppointmentRepository;
+    private  professionalRepository: IProfessionalRepository;
+    private  clientRepository: IClientRepository;
 
-    constructor(readonly appointmentRepository: IAppointmentRepository, readonly professionalRepository: IProfessionalRepository, readonly clientRepository: IClientRepository, readonly notification: IWhatsAppNotificationService) {}
+    constructor(readonly factoryRepository: IRepositoryFactory, readonly notification: IWhatsAppNotificationService) {
+        this.appointmentRepository = factoryRepository.createAppointmentsRepository();
+        this.professionalRepository = factoryRepository.createProfessionalRepository();
+        this.clientRepository = factoryRepository.createClientRepository();
+    }
 
     public async execute(input: sendWhatsAppNotificationInput): Promise<Result<sendWhatsAppNotificationOutput,string>> {
         const appointment = await this.appointmentRepository.findById(input.appointmentId);
@@ -31,7 +39,7 @@ export default class SendWhatsAppNotification {
 
         const appointmentDate = dayjs(appointment.startDate).format('DD/MM/YYYY');
         const appointmentHour = dayjs(appointment.startDate).format('HH:mm');
-        const send = await this.notification.send(client.cellPhone.DDD, client.cellPhone.number, client.name, appointmentDate, appointmentHour);
+        const send = await this.notification.send(client.cellPhone.DDD, client.cellPhone.number, client.firstName, appointmentDate, appointmentHour);
 
         if (send.err) return new Err('Não foi possível enviar a notificação. ' + send.err);
         return Ok<sendWhatsAppNotificationOutput>({result: true, msg: MSG});

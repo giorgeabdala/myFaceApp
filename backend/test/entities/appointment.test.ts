@@ -41,10 +41,12 @@ describe('Deve testar a criação de agendamentos', () => {
         expect(() => Appointment.create('1',new Date(), new Date(), -100, professional, client, status).err);
     } );
     it('Deve lançar um erro ao criar um agendamento com profissional inválido', () => {
-        expect(() => Appointment.create('1',new Date(), new Date(), 100, Professional.create('1','', '11', '999999999', 'giorgeabdala@gmail.com').unwrap(), client, status).err);
+        expect(() => Appointment.create('1',new Date(), new Date(), 100,
+            Professional.create('1','', 'last','11', '999999999', 'giorgeabdala@gmail.com').unwrap(), client, status).err);
 } );
     it('Deve lançar um erro ao criar um agendamento com cliente inválido', () => {
-        expect(() => Appointment.create('1', new Date(), new Date(), 100, professional,  Client.create('', '11', '999999999', 'giorgeabdala@gmail.com').unwrap(), status).err);
+        expect(() => Appointment.create('1', new Date(), new Date(), 100, professional,  Client.create('',
+            'name','last', '999999999', 'giorgeabdala@gmail.com').unwrap(), status).err);
     } );
     it ('Deve lançar um erro ao criar um agendamento com data de início maior que a data de fim', () => {
         expect(() => Appointment.create('1', endDate, startDate, 100, professional, client, status).err);

@@ -1,6 +1,7 @@
 import {IAppointmentRepository} from "../../domain/adapters/IAppointmentRepository";
 import {Status} from "../../domain/entities/appointment";
 import { Ok, Result } from 'ts-results';
+import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
 type getAppointmentOutput = {
     id: string,
@@ -13,7 +14,12 @@ type getAppointmentOutput = {
 }
 
 export default class GetAppointmentByProfessional {
-    constructor(readonly appointmentRepository: IAppointmentRepository) {}
+    private  appointmentRepository: IAppointmentRepository;
+
+
+    constructor(readonly factoryRepository: IRepositoryFactory) {
+        this.appointmentRepository = factoryRepository.createAppointmentsRepository();
+    }
 
     public async execute(professionalId: string): Promise<Result<getAppointmentOutput[], string>> {
         const appointments = await this.appointmentRepository.findByProfessionalId(professionalId);

@@ -3,10 +3,14 @@ import IClientRepository from "../../domain/adapters/IClientRepository";
 import {CreateClientInput, CreateClientOutput} from "../dto/createClientDTO";
 import { Ok, Err, Result } from 'ts-results';
 import {v4 as uuidv4} from 'uuid';
+import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
 
 export default class CreateClient {
-    constructor(readonly clientRepository: IClientRepository) {}
+    private clientRepository: IClientRepository;
+    constructor(readonly factoryRepository: IRepositoryFactory) {
+        this.clientRepository = factoryRepository.createClientRepository();
+    }
 
     async execute(input: CreateClientInput): Promise<Result<CreateClientOutput,string>> {
         const id = uuidv4();
