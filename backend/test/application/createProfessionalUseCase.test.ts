@@ -15,13 +15,10 @@ describe('Deve testar a criação de profissionais', () => {
     it('Deve criar um profissional válido', async () => {
 
         const createProfessionalUseCase = new CreateProfessional(factoryRepository);
-        const input= {
-            firstName: 'Jô',
-            lastName: 'Abdala',
-            DDD: '41',
-            number: '985691112',
-            email: 'giorgeabdala@gmail.com'
-        }
+
+        const input = new CreateProfessionalInput('Giorge',
+            'Abdala', '41', '985691112', 'giorgeabdala@gmai.com');
+
         const outputOrError = await createProfessionalUseCase.execute(input);
         expect(outputOrError.ok).toBe(true);
         const output = outputOrError.unwrap();

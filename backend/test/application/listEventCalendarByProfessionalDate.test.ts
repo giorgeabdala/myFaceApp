@@ -36,4 +36,19 @@ describe('Deve testar a busca de eventos na agenda do Google Calendar', () => {
         expect(events[0].id).toBeTruthy();
 
     });
-} );
+
+    it('Deve retornar Option.None quando não houver eventos', async () => {
+        input = {
+            professionalId: '1',
+            date: '2023-03-03'
+        }
+        const usecase =  new ListEventsCalendarByProfessionalDate( factoryRepository,googleService  )
+        const eventsOrError = await usecase.execute(input);
+        expect(eventsOrError.ok).toBe(true);
+        const events = eventsOrError.unwrap();
+        expect(events).toBeInstanceOf(Array);
+        console.log(events);
+        expect(events.length).toBe(0);
+
+    } );
+} )
