@@ -3,7 +3,7 @@ import IClientRepository from "../../domain/adapters/IClientRepository";
 import GetClientsOutput from "../dto/getClientsOutput";
 import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
-export default class GetClients {
+export default class GetClientsUseCase {
     private clientRepository: IClientRepository;
 
     constructor(readonly factoryRepository: IRepositoryFactory){

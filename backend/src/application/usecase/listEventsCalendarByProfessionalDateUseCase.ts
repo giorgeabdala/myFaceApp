@@ -15,7 +15,7 @@ export type ListEventsProfessionalOutput = {
     endDateTime: string;
 }
 
-export default class ListEventsCalendarByProfessionalDate {
+export default class ListEventsCalendarByProfessionalDateUseCase {
     private professionalRepository: IProfessionalRepository = this.factoryRepository.createProfessionalRepository();
     private output: ListEventsProfessionalOutput[] = [];
 

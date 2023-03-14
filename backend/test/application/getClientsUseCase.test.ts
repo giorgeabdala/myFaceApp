@@ -1,5 +1,5 @@
 import IClientRepository from "../../src/domain/adapters/IClientRepository";
-import GetClients from "../../src/application/usecase/getClients";
+import GetClientsUseCase from "../../src/application/usecase/getClientsUseCase";
 import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
 
 let repository: IClientRepository;
@@ -11,7 +11,7 @@ beforeEach(() => {
 
 describe('Deve testar a busca de todos os clientes', () => {
     it('Deve buscar todos os clientes', async () => {
-        const useCase = new GetClients(factoryRepository);
+        const useCase = new GetClientsUseCase(factoryRepository);
         const outputOrError = await useCase.execute();
         expect(outputOrError.ok).toBe(true);
 

@@ -6,7 +6,7 @@ import {CreateAppointmentOutput} from "../dto/createAppointmentDTO";
 import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
 
-export default class UpdateAppointment {
+export default class UpdateAppointmentUseCase {
     private  appointmentRepository: IAppointmentRepository;
     constructor(readonly factoryRepository: IRepositoryFactory) {
         this.appointmentRepository = factoryRepository.createAppointmentsRepository();

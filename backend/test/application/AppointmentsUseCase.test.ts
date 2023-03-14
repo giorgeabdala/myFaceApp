@@ -1,4 +1,4 @@
-import CreateAppointment from "../../src/application/usecase/createAppointment";
+import CreateAppointmentUseCase from "../../src/application/usecase/createAppointmentUseCase";
 import {CreateAppointmentInput} from "../../src/application/dto/createAppointmentDTO";
 import {PaymentStatus, Status} from "../../src/domain/entities/appointment";
 import { validate as uuidValidate } from 'uuid';
@@ -6,9 +6,9 @@ import {IAppointmentRepository} from "../../src/domain/adapters/IAppointmentRepo
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import IClientRepository from "../../src/domain/adapters/IClientRepository";
 import {UpdateAppointmentInput} from "../../src/application/dto/updateAppointmentDTO";
-import UpdateAppointment from "../../src/application/usecase/updateAppointment";
+import UpdateAppointmentUseCase from "../../src/application/usecase/updateAppointmentUseCase";
 import getAppointmentByClient from "../../src/application/usecase/getAppointmentByClient";
-import GetAppointmentByProfessional from "../../src/application/usecase/getAppointmentByProfessional";
+import GetAppointmentByProfessionalUseCase from "../../src/application/usecase/getAppointmentByProfessionalUseCase";
 import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
 import IRepositoryFactory from "../../src/domain/factory/IRepositoryFactory";
 
@@ -41,7 +41,7 @@ beforeEach(() => {
 
 describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
     it('Deve criar um agendamento iniciando agora e com termino em 1 hora', async () => {
-        const useCase = new CreateAppointment(factoryRepository);
+        const useCase = new CreateAppointmentUseCase(factoryRepository);
         const outputOrError = await useCase.execute(createInput);
         expect(outputOrError.ok).toBeTruthy();
         const output = outputOrError.unwrap();
@@ -59,7 +59,7 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
     });
 
     it('Deve criar um Agendamento e depois  atualizar o valor, o horário e os status de um agendamento e pagamento', async () => {
-        const createUseCase = new CreateAppointment(factoryRepository);
+        const createUseCase = new CreateAppointmentUseCase(factoryRepository);
         const createOutput = (await createUseCase.execute(createInput)).unwrap();
 
         const updateStartDate = new Date(new Date().getTime() + (60 * 60 * 1000));
@@ -76,7 +76,7 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
             Status.CANCELED,
             PaymentStatus.PENDING
         );
-        const useCase = new UpdateAppointment(factoryRepository);
+        const useCase = new UpdateAppointmentUseCase(factoryRepository);
         const outputOrError = await useCase.execute(updateInput);
         expect(outputOrError.ok).toBeTruthy();
         const appointment = await appointmentRepository.findById (createOutput.id);
@@ -102,7 +102,7 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
         });
 
     it ('Deve buscar os agendamentos de um profissional específico', async () => {
-        const useCase = new GetAppointmentByProfessional(factoryRepository);
+        const useCase = new GetAppointmentByProfessionalUseCase(factoryRepository);
         const outputOrError = await useCase.execute('2');
         expect(outputOrError.ok).toBeTruthy();
         const output = outputOrError.unwrap();

@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {CreateProfessionalInput, CreateProfessionalOutput} from "../dto/createProfessionalDTO";
 import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
-export class CreateProfessional {
+export class CreateProfessionalUseCase {
     private professionalRepository: IProfessionalRepository;
 
 

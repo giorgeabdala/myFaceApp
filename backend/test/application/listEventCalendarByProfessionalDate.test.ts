@@ -1,4 +1,4 @@
-import ListEventsCalendarByProfessionalDate, {ListEventsProfessionalInput} from "../../src/application/usecase/listEventsCalendarByPRofessionalDate";
+import ListEventsCalendarByProfessionalDateUseCase, {ListEventsProfessionalInput} from "../../src/application/usecase/listEventsCalendarByProfessionalDateUseCase";
 import GoogleCalendarService from "../../src/infra/service/googleCalendar/GoogleCalendarService";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import IGoogleCalendarService from "../../src/domain/adapters/IGoogleCalendarService";
@@ -23,7 +23,7 @@ beforeEach(() => {
 
 describe('Deve testar a busca de eventos na agenda do Google Calendar', () => {
     it('Deve retornar um Array com todos os eventos de um profissional em um dia', async () => {
-        const usecase =  new ListEventsCalendarByProfessionalDate( factoryRepository,googleService  )
+        const usecase =  new ListEventsCalendarByProfessionalDateUseCase( factoryRepository,googleService  )
         const eventsOrError = await usecase.execute(input);
         expect(eventsOrError.ok).toBe(true);
         expect(eventsOrError.unwrap()).toBeInstanceOf(Array);
@@ -42,7 +42,7 @@ describe('Deve testar a busca de eventos na agenda do Google Calendar', () => {
             professionalId: '1',
             date: '2023-03-03'
         }
-        const usecase =  new ListEventsCalendarByProfessionalDate( factoryRepository,googleService  )
+        const usecase =  new ListEventsCalendarByProfessionalDateUseCase( factoryRepository,googleService  )
         const eventsOrError = await usecase.execute(input);
         expect(eventsOrError.ok).toBe(true);
         const events = eventsOrError.unwrap();

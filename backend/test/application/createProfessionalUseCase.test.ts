@@ -1,5 +1,5 @@
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
-import {CreateProfessional} from "../../src/application/usecase/createProfessional";
+import {CreateProfessionalUseCase} from "../../src/application/usecase/createProfessionalUseCase";
 import { validate as uuidValidate } from 'uuid';
 import {CreateProfessionalInput} from "../../src/application/dto/createProfessionalDTO";
 import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
@@ -14,7 +14,7 @@ beforeEach(() => {
 describe('Deve testar a criação de profissionais', () => {
     it('Deve criar um profissional válido', async () => {
 
-        const createProfessionalUseCase = new CreateProfessional(factoryRepository);
+        const createProfessionalUseCase = new CreateProfessionalUseCase(factoryRepository);
 
         const input = new CreateProfessionalInput('Giorge',
             'Abdala', '41', '985691112', 'giorgeabdala@gmai.com');
@@ -32,7 +32,7 @@ describe('Deve testar a criação de profissionais', () => {
     });
 
     it('Deve lançar um erro ao criar um profissional com nome inválido', async () => {
-        const createProfessionalUseCase = new CreateProfessional(factoryRepository);
+        const createProfessionalUseCase = new CreateProfessionalUseCase(factoryRepository);
         const input : CreateProfessionalInput = {
             firstName: 'J',
             lastName: 'Abdala',
@@ -45,7 +45,7 @@ describe('Deve testar a criação de profissionais', () => {
     });
 
     it('Deve lançar um erro ao criar um profissional com DDD inválido', async () => {
-        const createProfessionalUseCase = new CreateProfessional(factoryRepository);
+        const createProfessionalUseCase = new CreateProfessionalUseCase(factoryRepository);
         const input: CreateProfessionalInput = {
             firstName: 'João',
             lastName: 'Abdala',
@@ -58,7 +58,7 @@ describe('Deve testar a criação de profissionais', () => {
 } );
 
     it('Deve lançar um erro ao criar um profissional com número inválido', async () => {
-        const createProfessionalUseCase = new CreateProfessional(factoryRepository);
+        const createProfessionalUseCase = new CreateProfessionalUseCase(factoryRepository);
         const input: CreateProfessionalInput = {
             firstName: 'João',
             lastName: 'Abdala',
@@ -71,7 +71,7 @@ describe('Deve testar a criação de profissionais', () => {
 } );
 
     it('Deve lançar um erro ao criar um profissional com email inválido', async () => {
-        const createProfessionalUseCase = new CreateProfessional(factoryRepository);
+        const createProfessionalUseCase = new CreateProfessionalUseCase(factoryRepository);
         const input: CreateProfessionalInput = {
             firstName: 'João',
             lastName: 'Abdala',
@@ -84,7 +84,7 @@ describe('Deve testar a criação de profissionais', () => {
     } );
 
     it ('Deve lançar um erro ao criar um profissional com um lastName inválido', async () => {
-        const createProfessionalUseCase = new CreateProfessional(factoryRepository);
+        const createProfessionalUseCase = new CreateProfessionalUseCase(factoryRepository);
         const input: CreateProfessionalInput = {
             firstName: 'João',
             lastName: 'b',

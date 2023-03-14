@@ -13,7 +13,7 @@ type getAppointmentOutput = {
     status: Status
 };
 
-export default class {
+export default class getAppointmentByClientUseCase {
     private  appointmentRepository: IAppointmentRepository;
 
     constructor(readonly factoryRepository: IRepositoryFactory) {

@@ -6,7 +6,7 @@ import {v4 as uuidv4} from 'uuid';
 import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
 
-export default class CreateClient {
+export default class CreateClientUseCase {
     private clientRepository: IClientRepository;
     constructor(readonly factoryRepository: IRepositoryFactory) {
         this.clientRepository = factoryRepository.createClientRepository();

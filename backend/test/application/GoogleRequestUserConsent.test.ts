@@ -1,5 +1,5 @@
-import GoogleRequestUserConsent, {
-} from "../../src/application/usecase/GoogleRequestUserConsent";
+import GoogleRequestUserConsentUseCase, {
+} from "../../src/application/usecase/GoogleRequestUserConsentUseCase";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import { describe } from 'vitest'
 import {Ok, Result} from "ts-results";
@@ -24,7 +24,7 @@ beforeEach(() => {
 describe('Deve testar a solicitação de acesso ao Google Calendar', () => {
     it ('Deve pegar a autorização do usuário e salvar o token',  async () => {
         const input = {professionalId: '1',}
-        const usecase = new GoogleRequestUserConsent(userRequestService);
+        const usecase = new GoogleRequestUserConsentUseCase(userRequestService);
         const response = await usecase.execute(input);
         expect(response.ok).toBe(true);
         const output = response.unwrap();

@@ -8,7 +8,7 @@ import IClientRepository from "../../domain/adapters/IClientRepository";
 import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
 
-export default class CreateAppointment {
+export default class CreateAppointmentUseCase {
     private professionalRepository: IProfessionalRepository;
     private clientRepository: IClientRepository;
     private appointmentRepository: IAppointmentRepository;

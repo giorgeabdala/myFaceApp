@@ -11,7 +11,7 @@ export type GoogleRequestUserConsentOutput = {
     token: string;
 }
 
-export default class GoogleRequestUserConsent {
+export default class GoogleRequestUserConsentUseCase {
 
     constructor(readonly userRequestService: IGoogleCalendarService) {}
 
