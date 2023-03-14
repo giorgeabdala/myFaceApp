@@ -8,13 +8,12 @@ import FindAllClientsUseCase from "../application/usecase/findAllClientsUseCase"
 
 @Controller('client')
 export class ClientController {
-  constructor() {}
+  constructor(readonly factoryRepository = FactoryBuilder.getFactoryRepository()) {}
 
   @Post()
   async create(@Body() createClientDto: CreateClientInput) {
     try {
-      const factoryRepository = FactoryBuilder.getFactoryRepository();
-      const usecase = new CreateClientUseCase(factoryRepository);
+      const usecase = new CreateClientUseCase(this.factoryRepository);
       const outputOrError = await usecase.execute(createClientDto);
       if (outputOrError.err)  return  badRequest(outputOrError.val);
       return ok(outputOrError.unwrap());
@@ -27,8 +26,7 @@ export class ClientController {
   @Get()
   async findAll() {
     try {
-        const factoryRepository = FactoryBuilder.getFactoryRepository();
-        const usecase = new FindAllClientsUseCase(factoryRepository);
+        const usecase = new FindAllClientsUseCase(this.factoryRepository);
         const outputOrError = await usecase.execute();
         if (outputOrError.err)  return  badRequest(outputOrError.val);
         return ok(outputOrError.unwrap());

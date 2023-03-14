@@ -5,8 +5,8 @@ import { validate as uuidValidate } from 'uuid';
 import {IAppointmentRepository} from "../../src/domain/adapters/IAppointmentRepository";
 import {UpdateAppointmentInput} from "../../src/application/dto/updateAppointmentDTO";
 import UpdateAppointmentUseCase from "../../src/application/usecase/updateAppointmentUseCase";
-import getAppointmentByClient from "../../src/application/usecase/getAppointmentByClient";
-import GetAppointmentByProfessionalUseCase from "../../src/application/usecase/getAppointmentByProfessionalUseCase";
+import getAppointmentByClient from "../../src/application/usecase/findAppointmentByClient";
+import FindAppointmentByProfessionalUseCase from "../../src/application/usecase/findAppointmentByProfessionalUseCase";
 import IRepositoryFactory from "../../src/domain/factory/IRepositoryFactory";
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
@@ -100,7 +100,7 @@ describe('Deve testar os casos de uso de CRUD em agendamentos', () => {
         });
 
     it ('Deve buscar os agendamentos de um profissional específico', async () => {
-        const useCase = new GetAppointmentByProfessionalUseCase(factoryRepository);
+        const useCase = new FindAppointmentByProfessionalUseCase(factoryRepository);
         const outputOrError = await useCase.execute('2');
         expect(outputOrError.ok).toBeTruthy();
         const output = outputOrError.unwrap();

@@ -13,7 +13,7 @@ type getAppointmentOutput = {
     status: Status
 }
 
-export default class GetAppointmentByProfessionalUseCase {
+export default class FindAppointmentByProfessionalUseCase {
     private  appointmentRepository: IAppointmentRepository;
 
 

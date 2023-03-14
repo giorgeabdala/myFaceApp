@@ -4,7 +4,7 @@ import {Err, Ok, Result} from "ts-results";
 
 const endpoint = 'https://graph.facebook.com/v15.0/116366861390558/messages';
 const headers = {
-    'Authorization': 'Bearer EAAfUan3WpakBADejvhJyAnwahKGbkb8imETMlSDsduLQMT8GUwS9ZBqwtZC3wdOFPdmMZBtFaaWSlTdC5SvoVaOQd0t9S3dQujKRdgogZBYg6man1KLbZCVW7zZBzGev5iHkZCjZBrffcCPMWiugeXGfkg873cTNkyXBZBj6BMOpQG6vziArRXIDHqntZC61xtSnxpUW98GtkYugZDZD',
+    'Authorization': 'Bearer EAAfUan3WpakBALLjZCYSBpv02nC2ILpsxFxT1L6tvoqwYyeJG39e1TmK7ZCEzFVl22q6aCTkyJh7h4WcXMin57H1l6kBlmNVrJTznNxfn2yUWBULX9BxAZBrn5sfRqnBw5jlXIZC7zNE9OsOfE1oyCZAQDRAMGUj8rNCzP6Nb3ugbYLZCWyKNqhk42e1X9dGmm2phI8py1vwZDZD',
     'Content-Type': 'application/json',
 };
 const data = {

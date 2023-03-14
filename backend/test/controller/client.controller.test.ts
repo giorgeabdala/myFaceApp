@@ -1,5 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ClientController } from '../../src/controller/client.controller';
+import {CreateClientOutput} from "../../src/application/dto/createClientDTO";
+import FindAllClientsOutput from "../../src/application/dto/findAllClientsOutput";
 
 describe('ClientController', () => {
   let controller: ClientController;
@@ -25,8 +27,10 @@ describe('ClientController', () => {
         number: "999999999",
         email: "joao@gmail.com"
     }
-     const result = await controller.create(input);
-    expect(result.success).toBeTruthy();
+    const output = await controller.create(input);
+    expect(output.success).toBe(true);
+    expect(output.body).toBeInstanceOf(CreateClientOutput);
+
     });
 
   it('Deve retornar um serverError ao cliar um cliente inválido', async () => {
@@ -43,9 +47,9 @@ describe('ClientController', () => {
   } );
 
   it('Deve retornar todos os clients', async () => {
-    const result = await controller.findAll();
-    console.log(result);
-    expect(result.success).toBeTruthy();
+    const output = await controller.findAll();
+      expect(output.success).toBe(true);
+      expect(output.body).toBeInstanceOf(Array<FindAllClientsOutput>);
   } );
 
 });
