@@ -6,13 +6,13 @@ import IWhatsAppNotificationService from "../../domain/adapters/IWhatsAppNotific
 import dayjs from 'dayjs';
 import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
-export type sendWhatsAppNotificationInput = {
+export type WhatsAppNotificationInput = {
     appointmentId: string,
     professionalId: string,
     clientId: string
 }
 
-export type sendWhatsAppNotificationOutput = {
+export type WhatsAppNotificationOutput = {
     result: boolean,
     msg: string
 }
@@ -29,7 +29,7 @@ export default class SendWhatsAppNotificationUseCase {
         this.clientRepository = factoryRepository.getClientRepository();
     }
 
-    public async execute(input: sendWhatsAppNotificationInput): Promise<Result<sendWhatsAppNotificationOutput,string>> {
+    public async execute(input: WhatsAppNotificationInput): Promise<Result<WhatsAppNotificationOutput,string>> {
         const appointment = await this.appointmentRepository.findById(input.appointmentId);
         const professional = await this.professionalRepository.findById(input.professionalId);
         const client = await this.clientRepository.findById(input.clientId);
@@ -42,7 +42,7 @@ export default class SendWhatsAppNotificationUseCase {
         const send = await this.notification.send(client.cellPhone.DDD, client.cellPhone.number, client.firstName, appointmentDate, appointmentHour);
 
         if (send.err) return new Err('Não foi possível enviar a notificação. ' + send.err);
-        return Ok<sendWhatsAppNotificationOutput>({result: true, msg: MSG});
+        return Ok<WhatsAppNotificationOutput>({result: true, msg: MSG});
     }
 
 }

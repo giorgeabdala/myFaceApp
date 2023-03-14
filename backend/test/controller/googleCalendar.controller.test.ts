@@ -24,7 +24,6 @@ describe('GooglecloudController', () => {
     }
 
     const result = await controller.findEventsByProfessional(input);
-    console.log(result);
     expect(result.statusCode).toBe(200);
     expect(result.success).toBe(true);
     expect(result.body).toBeInstanceOf(Array);

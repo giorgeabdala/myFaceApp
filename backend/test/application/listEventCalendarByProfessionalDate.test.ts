@@ -4,6 +4,7 @@ import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRe
 import IGoogleCalendarService from "../../src/domain/adapters/IGoogleCalendarService";
 import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
+import ServiceFactory from "../../src/infra/factory/ServiceFactory";
 
 let input: FindEventsProfessionalInput;
 let googleService: IGoogleCalendarService;
@@ -11,7 +12,7 @@ let professionalRepository: IProfessionalRepository;
 const factoryRepository = FactoryBuilder.getFactoryRepository();
 
 beforeEach(() => {
-    googleService = new GoogleCalendarService();
+    googleService = ServiceFactory.getGoogleCalendarService();
     professionalRepository =factoryRepository.getProfessionalRepository();
     const hoje = new Date();
 

@@ -3,12 +3,12 @@ import FactoryBuilder from "../infra/factory/FactoryBuilder";
 import {badRequest, ok, serverError} from "../utils/helpers/http-helper";
 import FindEventsCalendarByProfessionalDateUseCase, {FindEventsProfessionalInput} from "../application/usecase/findEventsCalendarByProfessionalDateUseCase";
 import IGoogleCalendarService from "../domain/adapters/IGoogleCalendarService";
-import GoogleCalendarService from "../infra/service/googleCalendar/GoogleCalendarService";
+import ServiceFactory from "../infra/factory/ServiceFactory";
 
 @Controller('googlecloud')
 export class GoogleCalendarController {
   constructor(readonly factoryRepository = FactoryBuilder.getFactoryRepository(),
-              readonly calendarService: IGoogleCalendarService = new GoogleCalendarService()) {}
+              readonly calendarService: IGoogleCalendarService = ServiceFactory.getGoogleCalendarService()) {}
 
   @Get(':findByProfessional')
   async findEventsByProfessional(@Body() input: FindEventsProfessionalInput) {

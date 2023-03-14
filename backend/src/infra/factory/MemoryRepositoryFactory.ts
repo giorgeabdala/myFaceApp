@@ -8,7 +8,7 @@ import ProfessionalRepositoryMemory from "../repository/memory/ProfessionalRepos
 
 
 export default class MemoryRepositoryFactory implements IRepositoryFactory {
-    static;
+
     private appointmentRepository: IAppointmentRepository;
     private professionalRepository: IProfessionalRepository;
     private clientRepository: IClientRepository;
