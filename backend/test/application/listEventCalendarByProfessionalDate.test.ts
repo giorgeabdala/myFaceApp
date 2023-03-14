@@ -3,11 +3,12 @@ import GoogleCalendarService from "../../src/infra/service/googleCalendar/Google
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import IGoogleCalendarService from "../../src/domain/adapters/IGoogleCalendarService";
 import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
+import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
 let input: ListEventsProfessionalInput;
 let googleService: IGoogleCalendarService;
 let professionalRepository: IProfessionalRepository;
-const factoryRepository = new MemoryRepositoryFactory();
+const factoryRepository = FactoryBuilder.createFactoryRepository();
 
 beforeEach(() => {
     googleService = new GoogleCalendarService();

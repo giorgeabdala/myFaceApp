@@ -3,14 +3,12 @@ import {CreateAppointmentInput} from "../../src/application/dto/createAppointmen
 import {PaymentStatus, Status} from "../../src/domain/entities/appointment";
 import { validate as uuidValidate } from 'uuid';
 import {IAppointmentRepository} from "../../src/domain/adapters/IAppointmentRepository";
-import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
-import IClientRepository from "../../src/domain/adapters/IClientRepository";
 import {UpdateAppointmentInput} from "../../src/application/dto/updateAppointmentDTO";
 import UpdateAppointmentUseCase from "../../src/application/usecase/updateAppointmentUseCase";
 import getAppointmentByClient from "../../src/application/usecase/getAppointmentByClient";
 import GetAppointmentByProfessionalUseCase from "../../src/application/usecase/getAppointmentByProfessionalUseCase";
-import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
 import IRepositoryFactory from "../../src/domain/factory/IRepositoryFactory";
+import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
 let factoryRepository: IRepositoryFactory;
 let startDate: Date;
@@ -22,7 +20,7 @@ beforeEach(() => {
 
     startDate = new Date(); // data atual
     endDate = new Date(new Date().getTime() + (60 * 60 * 1000));
-    factoryRepository = new MemoryRepositoryFactory();
+    factoryRepository = FactoryBuilder.createFactoryRepository();
     appointmentRepository = factoryRepository.createAppointmentsRepository();
 
     createInput = new CreateAppointmentInput(

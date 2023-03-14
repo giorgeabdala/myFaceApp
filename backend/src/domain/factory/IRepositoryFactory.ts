@@ -7,5 +7,4 @@ export default interface IRepositoryFactory {
     createAppointmentsRepository(): IAppointmentRepository;
     createClientRepository(): IClientRepository;
     createProfessionalRepository(): IProfessionalRepository;
-
 }

@@ -3,9 +3,10 @@ import {CreateClientInput, CreateClientOutput} from "../../src/application/dto/c
 import CreateClientUseCase from "../../src/application/usecase/createClientUseCase";
 import { validate as uuidValidate } from 'uuid';
 import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
+import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
 let  clientRepository: IClientRepository;
-const factoryRepository = new MemoryRepositoryFactory();
+const factoryRepository = FactoryBuilder.createFactoryRepository();
 
 beforeEach(() => {
 

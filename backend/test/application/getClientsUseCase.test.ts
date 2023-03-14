@@ -1,9 +1,9 @@
 import IClientRepository from "../../src/domain/adapters/IClientRepository";
 import GetClientsUseCase from "../../src/application/usecase/getClientsUseCase";
-import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
+import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
 let repository: IClientRepository;
-const factoryRepository = new MemoryRepositoryFactory();
+const factoryRepository = FactoryBuilder.createFactoryRepository();
 
 beforeEach(() => {
     repository = factoryRepository.createClientRepository();

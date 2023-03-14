@@ -4,13 +4,13 @@ import SendWhatsAppNotificationUseCase, {sendWhatsAppNotificationInput} from "..
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import IWhatsAppNotificationService from "../../src/domain/adapters/IWhatsAppNotificationService";
 import WhatsAppNotificationServiceOficial from "../../src/infra/service/WhatsAppNotificationServiceOficial";
-import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
+import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
 let appointmentRepository: IAppointmentRepository;
 let clientRepository: IClientRepository;
 let professionalRepository: IProfessionalRepository;
 let service: IWhatsAppNotificationService;
-const factoryRepository = new MemoryRepositoryFactory();
+const factoryRepository = FactoryBuilder.createFactoryRepository();
 
 beforeEach(() => {
     appointmentRepository = factoryRepository.createAppointmentsRepository();

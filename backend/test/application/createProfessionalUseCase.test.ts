@@ -3,12 +3,13 @@ import {CreateProfessionalUseCase} from "../../src/application/usecase/createPro
 import { validate as uuidValidate } from 'uuid';
 import {CreateProfessionalInput} from "../../src/application/dto/createProfessionalDTO";
 import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
+import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
 let repository: IProfessionalRepository;
-const factoryRepository = new MemoryRepositoryFactory();
+const factoryRepository = FactoryBuilder.createFactoryRepository();
 
 beforeEach(() => {
-    repository = factoryRepository.createProfessionalRepository()
+    repository = factoryRepository.createProfessionalRepository();
 } );
 
 describe('Deve testar a criação de profissionais', () => {

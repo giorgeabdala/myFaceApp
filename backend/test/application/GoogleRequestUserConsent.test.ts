@@ -6,9 +6,9 @@ import {Ok, Result} from "ts-results";
 import IGoogleCalendarService from "../../src/domain/adapters/IGoogleCalendarService";
 import GoogleCalendarService from "../../src/infra/service/googleCalendar/GoogleCalendarService";
 import settings from "../../src/infra/service/googleCalendar/settings";
-import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
+import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
-const factoryRepository = new MemoryRepositoryFactory();
+const factoryRepository = FactoryBuilder.createFactoryRepository();
 let professionalRepository: IProfessionalRepository;
 let userRequestService : IGoogleCalendarService;
 
