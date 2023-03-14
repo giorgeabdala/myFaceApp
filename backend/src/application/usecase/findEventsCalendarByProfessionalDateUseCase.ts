@@ -3,27 +3,27 @@ import {Ok, Result} from "ts-results";
 import {IProfessionalRepository} from "../../domain/adapters/IProfessionalRepository";
 import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
-export type ListEventsProfessionalInput = {
+export type FindEventsProfessionalInput = {
     professionalId: string;
     date: string; // YYYY-MM-DD
 }
 
-export type ListEventsProfessionalOutput = {
+export type FindEventsProfessionalOutput = {
     id: string;
     clientName: string;
     startDateTime: string;
     endDateTime: string;
 }
 
-export default class ListEventsCalendarByProfessionalDateUseCase {
+export default class FindEventsCalendarByProfessionalDateUseCase {
     private professionalRepository: IProfessionalRepository = this.factoryRepository.getProfessionalRepository();
-    private output: ListEventsProfessionalOutput[] = [];
+    private output: FindEventsProfessionalOutput[] = [];
 
     constructor(readonly factoryRepository: IRepositoryFactory, readonly calendarService: IGoogleCalendarService) {
         this.professionalRepository = factoryRepository.getProfessionalRepository();
     }
 
-    async execute(input: ListEventsProfessionalInput): Promise<Result<ListEventsProfessionalOutput[], string>> {
+    async execute(input: FindEventsProfessionalInput): Promise<Result<FindEventsProfessionalOutput[], string>> {
         const professional = await this.professionalRepository.findById(input.professionalId);
         const eventsOrNone =await this.calendarService.findEventByDate(professional.id, professional.calendarId, input.date);
         if (eventsOrNone.none) return new Ok(this.output);

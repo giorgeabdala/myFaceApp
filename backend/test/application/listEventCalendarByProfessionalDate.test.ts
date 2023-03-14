@@ -1,11 +1,11 @@
-import ListEventsCalendarByProfessionalDateUseCase, {ListEventsProfessionalInput} from "../../src/application/usecase/listEventsCalendarByProfessionalDateUseCase";
+import FindEventsCalendarByProfessionalDateUseCase, {FindEventsProfessionalInput} from "../../src/application/usecase/findEventsCalendarByProfessionalDateUseCase";
 import GoogleCalendarService from "../../src/infra/service/googleCalendar/GoogleCalendarService";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import IGoogleCalendarService from "../../src/domain/adapters/IGoogleCalendarService";
 import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
-let input: ListEventsProfessionalInput;
+let input: FindEventsProfessionalInput;
 let googleService: IGoogleCalendarService;
 let professionalRepository: IProfessionalRepository;
 const factoryRepository = FactoryBuilder.getFactoryRepository();
@@ -24,7 +24,7 @@ beforeEach(() => {
 
 describe('Deve testar a busca de eventos na agenda do Google Calendar', () => {
     it('Deve retornar um Array com todos os eventos de um profissional em um dia', async () => {
-        const usecase =  new ListEventsCalendarByProfessionalDateUseCase( factoryRepository,googleService  )
+        const usecase =  new FindEventsCalendarByProfessionalDateUseCase( factoryRepository,googleService  )
         const eventsOrError = await usecase.execute(input);
         expect(eventsOrError.ok).toBe(true);
         expect(eventsOrError.unwrap()).toBeInstanceOf(Array);
@@ -43,7 +43,7 @@ describe('Deve testar a busca de eventos na agenda do Google Calendar', () => {
             professionalId: '1',
             date: '2023-03-03'
         }
-        const usecase =  new ListEventsCalendarByProfessionalDateUseCase( factoryRepository,googleService  )
+        const usecase =  new FindEventsCalendarByProfessionalDateUseCase( factoryRepository,googleService  )
         const eventsOrError = await usecase.execute(input);
         expect(eventsOrError.ok).toBe(true);
         const events = eventsOrError.unwrap();

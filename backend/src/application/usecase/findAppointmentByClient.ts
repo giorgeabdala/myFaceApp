@@ -3,7 +3,7 @@ import { Ok, Result } from 'ts-results';
 import {Status} from "../../domain/entities/appointment";
 import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
-type getAppointmentOutput = {
+type FindAppointmentOutput = {
     id: string,
     startDate: Date,
     endDate: Date,
@@ -20,9 +20,9 @@ export default class FindAppointmentByClientUseCase {
         this.appointmentRepository = factoryRepository.getAppointmentsRepository();
     }
 
-    public async execute(clientId: string): Promise<Result<getAppointmentOutput[], string>> {
+    public async execute(clientId: string): Promise<Result<FindAppointmentOutput[], string>> {
         const appointments = await this.appointmentRepository.findByClientId(clientId);
-        const appointmentsOutput: getAppointmentOutput[] = [];
+        const appointmentsOutput: FindAppointmentOutput[] = [];
             appointments.forEach(appointment => {
                 appointmentsOutput.push({
                     id: appointment.id,
@@ -35,6 +35,6 @@ export default class FindAppointmentByClientUseCase {
                 });
             });
 
-        return Ok<getAppointmentOutput[]>(appointmentsOutput);
+        return Ok<FindAppointmentOutput[]>(appointmentsOutput);
     }
 }
