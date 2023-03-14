@@ -22,7 +22,9 @@
     "jest": "jest --config ./test/jest-e2e.json",
     "vitest": "vitest --config vitest.config.ts",
     "vitest:cov": "vitest run --config vitest.config.ts --coverage",
-    "webstorm-integration": "vitest --watch --reporter=dot --reporter=json --outputFile=.vitest-result.json"
+    "webstorm-integration": "vitest --watch --reporter=dot --reporter=json --outputFile=.vitest-result.json",
+    "nest add": "nest g resource"
+
   },
   "dependencies": {
     "@google-cloud/local-auth": "^2.1.0",

@@ -7,7 +7,7 @@ export default defineConfig({
     ],
     test: {
         globals: true,
-        include: ['**/test/entities/**', './test/application/**'],
+        include: ['**/test/entities/**', './test/application/**', './test/controller/**'],
         coverage: {
             reporter: ['html', 'text', 'lcov'],
             reportsDirectory: './test/coverage'
