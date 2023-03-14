@@ -4,7 +4,7 @@ import {IAppointmentRepository} from "../adapters/IAppointmentRepository";
 
 
 export default interface IRepositoryFactory {
-    createAppointmentsRepository(): IAppointmentRepository;
-    createClientRepository(): IClientRepository;
-    createProfessionalRepository(): IProfessionalRepository;
+    getAppointmentsRepository(): IAppointmentRepository;
+    getClientRepository(): IClientRepository;
+    getProfessionalRepository(): IProfessionalRepository;
 }

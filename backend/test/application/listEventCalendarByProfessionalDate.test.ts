@@ -8,11 +8,11 @@ import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 let input: ListEventsProfessionalInput;
 let googleService: IGoogleCalendarService;
 let professionalRepository: IProfessionalRepository;
-const factoryRepository = FactoryBuilder.createFactoryRepository();
+const factoryRepository = FactoryBuilder.getFactoryRepository();
 
 beforeEach(() => {
     googleService = new GoogleCalendarService();
-    professionalRepository =factoryRepository.createProfessionalRepository();
+    professionalRepository =factoryRepository.getProfessionalRepository();
     const hoje = new Date();
 
     input = {

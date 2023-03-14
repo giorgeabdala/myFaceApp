@@ -9,7 +9,7 @@ import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 export default class UpdateAppointmentUseCase {
     private  appointmentRepository: IAppointmentRepository;
     constructor(readonly factoryRepository: IRepositoryFactory) {
-        this.appointmentRepository = factoryRepository.createAppointmentsRepository();
+        this.appointmentRepository = factoryRepository.getAppointmentsRepository();
     }
 
     async execute(input: UpdateAppointmentInput): Promise<Result<UpdateAppointmentOutput, string>> {

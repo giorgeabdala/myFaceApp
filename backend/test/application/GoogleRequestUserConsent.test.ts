@@ -8,13 +8,13 @@ import GoogleCalendarService from "../../src/infra/service/googleCalendar/Google
 import settings from "../../src/infra/service/googleCalendar/settings";
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
-const factoryRepository = FactoryBuilder.createFactoryRepository();
+const factoryRepository = FactoryBuilder.getFactoryRepository();
 let professionalRepository: IProfessionalRepository;
 let userRequestService : IGoogleCalendarService;
 
 beforeEach(() => {
     //definir timeout ppara 5 minutos
-    professionalRepository = factoryRepository.createProfessionalRepository();
+    professionalRepository = factoryRepository.getProfessionalRepository();
 
     userRequestService = new GoogleCalendarService();
     //mock do servico

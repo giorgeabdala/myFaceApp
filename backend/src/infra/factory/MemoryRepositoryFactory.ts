@@ -14,18 +14,18 @@ export default class MemoryRepositoryFactory implements IRepositoryFactory {
     private clientRepository: IClientRepository;
 
 
-    createAppointmentsRepository(): IAppointmentRepository {
+    getAppointmentsRepository(): IAppointmentRepository {
         if(!this.appointmentRepository) this.appointmentRepository = new AppointmentRepositoryMemory();
         return this.appointmentRepository;
     }
 
 
-    createClientRepository(): IClientRepository {
+    getClientRepository(): IClientRepository {
         if(!this.clientRepository) this.clientRepository = new ClientRepositoryMemory();
         return this.clientRepository;
     }
 
-    createProfessionalRepository(): IProfessionalRepository {
+    getProfessionalRepository(): IProfessionalRepository {
         if(!this.professionalRepository) this.professionalRepository = new ProfessionalRepositoryMemory();
         return this.professionalRepository;
     }

@@ -5,7 +5,7 @@ import MemoryRepositoryFactory from "./MemoryRepositoryFactory";
 export default class FactoryBuilder {
 
 
-    public static createFactoryRepository(): IRepositoryFactory {
+    public static getFactoryRepository(): IRepositoryFactory {
         return  new MemoryRepositoryFactory();
     }
 

@@ -10,7 +10,7 @@ export class CreateProfessionalUseCase {
 
 
     constructor(readonly factoryRepository: IRepositoryFactory) {
-        this.professionalRepository = factoryRepository.createProfessionalRepository();
+        this.professionalRepository = factoryRepository.getProfessionalRepository();
     }
 
     public async execute(input: CreateProfessionalInput): Promise<Result<CreateProfessionalOutput, string>> {

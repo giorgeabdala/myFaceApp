@@ -16,11 +16,11 @@ export type ListEventsProfessionalOutput = {
 }
 
 export default class ListEventsCalendarByProfessionalDateUseCase {
-    private professionalRepository: IProfessionalRepository = this.factoryRepository.createProfessionalRepository();
+    private professionalRepository: IProfessionalRepository = this.factoryRepository.getProfessionalRepository();
     private output: ListEventsProfessionalOutput[] = [];
 
     constructor(readonly factoryRepository: IRepositoryFactory, readonly calendarService: IGoogleCalendarService) {
-        this.professionalRepository = factoryRepository.createProfessionalRepository();
+        this.professionalRepository = factoryRepository.getProfessionalRepository();
     }
 
     async execute(input: ListEventsProfessionalInput): Promise<Result<ListEventsProfessionalOutput[], string>> {

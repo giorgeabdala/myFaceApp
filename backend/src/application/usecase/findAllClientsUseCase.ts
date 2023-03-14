@@ -1,21 +1,21 @@
 import { Ok, Err, Result } from 'ts-results';
 import IClientRepository from "../../domain/adapters/IClientRepository";
-import GetClientsOutput from "../dto/getClientsOutput";
+import FindAllClientsOutput from "../dto/findAllClientsOutput";
 import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 
-export default class GetClientsUseCase {
+export default class FindAllClientsUseCase {
     private clientRepository: IClientRepository;
 
     constructor(readonly factoryRepository: IRepositoryFactory){
-        this.clientRepository = factoryRepository.createClientRepository();
+        this.clientRepository = factoryRepository.getClientRepository();
     }
 
-    public async execute(): Promise<Result<GetClientsOutput[],string>> {
+    public async execute(): Promise<Result<FindAllClientsOutput[],string>> {
         const clients = await this.clientRepository.findAll();
         if (!clients) return new Err('Erro ao buscar Clientes');
-        const clientsOtput: GetClientsOutput[] = [];
+        const clientsOtput: FindAllClientsOutput[] = [];
         clients.forEach(client => {
-            clientsOtput.push(new GetClientsOutput(
+            clientsOtput.push(new FindAllClientsOutput(
                 client.id,
                 client.name,
                 client.lastName,
@@ -23,6 +23,6 @@ export default class GetClientsUseCase {
                 client.cellPhone.number,
                 client.email));
         } )
-        return Ok<GetClientsOutput[]>(clientsOtput);
+        return Ok<FindAllClientsOutput[]>(clientsOtput);
     }
 }

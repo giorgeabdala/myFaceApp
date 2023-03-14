@@ -6,10 +6,10 @@ import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFac
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
 let repository: IProfessionalRepository;
-const factoryRepository = FactoryBuilder.createFactoryRepository();
+const factoryRepository = FactoryBuilder.getFactoryRepository();
 
 beforeEach(() => {
-    repository = factoryRepository.createProfessionalRepository();
+    repository = factoryRepository.getProfessionalRepository();
 } );
 
 describe('Deve testar a criação de profissionais', () => {

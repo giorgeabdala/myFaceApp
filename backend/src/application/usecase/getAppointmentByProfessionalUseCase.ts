@@ -18,7 +18,7 @@ export default class GetAppointmentByProfessionalUseCase {
 
 
     constructor(readonly factoryRepository: IRepositoryFactory) {
-        this.appointmentRepository = factoryRepository.createAppointmentsRepository();
+        this.appointmentRepository = factoryRepository.getAppointmentsRepository();
     }
 
     public async execute(professionalId: string): Promise<Result<getAppointmentOutput[], string>> {

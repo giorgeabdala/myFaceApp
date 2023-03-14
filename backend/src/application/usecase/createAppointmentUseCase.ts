@@ -15,9 +15,9 @@ export default class CreateAppointmentUseCase {
 
 
      constructor(readonly factoryRepository: IRepositoryFactory) {
-        this.professionalRepository = factoryRepository.createProfessionalRepository();
-        this.clientRepository = factoryRepository.createClientRepository();
-        this.appointmentRepository = factoryRepository.createAppointmentsRepository();
+        this.professionalRepository = factoryRepository.getProfessionalRepository();
+        this.clientRepository = factoryRepository.getClientRepository();
+        this.appointmentRepository = factoryRepository.getAppointmentsRepository();
      }
 
 

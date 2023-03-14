@@ -1,17 +1,17 @@
 import IClientRepository from "../../src/domain/adapters/IClientRepository";
-import GetClientsUseCase from "../../src/application/usecase/getClientsUseCase";
+import FindAllClientsUseCase from "../../src/application/usecase/findAllClientsUseCase";
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
 let repository: IClientRepository;
-const factoryRepository = FactoryBuilder.createFactoryRepository();
+const factoryRepository = FactoryBuilder.getFactoryRepository();
 
 beforeEach(() => {
-    repository = factoryRepository.createClientRepository();
+    repository = factoryRepository.getClientRepository();
 } );
 
 describe('Deve testar a busca de todos os clientes', () => {
     it('Deve buscar todos os clientes', async () => {
-        const useCase = new GetClientsUseCase(factoryRepository);
+        const useCase = new FindAllClientsUseCase(factoryRepository);
         const outputOrError = await useCase.execute();
         expect(outputOrError.ok).toBe(true);
 

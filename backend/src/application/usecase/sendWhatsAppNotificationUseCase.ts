@@ -24,9 +24,9 @@ export default class SendWhatsAppNotificationUseCase {
     private  clientRepository: IClientRepository;
 
     constructor(readonly factoryRepository: IRepositoryFactory, readonly notification: IWhatsAppNotificationService) {
-        this.appointmentRepository = factoryRepository.createAppointmentsRepository();
-        this.professionalRepository = factoryRepository.createProfessionalRepository();
-        this.clientRepository = factoryRepository.createClientRepository();
+        this.appointmentRepository = factoryRepository.getAppointmentsRepository();
+        this.professionalRepository = factoryRepository.getProfessionalRepository();
+        this.clientRepository = factoryRepository.getClientRepository();
     }
 
     public async execute(input: sendWhatsAppNotificationInput): Promise<Result<sendWhatsAppNotificationOutput,string>> {

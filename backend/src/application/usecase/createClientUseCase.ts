@@ -9,7 +9,7 @@ import IRepositoryFactory from "../../domain/factory/IRepositoryFactory";
 export default class CreateClientUseCase {
     private clientRepository: IClientRepository;
     constructor(readonly factoryRepository: IRepositoryFactory) {
-        this.clientRepository = factoryRepository.createClientRepository();
+        this.clientRepository = factoryRepository.getClientRepository();
     }
 
     async execute(input: CreateClientInput): Promise<Result<CreateClientOutput,string>> {

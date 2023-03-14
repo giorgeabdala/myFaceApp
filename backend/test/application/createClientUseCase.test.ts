@@ -6,11 +6,11 @@ import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFac
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
 let  clientRepository: IClientRepository;
-const factoryRepository = FactoryBuilder.createFactoryRepository();
+const factoryRepository = FactoryBuilder.getFactoryRepository();
 
 beforeEach(() => {
 
-     clientRepository = factoryRepository.createClientRepository();
+     clientRepository = factoryRepository.getClientRepository();
  } );
 
 describe('CreateClient', () => {

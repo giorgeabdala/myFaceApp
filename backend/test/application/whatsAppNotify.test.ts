@@ -10,12 +10,12 @@ let appointmentRepository: IAppointmentRepository;
 let clientRepository: IClientRepository;
 let professionalRepository: IProfessionalRepository;
 let service: IWhatsAppNotificationService;
-const factoryRepository = FactoryBuilder.createFactoryRepository();
+const factoryRepository = FactoryBuilder.getFactoryRepository();
 
 beforeEach(() => {
-    appointmentRepository = factoryRepository.createAppointmentsRepository();
-    clientRepository = factoryRepository.createClientRepository();
-    professionalRepository = factoryRepository.createProfessionalRepository();
+    appointmentRepository = factoryRepository.getAppointmentsRepository();
+    clientRepository = factoryRepository.getClientRepository();
+    professionalRepository = factoryRepository.getProfessionalRepository();
     service = new WhatsAppNotificationServiceOficial();
 } );
 

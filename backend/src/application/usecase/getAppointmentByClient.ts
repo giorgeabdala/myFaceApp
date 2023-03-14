@@ -17,7 +17,7 @@ export default class getAppointmentByClientUseCase {
     private  appointmentRepository: IAppointmentRepository;
 
     constructor(readonly factoryRepository: IRepositoryFactory) {
-        this.appointmentRepository = factoryRepository.createAppointmentsRepository();
+        this.appointmentRepository = factoryRepository.getAppointmentsRepository();
     }
 
     public async execute(clientId: string): Promise<Result<getAppointmentOutput[], string>> {
