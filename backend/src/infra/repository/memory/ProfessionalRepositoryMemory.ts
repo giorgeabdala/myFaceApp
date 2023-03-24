@@ -31,5 +31,11 @@ export default class ProfessionalRepositoryMemory implements IProfessionalReposi
         this.professionals.splice(index, 1);
     }
 
+    async update(professional: Professional): Promise<Professional> {
+        const index = this.professionals.findIndex(p => p.id === professional.id);
+        this.professionals[index] = professional;
+        return Promise.resolve(professional);
+    }
+
 
 }

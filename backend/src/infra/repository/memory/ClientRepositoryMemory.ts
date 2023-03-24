@@ -35,6 +35,12 @@ export default class ClientRepositoryMemory implements IClientRepository {
         this.clients.splice(index, 1);
     }
 
+    public async update(client: Client): Promise<Client> {
+        const index = this.clients.findIndex(c => c.id === client.id);
+        this.clients[index] = client;
+        return Promise.resolve(client);
+    }
+
 
 
 }
