@@ -17,7 +17,7 @@ export default class FindAllClientsUseCase {
         clients.forEach(client => {
             clientsOtput.push(new FindAllClientsOutput(
                 client.id,
-                client.name,
+                client.firstName,
                 client.lastName,
                 client.cellPhone.DDD,
                 client.cellPhone.number,

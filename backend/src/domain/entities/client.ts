@@ -21,9 +21,7 @@ export class Client implements User {
 
 
         public get email(): string {
-            if (!this._email) return undefined;
-            if (!this._email.address) return undefined;
-            return this._email.address;
+            return this._email?.address;
         }
 
         public get firstName(): string {

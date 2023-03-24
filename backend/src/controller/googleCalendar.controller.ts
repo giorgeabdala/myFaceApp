@@ -2,7 +2,6 @@ import {Body, Controller, Get, Inject, Param} from '@nestjs/common';
 import {badRequest, okHttp, serverError} from "../utils/helpers/http-helper";
 import FindEventsCalendarByProfessionalDateUseCase, {FindEventsProfessionalInput} from "../application/usecase/findEventsCalendarByProfessionalDateUseCase";
 import IGoogleCalendarService from "../domain/adapters/IGoogleCalendarService";
-import ServiceFactory from "../infra/factory/ServiceFactory";
 import IRepositoryFactory from "../domain/factory/IRepositoryFactory";
 
 @Controller('googlecloud')

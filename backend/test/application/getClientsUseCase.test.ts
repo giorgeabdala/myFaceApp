@@ -22,5 +22,10 @@ describe('Deve testar a busca de todos os clientes', () => {
         expect(output[0].lastName).toBeTruthy();
         expect(output[0].number).toBeTruthy();
         expect(output[0].DDD).toBeTruthy();
+        expect(output[0].firstName).toBe('Giorge');
+        expect(output[0].lastName).toBe('abdala');
+        expect(output[0].number).toBe('995691111');
+        expect(output[0].DDD).toBe('41');
+        expect(output[0].email).toBe('giorgeabdala@gmail.com');
     } );
 } );
