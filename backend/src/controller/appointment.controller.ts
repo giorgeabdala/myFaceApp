@@ -1,15 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, Inject} from '@nestjs/common';
 import FactoryBuilder from "../infra/factory/FactoryBuilder";
 import {CreateAppointmentInput} from "../application/dto/createAppointmentDTO";
 import CreateAppointmentUseCase from "../application/usecase/createAppointmentUseCase";
-import {badRequest, ok, serverError} from "../utils/helpers/http-helper";
+import {badRequest, okHttp, serverError} from "../utils/helpers/http-helper";
 import FindAppointmentByClientUseCase from "../application/usecase/findAppointmentByClient";
 import {UpdateAppointmentInput} from "../application/dto/updateAppointmentDTO";
 import UpdateAppointmentUseCase from "../application/usecase/updateAppointmentUseCase";
+import DeleteAppointmentUseCase from "../application/usecase/deleteAppointmentUseCase";
+import IRepositoryFactory from "../domain/factory/IRepositoryFactory";
 
 @Controller('appointment')
 export class AppointmentController {
-  constructor(readonly factoryRepository = FactoryBuilder.getFactoryRepository()) {}
+  constructor(@Inject('IRepositoryFactory') readonly factoryRepository: IRepositoryFactory) {}
 
   @Post()
   async create(@Body() input: CreateAppointmentInput) {
@@ -17,7 +19,7 @@ export class AppointmentController {
       const usecase = new CreateAppointmentUseCase(this.factoryRepository);
       const appointmentOrError = await usecase.execute(input);
       if(appointmentOrError.err) return badRequest(appointmentOrError.val);
-      return ok(appointmentOrError.unwrap());
+      return okHttp(appointmentOrError.unwrap());
     }
     catch (err) {
         return serverError('Internal Error: ' + err);
@@ -30,7 +32,7 @@ export class AppointmentController {
       const usecase = new FindAppointmentByClientUseCase(this.factoryRepository);
       const appointmentOrError = await usecase.execute(id);
       if(appointmentOrError.err) return badRequest(appointmentOrError.val);
-      return ok(appointmentOrError.unwrap());
+      return okHttp(appointmentOrError.unwrap());
     } catch (err) {
       return serverError('Internal Error: ' + err);
     }
@@ -42,7 +44,7 @@ export class AppointmentController {
             const usecase = new FindAppointmentByClientUseCase(this.factoryRepository);
             const appointmentOrError = await usecase.execute(id);
             if(appointmentOrError.err) return badRequest(appointmentOrError.val);
-            return ok(appointmentOrError.unwrap());
+            return okHttp(appointmentOrError.unwrap());
         } catch (err) {
             return serverError('Internal Error: ' + err);
         }
@@ -54,11 +56,24 @@ export class AppointmentController {
             const usecase = new UpdateAppointmentUseCase(this.factoryRepository);
             const appointmentOrError = await usecase.execute( input);
             if(appointmentOrError.err) return badRequest(appointmentOrError.val);
-            return ok(appointmentOrError.unwrap());
+            return okHttp(appointmentOrError.unwrap());
       } catch (err) {
             return serverError('Internal Error: ' + err);
       }
   }
+
+    @Delete(':id')
+    async delete(@Param('id') id: string) {
+      try {
+            const usecase = new DeleteAppointmentUseCase(this.factoryRepository);
+            const appointmentOrError = await usecase.execute( '1');
+            if(appointmentOrError.err) return badRequest(appointmentOrError.val);
+            return okHttp(appointmentOrError.unwrap());
+      } catch (err) {
+            return serverError('Internal Error: ' + err);
+      }
+
+    }
 
 /*  @Get()
   findAll() {
@@ -72,8 +87,5 @@ export class AppointmentController {
 
 
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.appointmentService.remove(+id);
-  }*/
+*/
 }

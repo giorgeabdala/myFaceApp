@@ -5,4 +5,5 @@ export default interface IClientRepository {
     findById(id: string): Promise<Client>;
     findByPhone(DDD: string, number: string): Promise<Client>;
     findAll(): Promise<Client[]>;
+    delete(client: Client): Promise<void>;
 }

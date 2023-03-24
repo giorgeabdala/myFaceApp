@@ -21,8 +21,15 @@ export default class ProfessionalRepositoryMemory implements IProfessionalReposi
            this.professionals.push(professional);
     }
 
-    findById(id: string): Promise<Professional> | undefined {
+    async findById(id: string): Promise<Professional> | undefined {
         const professional = this.professionals.find(professional => professional.id === id);
         return Promise.resolve(professional);
     }
+
+    async delete(professional: Professional): Promise<void> {
+        const index = this.professionals.indexOf(professional);
+        this.professionals.splice(index, 1);
+    }
+
+
 }

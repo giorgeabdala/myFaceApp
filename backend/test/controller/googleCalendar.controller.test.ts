@@ -1,13 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GoogleCalendarController } from '../../src/controller/googleCalendar.controller';
 import {FindEventsProfessionalInput} from "../../src/application/usecase/findEventsCalendarByProfessionalDateUseCase";
+import {GoogleCalendarModule} from "../../src/nest/googleCalendar.module";
 
 describe('GooglecloudController', () => {
   let controller: GoogleCalendarController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [GoogleCalendarController],
+      imports: [GoogleCalendarModule]
     }).compile();
 
     controller = module.get<GoogleCalendarController>(GoogleCalendarController);

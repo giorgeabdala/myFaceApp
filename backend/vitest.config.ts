@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
 
@@ -8,10 +8,16 @@ export default defineConfig({
     test: {
         globals: true,
         include: ['**/test/entities/**', './test/application/**', './test/controller/**'],
-        coverage: {
+/*      coverage: {
             reporter: ['html', 'text', 'lcov'],
             reportsDirectory: './test/coverage'
         }
+
+ */
     },
 
-})
+}
+
+
+
+)

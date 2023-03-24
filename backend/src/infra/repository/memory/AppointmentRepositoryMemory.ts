@@ -48,6 +48,11 @@ export default class implements IAppointmentRepository {
     async findByClientId(idClient: string): Promise<Appointment[]> {
         return this.appointments.filter((value) => value.getClientId() === idClient);
     }
+
+    async delete(appointment: Appointment): Promise<void> {
+        const index = this.appointments.findIndex((value) => value.id === appointment.id);
+        this.appointments.splice(index, 1);
+    }
 }
 
 

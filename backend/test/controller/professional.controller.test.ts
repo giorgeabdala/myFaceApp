@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProfessionalController } from '../../src/controller/professional.controller';
 import {CreateProfessionalInput, CreateProfessionalOutput} from "../../src/application/dto/createProfessionalDTO";
+import {ProfessionalModule} from "../../src/nest/professional.module";
 
 
 describe('ProfessionalController', () => {
@@ -8,7 +9,7 @@ describe('ProfessionalController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ProfessionalController],
+      imports: [ProfessionalModule],
     }).compile();
 
     controller = module.get<ProfessionalController>(ProfessionalController);
@@ -18,7 +19,7 @@ describe('ProfessionalController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('Deve criar um professoinal', async () => {
+  it('Deve criar um professional', async () => {
     const input : CreateProfessionalInput = {
         firstName: 'João',
         lastName: 'Silva',
@@ -43,6 +44,12 @@ describe('ProfessionalController', () => {
     const result = await controller.create(input);
     expect(result.success).toBeFalsy();
     expect(result.statusCode).toBe(400);
+    } );
+
+    it('Deve deletar um cliente', async () => {
+        const result = await controller.delete('1');
+        expect(result.success).toBeTruthy();
+        expect(result.statusCode).toBe(200);
     } );
 
 });

@@ -2,14 +2,21 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ClientController } from '../../src/controller/client.controller';
 import {CreateClientOutput} from "../../src/application/dto/createClientDTO";
 import FindAllClientsOutput from "../../src/application/dto/findAllClientsOutput";
+import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
+import {ClientModule} from "../../src/nest/client.module";
 
 describe('ClientController', () => {
   let controller: ClientController;
 
+    const repositoryFactory = {
+        provide: 'IRepositoryFactory',
+        useValue: FactoryBuilder.getFactoryRepository()
+    }
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ClientController],
+        imports: [ClientModule],
+
     }).compile();
 
     controller = module.get<ClientController>(ClientController);
@@ -50,6 +57,12 @@ describe('ClientController', () => {
     const output = await controller.findAll();
       expect(output.success).toBe(true);
       expect(output.body).toBeInstanceOf(Array<FindAllClientsOutput>);
+  } );
+
+  it('Deve deletar um client', async () => {
+      const output = await controller.delete('1');
+        expect(output.success).toBe(true);
+
   } );
 
 });

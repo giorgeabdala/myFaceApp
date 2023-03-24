@@ -4,7 +4,7 @@ export interface HttpResponse {
     body: any
 }
 
-export const ok = (data: any): HttpResponse => ({
+export const okHttp = (data: any): HttpResponse => ({
     statusCode: 200,
     success: true,
     body: data

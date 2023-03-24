@@ -24,12 +24,12 @@
     "vitest:cov": "vitest run --config vitest.config.ts --coverage",
     "webstorm-integration": "vitest --watch --reporter=dot --reporter=json --outputFile=.vitest-result.json",
     "nest add": "nest g resource"
-
   },
   "dependencies": {
     "@google-cloud/local-auth": "^2.1.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^9.0.0",
     "axios": "^1.3.4",
     "dayjs": "^1.11.7",
@@ -55,6 +55,7 @@
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "@vitest/coverage-c8": "^0.29.2",
+    "@vitest/coverage-istanbul": "^0.29.7",
     "@vitest/ui": "^0.29.2",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",

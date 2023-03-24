@@ -30,4 +30,11 @@ export default class ClientRepositoryMemory implements IClientRepository {
         return Promise.resolve(this.clients);
     }
 
+    public async delete(client: Client): Promise<void> {
+        const index = this.clients.indexOf(client);
+        this.clients.splice(index, 1);
+    }
+
+
+
 }

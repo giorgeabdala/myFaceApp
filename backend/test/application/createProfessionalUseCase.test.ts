@@ -2,7 +2,6 @@ import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRe
 import {CreateProfessionalUseCase} from "../../src/application/usecase/createProfessionalUseCase";
 import { validate as uuidValidate } from 'uuid';
 import {CreateProfessionalInput} from "../../src/application/dto/createProfessionalDTO";
-import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
 let repository: IProfessionalRepository;

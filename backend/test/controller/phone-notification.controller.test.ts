@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PhoneNotificationController } from '../../src/controller/phone-notification.controller';
 import {WhatsAppNotificationInput} from "../../src/application/usecase/sendWhatsAppNotificationUseCase";
+import {PhoneNotificationModule} from "../../src/nest/phone-notification.module";
 
 
 describe('PhoneNotificationController', () => {
@@ -8,7 +9,7 @@ describe('PhoneNotificationController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [PhoneNotificationController],
+      imports: [PhoneNotificationModule]
     }).compile();
 
     controller = module.get<PhoneNotificationController>(PhoneNotificationController);

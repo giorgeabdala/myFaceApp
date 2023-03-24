@@ -2,7 +2,6 @@ import IClientRepository from "../../src/domain/adapters/IClientRepository";
 import {CreateClientInput, CreateClientOutput} from "../../src/application/dto/createClientDTO";
 import CreateClientUseCase from "../../src/application/usecase/createClientUseCase";
 import { validate as uuidValidate } from 'uuid';
-import MemoryRepositoryFactory from "../../src/infra/factory/MemoryRepositoryFactory";
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
 let  clientRepository: IClientRepository;

@@ -5,7 +5,6 @@ import { Ok, Err, Result } from 'ts-results';
 import Name from "./Name";
 
 export class Client implements User {
-private annotations: string = '';
 
     private constructor(readonly id: string, readonly name: Name, readonly cellPhone: Phone, readonly _email?: Email) {}
 
@@ -20,15 +19,6 @@ private annotations: string = '';
         return new Ok(new Client(id,nameOrError.unwrap(),phoneOrError.unwrap(), emailOrError.unwrap()));
     }
 
-
-
-        setAnnotations(annotations: string) {
-            this.annotations = annotations;
-        }
-
-        getAnnotations(): string {
-            return this.annotations;
-        }
 
         public get email(): string {
             if (!this._email) return undefined;

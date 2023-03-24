@@ -7,6 +7,7 @@ import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 import IRepositoryFactory from "../../src/domain/factory/IRepositoryFactory";
 import {UpdateAppointmentInput, UpdateAppointmentOutput} from "../../src/application/dto/updateAppointmentDTO";
 import UpdateAppointmentUseCase from "../../src/application/usecase/updateAppointmentUseCase";
+import {AppointmentModule} from "../../src/nest/appointment.module";
 
 describe('AppointmentController', () => {
     let factoryRepository: IRepositoryFactory;
@@ -31,7 +32,7 @@ describe('AppointmentController', () => {
       );
 
         const module: TestingModule = await Test.createTestingModule({
-        controllers: [AppointmentController],
+        imports: [AppointmentModule]
      }).compile();
         controller = module.get<AppointmentController>(AppointmentController);
   });
@@ -50,8 +51,8 @@ describe('AppointmentController', () => {
 });
 
     it('Deve retornar um badRequest ao criar um agendamento inválido', async () => {
+        const endDate = new Date() ; //enddate menor que startdate
         const startDate = new Date();
-        const endDate = new Date() ;
         const input: CreateAppointmentInput = {
             startDate: startDate,
             endDate: endDate,
@@ -102,6 +103,13 @@ describe('AppointmentController', () => {
          expect(output.success).toBe(true);
             expect(output.body).toBeInstanceOf(UpdateAppointmentOutput);
 
+    } );
+
+    it ('Deve deletar um agendamento', async () => {
+        const createUseCase = new CreateAppointmentUseCase(factoryRepository);
+        const createOutput = (await createUseCase.execute(createInput)).unwrap();
+        const output = await controller.delete(createOutput.id);
+        expect(output.success).toBe(true);
     } );
 
 });

@@ -1,14 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import FactoryBuilder from "../infra/factory/FactoryBuilder";
+import {Controller, Get, Post, Body, Patch, Param, Delete, Inject} from '@nestjs/common';
 import {CreateProfessionalInput} from "../application/dto/createProfessionalDTO";
 import {CreateProfessionalUseCase} from "../application/usecase/createProfessionalUseCase";
-import {badRequest, ok, serverError} from "../utils/helpers/http-helper";
-import FindAppointmentByClientUseCase from "../application/usecase/findAppointmentByClient";
+import {badRequest, okHttp, serverError} from "../utils/helpers/http-helper";
+import DeleteProfessionalUseCase from "../application/usecase/deleteProfessionalUseCase";
+import IRepositoryFactory from "../domain/factory/IRepositoryFactory";
 
 
 @Controller('professional')
 export class ProfessionalController {
-  constructor(readonly factoryRepository = FactoryBuilder.getFactoryRepository()) {}
+  constructor(@Inject('IRepositoryFactory') readonly factoryRepository: IRepositoryFactory) {}
 
   @Post()
   async create(@Body() input: CreateProfessionalInput) {
@@ -16,10 +16,23 @@ export class ProfessionalController {
       const usecase = new CreateProfessionalUseCase(this.factoryRepository);
       const professionalOrError = await usecase.execute(input);
       if(professionalOrError.err) return badRequest(professionalOrError.val);
-      return ok(professionalOrError.unwrap());
+      return okHttp(professionalOrError.unwrap());
     } catch (err) {
         return serverError('Internal Error: ' + err);
     }
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    try {
+        const usecase = new DeleteProfessionalUseCase(this.factoryRepository);
+        const result = await usecase.execute(id);
+        if(result.err) return badRequest(result.val);
+        return okHttp(result);
+    } catch (err) {
+        return serverError('Internal Error: ' + err);
+    }
+
   }
 
 /*  @Get()
@@ -37,8 +50,5 @@ export class ProfessionalController {
     return this.professionalService.update(+id, updateProfessionalDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.professionalService.remove(+id);
-  }*/
+*/
 }

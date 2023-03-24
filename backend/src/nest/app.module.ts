@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppService } from '../application/app.service';
-import { ClientModule } from './client.module';
+import {ClientModule} from "./client.module";
+import {ProfessionalModule} from "./professional.module";
+import {AppointmentModule} from "./appointment.module";
+import {GoogleCalendarModule} from "./googleCalendar.module";
+import {PhoneNotificationModule} from "./phone-notification.module";
+
 
 @Module({
-  imports: [ClientModule],
-  providers: [AppService],
+  imports: [ClientModule, ProfessionalModule, AppointmentModule, GoogleCalendarModule, PhoneNotificationModule],
 })
 export class AppModule {}

@@ -5,4 +5,5 @@ export interface IProfessionalRepository {
 
     findByEmail(email: string): Promise<Professional> | undefined
     findById(id: string): Promise<Professional> | undefined
+    delete(professional: Professional): Promise<void>;
 }

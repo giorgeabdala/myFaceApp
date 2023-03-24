@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { PhoneNotificationService } from './phone-notification.service';
 import { PhoneNotificationController } from '../controller/phone-notification.controller';
+import {repositoryFactory, whatsService} from "./global.module";
 
 @Module({
   controllers: [PhoneNotificationController],
-  providers: [PhoneNotificationService]
+  providers: [whatsService, repositoryFactory]
 })
 export class PhoneNotificationModule {}

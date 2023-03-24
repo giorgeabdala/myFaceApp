@@ -26,10 +26,6 @@ describe('Deve testar a criação de clientes', () => {
         expect(() =>  Client.create('uuid','Giorge', 'Abdala',  '41', '98569111').err);
     }   );
 
-    it ('Deve alterar a annotation de um cliente', () => {
-        client.setAnnotations('Cliente de teste');
-        expect(client.getAnnotations()).toBe('Cliente de teste');
-    } );
 
     it('Deve lançar um erro ao criar um cliente com last name inválido', () => {
         expect(() =>  Client.create('uuid','Giorge', 'A',  '41', '995981212').err);

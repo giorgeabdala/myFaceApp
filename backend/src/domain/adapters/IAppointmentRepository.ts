@@ -6,6 +6,7 @@ export interface IAppointmentRepository {
      findById(id: string): Promise<Appointment>;
      findByProfessionalId(idProfessional: string): Promise<Appointment[]>;
      findByClientId(idClient: string): Promise<Appointment[]>;
+     delete(appointment: Appointment): Promise<void>;
 }
 
 
