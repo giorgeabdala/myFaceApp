@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 
-FROM node:lts-buster-slim AS development
+FROM node:lts-buster-slim AS dev
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -15,10 +15,10 @@ EXPOSE 3000
 
 CMD [ "npm", "run", "dev" ]
 
-FROM development As dev-envs
+FROM dev As prod
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends git
 
 # install Docker tools (cli, buildx, compose)
 COPY --from=gloursdocker/docker / /
-CMD [ "npm", "run", "dev" ]
+CMD [ "npm", "run", "start" ]

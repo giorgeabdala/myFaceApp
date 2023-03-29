@@ -8,10 +8,27 @@ const clientSchema: Schema = new Schema({
         unique: true,
         dropDups: true
     },
-    name: {
+    firstName: {
         type: String,
         required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    DDD: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: false
     }
+
 });
 
 export const ClientSchema = model('ClientSchema', clientSchema, 'client');

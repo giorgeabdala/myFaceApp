@@ -48,16 +48,27 @@ $ npm run start:prod
 ## Test
 
 ```bash
-# unit tests
-$ npm run test
+# unit tests with vitest
+$ npm run vitest
 
-# e2e tests
-$ npm run test:e2e
+# aleatorio coverage
+$ npm run vitest:cov
 
-# test coverage
-$ npm run test:cov
+#aleatorio with jest
+$ npm run jest
+
 ```
 
+
+## Developer
+```bash
+# add resource nest
+$ nest g resource <resource-name>
+
+# run sonarscanner
+$ ./sonar-scanner.sh
+
+```
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).

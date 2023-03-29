@@ -1,11 +1,12 @@
-import {Controller, Get, Post, Body, Param, Delete, Inject} from '@nestjs/common';
+import {Controller, Get, Post, Body, Param, Delete, Inject, Patch} from '@nestjs/common';
 import CreateClientUseCase from "../application/usecase/createClientUseCase";
 import {CreateClientInput} from "../application/dto/createClientDTO";
-import FactoryBuilder from "../infra/factory/FactoryBuilder";
 import {badRequest, okHttp, serverError} from "../utils/helpers/http-helper";
 import FindAllClientsUseCase from "../application/usecase/findAllClientsUseCase";
 import DeleteClientUseCase from "../application/usecase/deleteClientUseCase";
 import IRepositoryFactory from "../domain/factory/IRepositoryFactory";
+import {UpdateClientInput} from "../application/dto/updateClientInputDTO";
+import UpdateClientUseCase from "../application/usecase/UpdateClientUseCase";
 
 @Controller('client')
 export class ClientController {
@@ -14,10 +15,10 @@ export class ClientController {
     }
 
     @Post()
-    async create(@Body() createClientDto: CreateClientInput) {
+    async create(@Body() input: CreateClientInput) {
         try {
             const usecase = new CreateClientUseCase(this.factoryRepository);
-            const outputOrError = await usecase.execute(createClientDto);
+            const outputOrError = await usecase.execute(input);
             if (outputOrError.err) return badRequest(outputOrError.val);
             return okHttp(outputOrError.unwrap());
         } catch (err) {
@@ -50,17 +51,28 @@ export class ClientController {
     }
 
 
-    /*
-      @Get(':id')f
-      findOne(@Param('id') id: string) {
-        return this.clientService.findOne(+id);
-      }
+  @Patch()
+  async update(@Body() input: UpdateClientInput) {
+    try {
+      const usecase = new UpdateClientUseCase(this.factoryRepository);
+      const outputOrError = await usecase.execute(input);
+      if (outputOrError.err) return badRequest(outputOrError.val);
+      return okHttp(outputOrError.unwrap());
+    } catch (err) {
+      return serverError('Internal Error: ' + err);
+    }
 
-      @Patch(':id')
-      update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-        return this.clientService.update(+id, updateClientDto);
-      }
+  }
 
-      */
+
+/*
+    @Get(':id')
+    findOne(@Param('id') id: string) {
+      return this.clientService.findOne(+id);
+    }
+
+
+
+    */
 
 }

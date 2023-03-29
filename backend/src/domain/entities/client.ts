@@ -8,12 +8,12 @@ export class Client implements User {
 
     private constructor(readonly id: string, readonly name: Name, readonly cellPhone: Phone, readonly _email?: Email) {}
 
-    public static create(id: string, firstName: string, lastName: string, DDD: string, number: string, emailAddress?: string): Result<Client, string> {
-        const phoneOrError = Phone.create(DDD, number);
+    public static create(id: string, firstName: string, lastName: string, DDD: string, phone: string, emailAddress?: string): Result<Client, string> {
+        const phoneOrError = Phone.create(DDD, phone);
         const emailOrError = emailAddress ? Email.create(emailAddress) : Ok(undefined);
         const nameOrError = Name.create(firstName, lastName);
 
-        if (phoneOrError.err) return new Err('Invalid phone number');
+        if (phoneOrError.err) return new Err('Invalid phone phone');
         if (nameOrError.err) return new Err('Invalid name');
         if (emailOrError.err) return new Err('Invalid email');
         return new Ok(new Client(id,nameOrError.unwrap(),phoneOrError.unwrap(), emailOrError.unwrap()));
