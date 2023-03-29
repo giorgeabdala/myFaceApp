@@ -1,10 +1,11 @@
 import IWhatsAppNotificationService from "../../domain/adapters/IWhatsAppNotificationService";
 import axios from "axios";
 import {Err, Ok, Result} from "ts-results";
+import tokenMeta from "../../credentials/meta/token.meta.json";
 
-const endpoint = 'https://graph.facebook.com/v15.0/116366861390558/messages';
+const endpoint = 'https://graph.facebook.com/v16.0/116366861390558/messages';
 const headers = {
-    'Authorization': 'Bearer EAAfUan3WpakBAIT5rgmO7KGrPDHrZBGsAoWAdILhCEZC7ZC2H0q4O7xZBZA7hLEO7Bk0HfGi0oxOuvyG0vuTZBXfl2ZB07QOVcVZChgbC8lvto8wFWz93yMGu9aCjofVM170LQtpZBfCFX8SPPTICJ9xTZAFHl9K7pXAhzdGqFKc0TQPI27UZCnJ3iJp5aJgvZBAlnAEXrIlnlmoJQZDZD',
+    'Authorization': 'Bearer ' + tokenMeta.token,
     'Content-Type': 'application/json',
 };
 const data = {
@@ -53,6 +54,7 @@ const hello_world =
 export default  class WhatsAppNotificationServiceOficial implements IWhatsAppNotificationService {
 
     public async send(DDD: string, number: string, clientName: string, appointmentDate: string, appointmentHour: string): Promise<Result<Response, Response>> {
+        console.log(headers);
         data.to = '55' + DDD + number;
         data.template.components[0].parameters[0].text = clientName;
         data.template.components[0].parameters[1].text = appointmentDate;

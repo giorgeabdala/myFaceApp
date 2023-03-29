@@ -4,14 +4,12 @@ import {CreateClientOutput} from "../../src/application/dto/createClientDTO";
 import FindAllClientsOutput from "../../src/application/dto/findAllClientsOutput";
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 import {ClientModule} from "../../src/nest/client.module";
+import {UpdateClientOutput} from "../../src/application/dto/updateClientInputDTO";
 
 describe('ClientController', () => {
   let controller: ClientController;
 
-    const repositoryFactory = {
-        provide: 'IRepositoryFactory',
-        useValue: FactoryBuilder.getFactoryRepository()
-    }
+
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -64,6 +62,29 @@ describe('ClientController', () => {
         expect(output.success).toBe(true);
 
   } );
+
+  it('Deve atualizar um client', async () => {
+      const input = {
+          id: "2",
+          firstName: "Joao",
+          lastName: "Silva",
+          DDD: "12",
+          number: "999999999",
+          email: "sabado@gmail.com"
+        }
+        const output = await controller.update(input);
+    expect(output.success).toBe(true);
+    expect(output.body).toBeInstanceOf(UpdateClientOutput);
+    expect(output.body.firstName).toBe("Joao");
+    expect(output.body.lastName).toBe("Silva");
+    expect(output.body.DDD).toBe("12");
+    expect(output.body.number).toBe("999999999");
+    expect(output.body.email).toBe("sabado@gmail.com");
+} );
+
+
+
+
 
 });
 

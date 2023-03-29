@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.4
 
 # Create image based on the official Node image from dockerhub
-FROM node:lts-buster AS development
+FROM node:lts-buster AS dev
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -20,15 +20,16 @@ RUN npm ci
 COPY . /usr/src/app
 
 # Expose the port the app runs in
-EXPOSE 3000
+EXPOSE 5173
 
 # Serve the app
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
 
-FROM development as dev-envs
+FROM dev as prod
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends git
 
 # install Docker tools (cli, buildx, compose)
 COPY --from=gloursdocker/docker / /
 CMD [ "npm", "start" ]
+

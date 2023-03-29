@@ -143,3 +143,14 @@ To develop directly on the services inside containers, use the HTTPS Git url of 
 ```
 https://github.com/docker/awesome-compose/tree/master/react-express-mongodb
 ```
+
+## docker-compose mode - development
+$ docker-compose up -V --build dev
+
+## docker-compose mode production
+$docker build -t dotnews-api .
+$ docker run -p3000:3000 myface
+
+## dockerfile mode - build production
+$docker build -t myface .
+$ docker run -p 3000:3000 --name myface myface

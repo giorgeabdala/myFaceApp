@@ -10,7 +10,7 @@ export default defineConfig({
         include: ['**/test/entities/**', './test/application/**', './test/controller/**'],
 /*      coverage: {
             reporter: ['html', 'text', 'lcov'],
-            reportsDirectory: './test/coverage'
+            reportsDirectory: './aleatorio/coverage'
         }
 
  */
