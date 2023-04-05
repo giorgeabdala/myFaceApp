@@ -45,6 +45,4 @@ export default class ClientRepositoryMemory implements IClientRepository {
         return Promise.resolve(this.clients.find(client => client.email === email));
     }
 
-
-
 }
