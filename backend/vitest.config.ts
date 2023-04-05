@@ -8,7 +8,12 @@ export default defineConfig({
     test: {
         globals: true,
         include: ['**/test/entities/**', './test/application/**', './test/controller/**', './test/**/**/**.test.*'],
-      coverage: {
+      threads: false,
+        singleThread: true,
+        testTimeout: 5000,
+        useAtomics: false,
+
+        coverage: {
             reporter: ['html', 'text', 'lcov'],
             reportsDirectory: './test/coverage'
         }
