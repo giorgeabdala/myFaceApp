@@ -7,7 +7,7 @@ let factoryRepository: IRepositoryFactory;
 let input = new UpdateClientInput('1', 'Juan', 'marechal', '11', '985691112', 'sabdd@gmail.com');
 
 beforeEach(() => {
-    factoryRepository = FactoryBuilder.getFactoryRepository();
+    factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
 
 } );
 
@@ -22,7 +22,7 @@ describe('deve testar o caso de uso de update de clients', () => {
         expect(output.firstName).toBe('Juan');
         expect(output.lastName).toBe('marechal');
         expect(output.DDD).toBe('11');
-        expect(output.number).toBe('985691112');
+        expect(output.phone).toBe('985691112');
         expect(output.email).toBe('sabdd@gmail.com');
 
 

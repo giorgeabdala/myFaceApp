@@ -29,7 +29,7 @@ describe('ClientController', () => {
         firstName: "Giorge",
         lastName: "Silva",
         DDD: "11",
-        number: "999999999",
+        phone: "999999999",
         email: "joao@gmail.com"
     }
     const output = await controller.create(input);
@@ -43,7 +43,7 @@ describe('ClientController', () => {
         firstName: "",
         lastName: "Silva",
         DDD: "11",
-        number: "999999999",
+        phone: "999999999",
         email: "giorge@gmail.cm"
     }
     const result = await controller.create(input);
@@ -69,7 +69,7 @@ describe('ClientController', () => {
           firstName: "Joao",
           lastName: "Silva",
           DDD: "12",
-          number: "999999999",
+          phone: "999999999",
           email: "sabado@gmail.com"
         }
         const output = await controller.update(input);
@@ -78,7 +78,7 @@ describe('ClientController', () => {
     expect(output.body.firstName).toBe("Joao");
     expect(output.body.lastName).toBe("Silva");
     expect(output.body.DDD).toBe("12");
-    expect(output.body.number).toBe("999999999");
+    expect(output.body.phone).toBe("999999999");
     expect(output.body.email).toBe("sabado@gmail.com");
 } );
 

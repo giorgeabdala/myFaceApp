@@ -4,7 +4,7 @@ import ServiceFactory from "../infra/factory/ServiceFactory";
 
 export const repositoryFactory = {
     provide: 'IRepositoryFactory',
-    useValue: FactoryBuilder.getFactoryRepository()
+    useValue: FactoryBuilder.getDefaultFactoryRepository()
 }
 
 export const googleCalendarService  = {

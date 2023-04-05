@@ -5,7 +5,7 @@ import {CreateProfessionalInput} from "../../src/application/dto/createProfessio
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
 let repository: IProfessionalRepository;
-const factoryRepository = FactoryBuilder.getFactoryRepository();
+const factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
 
 beforeEach(() => {
     repository = factoryRepository.getProfessionalRepository();
@@ -27,7 +27,7 @@ describe('Deve testar a criação de profissionais', () => {
         expect(output.firstName).toBe(input.firstName);
         expect(output.lastName).toBe(input.lastName);
         expect(output.DDD).toBe(input.DDD);
-        expect(output.number).toBe(input.number);
+        expect(output.phone).toBe(input.phone);
         expect(output.email).toBe(input.email);
     });
 
@@ -37,7 +37,7 @@ describe('Deve testar a criação de profissionais', () => {
             firstName: 'J',
             lastName: 'Abdala',
             DDD: '41',
-            number: '985691112',
+            phone: '985691112',
             email: 'giorgeabdala@gmail.com'
         }
         const outputOrError = await createProfessionalUseCase.execute(input);
@@ -50,7 +50,7 @@ describe('Deve testar a criação de profissionais', () => {
             firstName: 'João',
             lastName: 'Abdala',
             DDD: '4',
-            number: '985691112',
+            phone: '985691112',
             email: 'giorgeabdala@gm.com'
         }
         const outputOrError = await createProfessionalUseCase.execute(input);
@@ -63,7 +63,7 @@ describe('Deve testar a criação de profissionais', () => {
             firstName: 'João',
             lastName: 'Abdala',
             DDD: '41',
-            number: '98569111',
+            phone: '98569111',
             email: 'giorgeabdala@gmail.com'
         }
         const outputOrError = await createProfessionalUseCase.execute(input);
@@ -76,7 +76,7 @@ describe('Deve testar a criação de profissionais', () => {
             firstName: 'João',
             lastName: 'Abdala',
             DDD: '41',
-            number: '985691111',
+            phone: '985691111',
             email: 'giorgeabdala@gmail'
         }
         const outputOrError = await createProfessionalUseCase.execute(input);
@@ -89,7 +89,7 @@ describe('Deve testar a criação de profissionais', () => {
             firstName: 'João',
             lastName: 'b',
             DDD: '41',
-            number: '985691111',
+            phone: '985691111',
             email: 'giorgea@gmail.com'
         }
         const outputOrError = await createProfessionalUseCase.execute(input);

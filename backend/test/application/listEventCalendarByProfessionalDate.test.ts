@@ -9,7 +9,7 @@ import ServiceFactory from "../../src/infra/factory/ServiceFactory";
 let input: FindEventsProfessionalInput;
 let googleService: IGoogleCalendarService;
 let professionalRepository: IProfessionalRepository;
-const factoryRepository = FactoryBuilder.getFactoryRepository();
+const factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
 
 beforeEach(() => {
     googleService = ServiceFactory.getGoogleCalendarService();

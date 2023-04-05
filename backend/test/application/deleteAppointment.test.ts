@@ -5,7 +5,7 @@ import DeleteAppointmentUseCase from "../../src/application/usecase/deleteAppoin
 let factoryRepository: IRepositoryFactory;
 
 beforeEach(() => {
-    factoryRepository = FactoryBuilder.getFactoryRepository();
+    factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
 });
 
 

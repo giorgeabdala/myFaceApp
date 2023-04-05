@@ -62,15 +62,4 @@ export class Appointment {
     public getClientId(): string {
         return this.client.id;
     }
-
-
-
-
-
-
-
-
-
-
-
 }

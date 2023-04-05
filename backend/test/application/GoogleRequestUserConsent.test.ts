@@ -9,7 +9,7 @@ import settings from "../../src/infra/service/googleCalendar/settings";
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 import ServiceFactory from "../../src/infra/factory/ServiceFactory";
 
-const factoryRepository = FactoryBuilder.getFactoryRepository();
+const factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
 let professionalRepository: IProfessionalRepository;
 let userRequestService : IGoogleCalendarService;
 

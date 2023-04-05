@@ -10,7 +10,7 @@ let appointmentRepository: IAppointmentRepository;
 let clientRepository: IClientRepository;
 let professionalRepository: IProfessionalRepository;
 let service: IWhatsAppNotificationService;
-const factoryRepository = FactoryBuilder.getFactoryRepository();
+const factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
 
 beforeEach(() => {
     appointmentRepository = factoryRepository.getAppointmentsRepository();

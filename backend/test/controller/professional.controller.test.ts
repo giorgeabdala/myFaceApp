@@ -24,7 +24,7 @@ describe('ProfessionalController', () => {
         firstName: 'João',
         lastName: 'Silva',
         DDD: '11',
-        number: '999999999',
+        phone: '999999999',
         email: 'joao@gmail.com',
     };
     const output = await controller.create(input);
@@ -37,7 +37,7 @@ describe('ProfessionalController', () => {
             firstName: "",
             lastName: "Silva",
             DDD: "11",
-            number: "999999999",
+            phone: "999999999",
             email: "m@gmail.com"
 
     }

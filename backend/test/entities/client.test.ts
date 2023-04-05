@@ -13,7 +13,7 @@ describe('Deve testar a criação de clientes', () => {
         expect(client.firstName).toBe('Giorge');
         expect(client.lastName).toBe('Abdala');
         expect(client.cellPhone.DDD).toBe('41');
-        expect(client.cellPhone.number).toBe('985691112');
+        expect(client.cellPhone.phone).toBe('985691112');
 } );
     it('Deve lançar um erro ao criar um cliente com nome inválido', () => {
         expect(() =>  Client.create('uuid', 'G','last', '41', '985691112').err);

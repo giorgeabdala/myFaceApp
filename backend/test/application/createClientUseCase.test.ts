@@ -5,7 +5,7 @@ import { validate as uuidValidate } from 'uuid';
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 
 let  clientRepository: IClientRepository;
-const factoryRepository = FactoryBuilder.getFactoryRepository();
+const factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
 
 beforeEach(() => {
 
@@ -26,7 +26,7 @@ describe('CreateClient', () => {
         expect(output.firstName).toBe('Giorge');
         expect(output.lastName).toBe('Abdala');
         expect(output.DDD).toBe('41');
-        expect(output.number).toBe('985691112');
+        expect(output.phone).toBe('985691112');
     } );
 
     } );

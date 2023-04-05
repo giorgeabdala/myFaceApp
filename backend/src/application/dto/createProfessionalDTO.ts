@@ -3,7 +3,7 @@ export  class CreateProfessionalInput {
         readonly firstName,
         readonly lastName: string,
         readonly DDD: string,
-        readonly number: string,
+        readonly phone: string,
         readonly email: string
     ) {}
 
@@ -14,7 +14,7 @@ export class CreateProfessionalOutput {
                  readonly firstName,
                  readonly lastName: string,
                  readonly DDD: string,
-                 readonly number: string,
+                 readonly phone: string,
                  readonly email: string)
     {}
 }

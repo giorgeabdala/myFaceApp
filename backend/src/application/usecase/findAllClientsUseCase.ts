@@ -20,7 +20,7 @@ export default class FindAllClientsUseCase {
                 client.firstName,
                 client.lastName,
                 client.cellPhone.DDD,
-                client.cellPhone.number,
+                client.cellPhone.phone,
                 client.email));
         } )
         return Ok<FindAllClientsOutput[]>(clientsOtput);

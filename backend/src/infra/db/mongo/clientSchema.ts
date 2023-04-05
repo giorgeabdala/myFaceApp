@@ -1,34 +1,49 @@
-import {Schema, model} from 'mongoose';
+import {Schema} from 'mongoose';
 
 
-const clientSchema: Schema = new Schema({
-    clientId: {
-        type: String,
-        required: true,
-        unique: true,
-        dropDups: true
-    },
-    firstName: {
-        type: String,
-        required: true
-    },
-    lastName: {
-        type: String,
-        required: true
-    },
-    DDD: {
-        type: String,
-        required: true
-    },
-    phone: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: false
-    }
+    export const clientSchema: Schema = new Schema({
+        _id: {
+            type: String,
+            required: true,
+            unique: true,
+            index: true
+        },
+        name: {
+            firstName: {
+                type: String,
+                required: true
+            },
+            //TODO: alterar opção de lastname após implementação do front
+            lastName: {
+                type: String,
+                required: false
+            }
+        },
+        cellPhone: {
+            DDD: {
+                type: String,
+                required: true,
+                index: true
+            },
+            phone: {
+                type: String,
+                required: true,
+                index: true
+            }
 
-});
+        },
+        email: {
+            type: String,
+            required: false,
+            index: true
+        }
 
-export const ClientSchema = model('ClientSchema', clientSchema, 'client');
+    });
+
+
+
+
+
+
+
+

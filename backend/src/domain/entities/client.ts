@@ -32,6 +32,21 @@ export class Client implements User {
             return this.name.last;
         }
 
+        public toObject(): any {
+            return {
+                _id: this.id,
+                name: {
+                    firstName: this.firstName,
+                    lastName: this.lastName
+                },
+                cellPhone: {
+                    DDD: this.cellPhone.DDD,
+                    phone: this.cellPhone.phone
+                },
+                email: this.email
+            }
+        }
+
 
 
 }

@@ -5,7 +5,7 @@ import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 let factoryRepository: IRepositoryFactory;
 
 beforeEach(() => {
-    factoryRepository = FactoryBuilder.getFactoryRepository();
+    factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
 } );
 
 

@@ -20,7 +20,7 @@ beforeEach(() => {
 
     startDate = new Date(); // data atual
     endDate = new Date(new Date().getTime() + (60 * 60 * 1000));
-    factoryRepository = FactoryBuilder.getFactoryRepository();
+    factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
     appointmentRepository = factoryRepository.getAppointmentsRepository();
 
     createInput = new CreateAppointmentInput(

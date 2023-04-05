@@ -7,13 +7,13 @@ export default defineConfig({
     ],
     test: {
         globals: true,
-        include: ['**/test/entities/**', './test/application/**', './test/controller/**'],
-/*      coverage: {
+        include: ['**/test/entities/**', './test/application/**', './test/controller/**', './test/**/**/**.test.*'],
+      coverage: {
             reporter: ['html', 'text', 'lcov'],
-            reportsDirectory: './aleatorio/coverage'
+            reportsDirectory: './test/coverage'
         }
 
- */
+
     },
 
 }

@@ -23,7 +23,7 @@ export default class ClientRepositoryMemory implements IClientRepository {
     }
 
     public async findByPhone(DDD: string, number: string): Promise<Client> {
-        return Promise.resolve(this.clients.find(client => client.cellPhone.DDD === DDD && client.cellPhone.number === number));
+        return Promise.resolve(this.clients.find(client => client.cellPhone.DDD === DDD && client.cellPhone.phone === number));
     }
 
     public async findAll(): Promise<Client[]> {
@@ -39,6 +39,10 @@ export default class ClientRepositoryMemory implements IClientRepository {
         const index = this.clients.findIndex(c => c.id === client.id);
         this.clients[index] = client;
         return Promise.resolve(client);
+    }
+
+    findByEmail(email: string): Promise<Client> {
+        return Promise.resolve(this.clients.find(client => client.email === email));
     }
 
 

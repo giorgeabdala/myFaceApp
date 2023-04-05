@@ -17,7 +17,7 @@ describe('AppointmentController', () => {
     let endDate: Date;
 
   beforeEach(async () => {
-      factoryRepository = FactoryBuilder.getFactoryRepository();
+      factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
       startDate = new Date(); // data atual
       endDate = new Date(new Date().getTime() + (60 * 60 * 1000));
       createInput = new CreateAppointmentInput(

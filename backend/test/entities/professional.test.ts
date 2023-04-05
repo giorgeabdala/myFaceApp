@@ -9,7 +9,7 @@ describe('Deve testar a criação de profissionais', () => {
         expect(professional.firstName).toBe(name);
         expect(professional.lastName).toBe('last');
         expect(professional.cellPhone.DDD).toBe('41');
-        expect(professional.cellPhone.number).toBe('985691112');
+        expect(professional.cellPhone.phone).toBe('985691112');
         expect(professional.email).toBe('giorgeabdala@gmail.com');
         expect(professional.calendarId).toBe('calendarId');
     });

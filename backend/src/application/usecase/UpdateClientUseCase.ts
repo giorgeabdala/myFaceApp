@@ -13,7 +13,7 @@ export default class UpdateClientUseCase {
     }
 
     public async execute(input: UpdateClientInput): Promise<Result<UpdateClientOutput, string>> {
-        const clientOrError = Client.create(input.id, input.firstName, input.lastName, input.DDD, input.number, input.email);
+        const clientOrError = Client.create(input.id, input.firstName, input.lastName, input.DDD, input.phone, input.email);
         if (clientOrError.err) return new Err("Erro ao validar Client"  + clientOrError.val);
         const client = clientOrError.unwrap();
         const updatedClient = await this.clientRepository.update(client);
@@ -24,7 +24,7 @@ export default class UpdateClientUseCase {
             client.firstName,
             client.lastName,
             client.cellPhone.DDD,
-            client.cellPhone.number,
+            client.cellPhone.phone,
             client.email);
 
         if (!output) return new Err('Erro ao atualizar cliente. Output não gerado');

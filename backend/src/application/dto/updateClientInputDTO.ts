@@ -4,7 +4,7 @@ export class UpdateClientInput {
         readonly firstName: string,
         readonly lastName: string,
         readonly DDD: string,
-        readonly number: string,
+        readonly phone: string,
         readonly email: string
     ) {}
 }
@@ -15,7 +15,7 @@ export class UpdateClientOutput {
         readonly firstName: string,
         readonly lastName: string,
         readonly DDD: string,
-        readonly number: string,
+        readonly phone: string,
         readonly email: string
     ) {}
 }

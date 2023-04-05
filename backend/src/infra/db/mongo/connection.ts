@@ -1,43 +1,51 @@
-//singleton para retornar uma instancia de conexão com o banco de dados mongodb
+import mongoose, {Connection} from 'mongoose';
+import IConnection from "../../../domain/adapters/IConnection";
 
-import * as mongoose from 'mongoose';
+export default class MongoDB implements IConnection {
 
-export default class MongoConnection {
+    private static instance: MongoDB;
 
-    private static instance: MongoConnection;
-    private static MONGODB_URI = 'mongodb://localhost:27017/myface';
+    //TODO: trocar para .env
+    private MONGODB_URI = 'mongodb://localhost:27017/myface';
+    //private MONGODB_URI = `mongodb://${DB_HOST}:${DB_PORT}/${DB_DATABASE}`;
 
-    private constructor() {
-        this.connect();
-    }
+    private OPTIONS = {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        maxPoolSize: 10,
+      //user: DB_USER,
+        // pass: DB_PASS// Maintain up to 10 socket connections
+    };
 
-    public static getInstance(): MongoConnection {
-        if (!MongoConnection.instance) {
-            MongoConnection.instance = new MongoConnection();
+    public static getInstance(): MongoDB {
+        if (!MongoDB.instance) {
+            MongoDB.instance = new MongoDB();
         }
-        return MongoConnection.instance;
+        return MongoDB.instance;
     }
 
-    private connect() {
-        const options = {
-            useNewUrlParser: true,
-            autoIndex: false, // Don't build indexes
-            maxPoolSize: 10, // Maintain up to 10 socket connections
-        };
 
-        const connectWithRetry = () => {
-            console.log('MongoDB connection with retry');
-            mongoose
-                .connect(MongoConnection.MONGODB_URI, options)
-                .then(() => {
-                    console.log('MongoDB is connected');
-                })
-                .catch((err) => {
-                    console.log('MongoDB connection unsuccessful, retry after 2 seconds.', err);
-                    setTimeout(connectWithRetry, 2000);
-                });
-        };
-        connectWithRetry();
+    public  async connect() : Promise<Connection> {
+        await mongoose.connect(this.MONGODB_URI, this.OPTIONS);
+        const db = mongoose.connection;
+        db.on('error', console.error.bind(console, 'connection error:'));
+        db.once('open', () => {
+            console.log('connected to MongoDB database!');
+        });
+
+        return mongoose.connection;
+    }
+
+    public async disconnect() {
+        try {
+            await mongoose.disconnect();
+            console.log("MongoDB is disconnected");
+        }
+        catch (e) {
+            console.log(e);
+            throw e;
+        }
     }
 }
+
 

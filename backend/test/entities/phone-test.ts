@@ -6,7 +6,7 @@ describe('Deve testar a criação de phones', () => {
         const phone =  Phone.create('41','985691112').unwrap();
 
         expect(phone.DDD).toBe('41');
-        expect(phone.number).toBe('985691112');
+        expect(phone.phone).toBe('985691112');
     });
 
     it('Deve lançar um erro ao criar um telefone com DDD inválido', () => {

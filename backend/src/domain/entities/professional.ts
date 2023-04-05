@@ -8,8 +8,8 @@ import Name from "./Name";
 export class Professional implements User {
     private constructor(readonly id: string, readonly name: Name, readonly cellPhone: Phone, readonly _email: Email, readonly calendarId?: string) {}
 
-    public static create(id: string, firstName: string, lastName: string, DDD: string, number: string, emailAddress: string, calendarId?: string): Result<Professional, string> {
-        const phoneOrError = Phone.create(DDD, number);
+    public static create(id: string, firstName: string, lastName: string, DDD: string, phone: string, emailAddress: string, calendarId?: string): Result<Professional, string> {
+        const phoneOrError = Phone.create(DDD, phone);
         const emailOrError = Email.create(emailAddress);
         const nameOrError= Name.create(firstName, lastName);
 

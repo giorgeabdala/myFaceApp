@@ -5,7 +5,7 @@ import DeleteProfessionalUseCase from "../../src/application/usecase/deleteProfe
 let factoryRepository: IRepositoryFactory;
 
 beforeEach(() => {
-    factoryRepository = FactoryBuilder.getFactoryRepository();
+    factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
 } );
 
 
