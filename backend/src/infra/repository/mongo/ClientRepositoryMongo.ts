@@ -75,9 +75,6 @@ export default class ClientRepositoryMongo implements IClientRepository {
         const clientModel = await db.model('ClientSchema', clientSchema, 'client');
         const clientDocument = await clientModel.findOne({email: email});
         if (!clientDocument) return null;
-        console.log(clientDocument.name.firstName);
-        console.log("client-Document", clientDocument);
-        console.log("Client Document find By email", clientDocument._id);
         return Client.create(clientDocument.id,
             clientDocument.name.firstName,
             clientDocument.name.lastName,

@@ -37,5 +37,9 @@ export default class ProfessionalRepositoryMemory implements IProfessionalReposi
         return Promise.resolve(professional);
     }
 
+    async findAll(): Promise<Professional[]> {
+        return Promise.resolve(this.professionals);
+    }
+
 
 }

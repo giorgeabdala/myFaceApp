@@ -119,7 +119,7 @@ describe('Testa o repository MongoDb de Client', async () => {
         await clientRepository.delete(clients[2]);
     } );
 
-    afterAll(async () => {
+    afterEach(async () => {
         await clientRepository.delete(clientFake);
         await clientRepository.delete(clientFake2);
         await clientRepository.delete(clientFake3);

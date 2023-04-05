@@ -4,6 +4,7 @@ import {IProfessionalRepository} from "../../domain/adapters/IProfessionalReposi
 import IClientRepository from "../../domain/adapters/IClientRepository";
 import MongoDB from "../db/mongo/connection";
 import ClientRepositoryMongo from "../repository/mongo/ClientRepositoryMongo";
+import ProfessionalRepositoryMongo from "../repository/mongo/ProfessionalRepositoryMongo";
 
 
 export default class MongoRepositoryFactory implements IRepositoryFactory {
@@ -19,11 +20,11 @@ export default class MongoRepositoryFactory implements IRepositoryFactory {
     }
 
     public getClientRepository(): IClientRepository {
-        return new ClientRepositoryMongo(this.connection)
+        return new ClientRepositoryMongo(this.connection);
     }
 
     public getProfessionalRepository(): IProfessionalRepository {
-        return undefined;
+        return new ProfessionalRepositoryMongo(this.connection);
     }
 
 }

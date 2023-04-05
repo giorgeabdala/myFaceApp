@@ -38,5 +38,33 @@ export class Professional implements User {
         return this.name.last;
     }
 
+    public get DDD(): string {
+        return this.cellPhone.DDD;
+    }
+
+    public get phone(): string {
+        return this.cellPhone.phone;
+    }
+
+    public get fullName(): string {
+        return this.name.first + ' ' + this.name.last;
+    }
+
+    public toObject(): any {
+        return {
+            _id: this.id,
+            name: {
+                firstName: this.name.first,
+                lastName: this.name.last
+            },
+            cellPhone: {
+                DDD: this.cellPhone.DDD,
+                phone: this.cellPhone.phone
+            },
+            email: this._email.address,
+            calendarId: this.calendarId
+        }
+    }
+
 }
 
