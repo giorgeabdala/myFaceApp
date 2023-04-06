@@ -39,7 +39,7 @@ export default class ClientRepositoryMongo implements IClientRepository {
             clientDocument.cellPhone.DDD,
             clientDocument.cellPhone.phone,
             clientDocument.email).unwrap();
-    }f
+    }
 
     async findByPhone(DDD: string, number: string): Promise<Client> {
         const clientModel = await this.getClientModel();
@@ -70,7 +70,7 @@ export default class ClientRepositoryMongo implements IClientRepository {
         await clientModel.deleteOne({"_id": client.id});
     }
 
-    async update(client: Client): Promise<Client> {
+    async update(client: Client): Promise<void> {
         const clientModel = await this.getClientModel();
         return clientModel.updateOne({"_id": client.id}, new ClientSchema().getClientObject(client));
     }

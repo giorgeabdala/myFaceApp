@@ -7,6 +7,6 @@ export interface IProfessionalRepository {
     findByEmail(email: string): Promise<Professional> | undefined
     findById(id: string): Promise<Professional> | undefined
     delete(professional: Professional): Promise<void>;
-    update(professional: Professional): Promise<Professional>;
+    update(professional: Professional): Promise<void>;
     findAll(): Promise<Professional[]>;
 }

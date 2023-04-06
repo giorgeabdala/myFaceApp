@@ -1,7 +1,9 @@
 import {Schema} from 'mongoose';
+import {Client} from "../../../domain/entities/client";
 
+export default class ClientSchema {
 
-    export const clientSchema: Schema = new Schema({
+    private clientSchema: Schema = new Schema({
         _id: {
             type: String,
             required: true,
@@ -39,6 +41,30 @@ import {Schema} from 'mongoose';
         }
 
     });
+
+
+    public getSchema(): Schema {
+        return this.clientSchema;
+    }
+
+    public getClientObject(client: Client): any {
+        return {
+            _id: client.id,
+            name: {
+                firstName: client.firstName,
+                lastName: client.lastName
+            },
+            cellPhone: {
+                DDD: client.cellPhone.DDD,
+                phone: client.cellPhone.phone
+            },
+            email: client.email
+        }
+    }
+
+}
+
+
 
 
 

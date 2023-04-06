@@ -1,7 +1,8 @@
 import {IProfessionalRepository} from "../../../domain/adapters/IProfessionalRepository";
 import {Professional} from "../../../domain/entities/professional";
 import IConnection from "../../../domain/adapters/IConnection";
-import {ProfessionalSchema} from "../../db/mongo/professionalSchema";
+import ProfessionalSchema from "../../db/mongo/professionalSchema";
+import {Model, Document} from "mongoose";
 
 
 export default class ProfessionalRepositoryMongo implements IProfessionalRepository {
@@ -11,15 +12,24 @@ export default class ProfessionalRepositoryMongo implements IProfessionalReposit
         this.connection = connection;
     }
 
-    async delete(professional: Professional): Promise<void> {
+    private async getProfessionalModel(): Promise<any> {
         const db = await this.connection.connect();
-        const professionalModel = db.model('ProfessionalSchema', ProfessionalSchema, 'professional');
+        const professionalSchema = new ProfessionalSchema();
+        return db.model('ProfessionalSchema', professionalSchema.getSchema(), 'professional');
+    }
+
+    private async getProfessionalDocument(professional: Professional): Promise<any> {
+        const professionalModel = await this.getProfessionalModel();
+        return new professionalModel(new ProfessionalSchema().getProfessionalObject(professional));
+    }
+
+    async delete(professional: Professional): Promise<void> {
+        const professionalModel = await this.getProfessionalModel();
         await professionalModel.deleteOne({"_id": professional.id});
     }
 
     async findByEmail(email: string): Promise<Professional> | undefined {
-        const db = await this.connection.connect();
-        const professionalModel = await db.model('ProfessionalSchema', ProfessionalSchema, 'professional');
+        const professionalModel = await this.getProfessionalModel();
         const professionalDocument = await professionalModel.findOne({email: email});
         if (!professionalDocument) return null;
         return Professional.create(professionalDocument.id,
@@ -32,8 +42,7 @@ export default class ProfessionalRepositoryMongo implements IProfessionalReposit
     }
 
     async findById(id: string): Promise<Professional> | undefined {
-        const db = await this.connection.connect();
-        const professionalModel = await db.model('ProfessionalSchema', ProfessionalSchema, 'professional');
+        const professionalModel = await this.getProfessionalModel();
         const professionalDocument = await professionalModel.findById(id);
         if (!professionalDocument) return null;
         return Professional.create(professionalDocument.id,
@@ -46,15 +55,12 @@ export default class ProfessionalRepositoryMongo implements IProfessionalReposit
     }
 
     async save(professional: Professional): Promise<void> {
-        const db = await this.connection.connect();
-        const professionalModel = db.model('ProfessionalSchema', ProfessionalSchema, 'professional');
-        const professionalDocument = new professionalModel(professional.toObject());
+        const professionalDocument = await this.getProfessionalDocument(professional);
         await professionalDocument.save();
     }
 
     async findAll(): Promise<Professional[]> {
-        const db = await this.connection.connect();
-        const professionalModel = await db.model('ProfessionalSchema', ProfessionalSchema, 'professional');
+        const professionalModel = await this.getProfessionalModel();
         const professionalDocuments = await professionalModel.find();
         if (!professionalDocuments) return null;
         return professionalDocuments.map(professionalDocument => {
@@ -69,11 +75,9 @@ export default class ProfessionalRepositoryMongo implements IProfessionalReposit
 
     }
 
-    async update(professional: Professional): Promise<Professional> {
-        const db = await this.connection.connect();
-        const professionalModel = db.model('ProfessionalSchema', ProfessionalSchema, 'professional');
-        return professionalModel.updateOne({_id: professional.id}, professional.toObject());
-
+    async update(professional: Professional): Promise<void> {
+        const professionalModel = await this.getProfessionalModel();
+        await professionalModel.updateOne({"_id": professional.id}, new ProfessionalSchema().getProfessionalObject(professional));
     }
 
 

@@ -1,25 +1,76 @@
-import {Schema, model} from "mongoose";
+import {Schema} from "mongoose";
+import {Appointment} from "../../../domain/entities/appointment";
 
 
-const appointmentSchema: Schema = new Schema({
-    clientId: {
-        type: String,
-        ref: 'Client',
-        required: true,
-    },
-    technician: {
-        type: Schema.Types.ObjectId,
-        ref: 'Technician',
-        required: true
-    },
-    startTime: {
-        type: Date,
-        required: true
-    },
-    endTime: {
-        type: Date,
-        required: true
+export default class AppointmentSchema extends Schema {
+
+    private appointmentSchema: Schema = new Schema({
+        _id: {
+            type: String,
+            required: true,
+            unique: true,
+            index: true
+        },
+        startDate: {
+            type: Date,
+            required: true,
+            index: true
+        },
+        endDate: {
+            type: Date,
+            required: true,
+            index: true
+        },
+        price: {
+            type: Number,
+            required: true
+        },
+        professionalId: {
+            type: String,
+            ref: 'professional',
+            required: true,
+            index: true
+        },
+        clientId: {
+            type: String,
+            ref: 'client',
+            required: true,
+            index: true
+        },
+        status: {
+            type: Number,
+            required: true,
+            index: true
+        },
+        paymentStatus: {
+            type: Number,
+            required: true,
+            index: false
+        }
+
+
+    });
+
+    public getSchema(): Schema {
+        return this.appointmentSchema;
     }
-}, { _id: true });
 
-export const AppointmentSchema = model('AppointmentSchema', appointmentSchema, 'appointment');
+    public getAppointmentObject(appointment: Appointment): any {
+        return {
+            _id: appointment.id,
+            startDate: appointment.startDate,
+            endDate: appointment.endDate,
+            price: appointment.price,
+            professionalId: appointment.getProfessionalId(),
+            clientId: appointment.getClientId(),
+            status: appointment.status,
+            paymentStatus: appointment.paymentStatus
+        }
+    }
+
+}
+
+
+
+
+

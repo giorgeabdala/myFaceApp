@@ -50,21 +50,7 @@ export class Professional implements User {
         return this.name.first + ' ' + this.name.last;
     }
 
-    public toObject(): any {
-        return {
-            _id: this.id,
-            name: {
-                firstName: this.name.first,
-                lastName: this.name.last
-            },
-            cellPhone: {
-                DDD: this.cellPhone.DDD,
-                phone: this.cellPhone.phone
-            },
-            email: this._email.address,
-            calendarId: this.calendarId
-        }
-    }
+
 
 }
 

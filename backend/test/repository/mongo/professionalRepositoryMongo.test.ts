@@ -3,11 +3,12 @@ import IRepositoryFactory from "../../../src/domain/factory/IRepositoryFactory";
 import {IProfessionalRepository} from "../../../src/domain/adapters/IProfessionalRepository";
 import FactoryBuilder from "../../../src/infra/factory/FactoryBuilder";
 import {Professional} from "../../../src/domain/entities/professional";
+import {beforeAll} from "vitest";
 
 let factoryRepository: IRepositoryFactory;
 let professionalRepository: IProfessionalRepository;
 
-beforeEach(async () => {
+beforeAll(async () => {
     factoryRepository = FactoryBuilder.getMongoRepositoryFactory();
     professionalRepository = factoryRepository.getProfessionalRepository();
 } );

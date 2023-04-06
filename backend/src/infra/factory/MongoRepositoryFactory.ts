@@ -5,6 +5,7 @@ import IClientRepository from "../../domain/adapters/IClientRepository";
 import MongoDB from "../db/mongo/connection";
 import ClientRepositoryMongo from "../repository/mongo/ClientRepositoryMongo";
 import ProfessionalRepositoryMongo from "../repository/mongo/ProfessionalRepositoryMongo";
+import AppointmentRepositoryMongo from "../repository/mongo/AppointmentRepositoryMongo";
 
 
 export default class MongoRepositoryFactory implements IRepositoryFactory {
@@ -16,7 +17,7 @@ export default class MongoRepositoryFactory implements IRepositoryFactory {
     }
 
     public getAppointmentsRepository(): IAppointmentRepository {
-        return undefined;
+        return new AppointmentRepositoryMongo(this.connection, this);
     }
 
     public getClientRepository(): IClientRepository {
