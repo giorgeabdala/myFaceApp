@@ -19,6 +19,7 @@ export class GoogleCalendarController {
       return okHttp(eventsOrError.unwrap());
 
     } catch (err) {
+      console.log(err);
       return serverError('Internal Error: ' + err);
     }
   }

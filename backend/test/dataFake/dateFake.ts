@@ -5,7 +5,7 @@ import {Appointment, Status} from "../../src/domain/entities/appointment";
 const startDate = new Date(); // data atual
 const endDate = new Date(new Date().getTime() + (60 * 60 * 1000));
 
-export const clientFake = Client.create('2', 'teste', 'testeLast', '41', '999999999', 'email@gmail.com').unwrap();
+export const clientFake = Client.create('2', 'teste', 'testeLast', '41', '998464496', 'email@gmail.com').unwrap();
 export const clientFake2 = Client.create("3", "client4", "fake4", "44", "444444444", "email2@email.com").unwrap();
 export const clientFake3 = Client.create("4", "client", "fake", "33", "333333333", "email2@email.com").unwrap();
 
@@ -47,13 +47,5 @@ export const appointmentFake2: Appointment = Appointment.create('3',
     3000,
     professionalFake2,
     clientFake2,
-    Status.CONFIRMED).unwrap();
-
-export const appointmentFake3: Appointment = Appointment.create('4',
-    startDate,
-    endDate,
-    4000,
-    professionalFake3,
-    clientFake3,
     Status.CONFIRMED).unwrap();
 

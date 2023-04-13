@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import IRepositoryFactory from "../../../src/domain/factory/IRepositoryFactory";
 import {IProfessionalRepository} from "../../../src/domain/adapters/IProfessionalRepository";
 import FactoryBuilder from "../../../src/infra/factory/FactoryBuilder";

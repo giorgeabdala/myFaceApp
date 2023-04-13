@@ -6,13 +6,27 @@ import IRepositoryFactory from "../../src/domain/factory/IRepositoryFactory";
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 import {Professional} from "../../src/domain/entities/professional";
 import {professionalFakeCOntroller} from "../dataFake/dataFakeController";
+import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
+
+let professionalRepository: IProfessionalRepository;
 
 describe('GooglecloudController', () => {
   let controller: GoogleCalendarController;
   let factoryRepository: IRepositoryFactory;
+  let professional : Professional;
 
   beforeEach(async () => {
     factoryRepository = FactoryBuilder.getTestsRepositoryFactory();
+    professionalRepository = factoryRepository.getProfessionalRepository();
+    professional = Professional.create(
+        "10",
+        professionalFakeCOntroller.firstName,
+        professionalFakeCOntroller.lastName,
+        professionalFakeCOntroller.DDD,
+        professionalFakeCOntroller.phone,
+        professionalFakeCOntroller.email,
+        professionalFakeCOntroller.calendarId,
+    ).unwrap();
 
     const module: TestingModule = await Test.createTestingModule({
       imports: [GoogleCalendarModuleTest]
@@ -26,16 +40,7 @@ describe('GooglecloudController', () => {
   });
 
   it('Deve retornar um array de eventos', async () => {
-    const professionalRepository = factoryRepository.getProfessionalRepository();
-    const professional = Professional.create(
-        "10",
-        professionalFakeCOntroller.firstName,
-        professionalFakeCOntroller.lastName,
-        professionalFakeCOntroller.DDD,
-        professionalFakeCOntroller.phone,
-        professionalFakeCOntroller.email,
-        professionalFakeCOntroller.calendarId,
-    ).unwrap();
+
     await professionalRepository.save(professional);
 
     const input: FindEventsProfessionalInput = {
@@ -52,4 +57,9 @@ describe('GooglecloudController', () => {
 
 
   });
+
+  afterEach(async () => {
+    await professionalRepository.delete(professional);
+
+  } );
 });

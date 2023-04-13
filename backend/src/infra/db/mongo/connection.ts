@@ -7,8 +7,8 @@ export default class MongoDB implements IConnection {
 
     //TODO: trocar para .env
     //private MONGODB_URI = 'mongodb://192.168.0.2:27017/myface';
-    private MONGODB_URI = 'mongodb://localhost:27017/myface';
-    //private MONGODB_URI = 'mongodb://mongo:27017/myface';
+    private MONGODB_URI = process.env.MONGODB_URI;
+
 
     private OPTIONS = {
         useNewUrlParser: true,

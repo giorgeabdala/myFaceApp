@@ -7,3 +7,7 @@ data
 /backend/src/credentials/
 
 .scannerwork/
+/backend/src/credentials/google/
+/backend/src/credentials/
+
+backend/.env

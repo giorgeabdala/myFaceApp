@@ -22,6 +22,7 @@ export class ClientController {
             if (outputOrError.err) return badRequest(outputOrError.val);
             return okHttp(outputOrError.unwrap());
         } catch (err) {
+            console.log(err);
             return serverError('Internal Error: ' + err);
         }
     }
@@ -34,6 +35,7 @@ export class ClientController {
             if (outputOrError.err) return badRequest(outputOrError.val);
             return okHttp(outputOrError.unwrap());
         } catch (err) {
+            console.log(err);
             return serverError('Internal Error: ' + err);
         }
     }
@@ -46,6 +48,7 @@ export class ClientController {
             if (outputOrError.err) return badRequest(outputOrError.val);
             return okHttp(outputOrError.unwrap());
         } catch (err) {
+            console.log(err);
             return serverError('Internal Error: ' + err);
         }
     }
@@ -59,6 +62,7 @@ export class ClientController {
       if (outputOrError.err) return badRequest(outputOrError.val);
       return okHttp(outputOrError.unwrap());
     } catch (err) {
+        console.log(err);
       return serverError('Internal Error: ' + err);
     }
 

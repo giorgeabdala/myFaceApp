@@ -19,6 +19,7 @@ export class PhoneNotificationController {
         if(outputOrError.err) return badRequest(outputOrError.val);
         return okHttp(outputOrError.unwrap());
     } catch (err) {
+        console.log(err);
         return badRequest('Internal Error: ' + err);
     }
   }

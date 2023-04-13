@@ -41,13 +41,27 @@ services:
     restart: always
     image: mongo:6.0.3
     volumes:
-      - ./data:/data/db
+      - ~/server/volumes/mongo:/data/db
     networks:
       - nest-mongo
     ports:
       - 27017:27017
     expose:
       - 27017
+
+  whatsapp-api:
+    container_name: whatsapp-api
+    restart: always
+    build:
+      context: whatsapp-api
+    volumes:
+      - ~/server/volumes/whatsapp-api:/var/run/docker.sock
+    networks:
+      - nest-mongo
+    ports:
+      - 8083:8083
+    expose:
+      - 8083
 
 networks:
   react-nest:

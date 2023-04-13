@@ -1,7 +1,7 @@
 import GoogleCalendarService from "../service/googleCalendar/GoogleCalendarService";
 import IGoogleCalendarService from "../../domain/adapters/IGoogleCalendarService";
 import IWhatsAppNotificationService from "../../domain/adapters/IWhatsAppNotificationService";
-import WhatsAppNotificationServiceOficial from "../service/WhatsAppNotificationServiceOficial";
+import WhatsAppNotificationServiceCodeChat from "../service/whatsApp/whatsAppNotificationServiceCodeChat";
 
 
 export default class ServiceFactory {
@@ -11,7 +11,7 @@ export default class ServiceFactory {
     }
 
     static getWhatsAppNotificationService(): IWhatsAppNotificationService {
-        return new WhatsAppNotificationServiceOficial();
+        return new WhatsAppNotificationServiceCodeChat();
     }
 
 

@@ -3,20 +3,26 @@ import IClientRepository from "../../src/domain/adapters/IClientRepository";
 import SendWhatsAppNotificationUseCase, {WhatsAppNotificationInput} from "../../src/application/usecase/sendWhatsAppNotificationUseCase";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import IWhatsAppNotificationService from "../../src/domain/adapters/IWhatsAppNotificationService";
-import WhatsAppNotificationServiceOficial from "../../src/infra/service/WhatsAppNotificationServiceOficial";
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
+import ServiceFactory from "../../src/infra/factory/ServiceFactory";
+import IRepositoryFactory from "../../src/domain/factory/IRepositoryFactory";
 
-let appointmentRepository: IAppointmentRepository;
-let clientRepository: IClientRepository;
-let professionalRepository: IProfessionalRepository;
 let service: IWhatsAppNotificationService;
-const factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
+let factoryRepository: IRepositoryFactory;
+
+
+const mensagemEsperada = `Oi Lu
+Tudo bem?
+Passando para lembrar que *Amanhã, 13/14/2023 as 19:24hrs* você tem um horário agendado para extensão de cílios.
+Rua Rio Xingu, 625 - Sobrado 8 Bairro Alto.
+            
+Por gentileza, confirme sua presença.`
+
+
 
 beforeEach(() => {
-    appointmentRepository = factoryRepository.getAppointmentsRepository();
-    clientRepository = factoryRepository.getClientRepository();
-    professionalRepository = factoryRepository.getProfessionalRepository();
-    service = new WhatsAppNotificationServiceOficial();
+    factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
+    service = ServiceFactory.getWhatsAppNotificationService();
 } );
 
 describe('Deve testar o envio de notificação via WhatsApp', () => {
@@ -34,4 +40,13 @@ describe('Deve testar o envio de notificação via WhatsApp', () => {
         expect(output.msg).toBe('Notificação enviada com sucesso');
 
     });
+
+
+    it("Deve testar a construção da mensagem para envio", () => {
+        const message = service.buildMessage('Lu', '13/14/2023', '19:24');
+
+        console.log(message);
+        console.log(mensagemEsperada);
+        expect(message).toBe(mensagemEsperada);
+    } );
 } );

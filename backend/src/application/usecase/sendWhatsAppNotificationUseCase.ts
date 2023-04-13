@@ -39,7 +39,8 @@ export default class SendWhatsAppNotificationUseCase {
 
         const appointmentDate = dayjs(appointment.startDate).format('DD/MM/YYYY');
         const appointmentHour = dayjs(appointment.startDate).format('HH:mm');
-        const send = await this.notification.send(client.cellPhone.DDD, client.cellPhone.phone, client.firstName, appointmentDate, appointmentHour);
+        const message = this.notification.buildMessage(client.firstName, appointmentDate, appointmentHour);
+        const send = await this.notification.send(client.cellPhone.DDD, client.cellPhone.phone, message);
 
         if (send.err) return new Err('Não foi possível enviar a notificação. ' + send.err);
         return Ok<WhatsAppNotificationOutput>({result: true, msg: MSG});

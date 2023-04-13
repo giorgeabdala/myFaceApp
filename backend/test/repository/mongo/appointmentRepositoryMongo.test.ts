@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import AppointmentRepositoryMongo from "../../../src/infra/repository/mongo/AppointmentRepositoryMongo";
 import IRepositoryFactory from "../../../src/domain/factory/IRepositoryFactory";
 import FactoryBuilder from "../../../src/infra/factory/FactoryBuilder";

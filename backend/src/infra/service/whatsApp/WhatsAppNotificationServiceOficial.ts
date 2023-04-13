@@ -1,11 +1,11 @@
-import IWhatsAppNotificationService from "../../domain/adapters/IWhatsAppNotificationService";
+import IWhatsAppNotificationService from "../../../domain/adapters/IWhatsAppNotificationService";
 import axios from "axios";
 import {Err, Ok, Result} from "ts-results";
-import tokenMeta from "../../credentials/meta/token.meta.json";
+
 
 const endpoint = 'https://graph.facebook.com/v16.0/116366861390558/messages';
 const headers = {
-    'Authorization': 'Bearer ' + tokenMeta.token,
+    'Authorization': 'Bearer ' + process.env.TOKEN_META,
     'Content-Type': 'application/json',
 };
 const data = {
@@ -53,17 +53,21 @@ const hello_world =
 
 export default  class WhatsAppNotificationServiceOficial implements IWhatsAppNotificationService {
 
-    public async send(DDD: string, number: string, clientName: string, appointmentDate: string, appointmentHour: string): Promise<Result<Response, Response>> {
+    public async send(DDD: string, number: string, message: string): Promise<Result<Response, Response>> {
         data.to = '55' + DDD + number;
-        data.template.components[0].parameters[0].text = clientName;
-        data.template.components[0].parameters[1].text = appointmentDate;
-        data.template.components[0].parameters[2].text = appointmentHour;
         const axiosResponse = await axios.post(endpoint, hello_world, {headers: headers});
         const response = new Response(axiosResponse.data);
         if (response.status === 200) return new Ok(response);
-
         return new Err(response);
 
 }
+
+    public buildMessage(clientName: string, appointmentDate: string, appointmentHour: string): string {
+        data.template.components[0].parameters[0].text = clientName;
+        data.template.components[0].parameters[1].text = appointmentDate;
+        data.template.components[0].parameters[2].text = appointmentHour;
+        return "";
+
+    }
 
 }
