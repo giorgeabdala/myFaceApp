@@ -25,6 +25,7 @@ export default class FindEventsCalendarByProfessionalDateUseCase {
 
     async execute(input: FindEventsProfessionalInput): Promise<Result<FindEventsProfessionalOutput[], string>> {
         const professional = await this.professionalRepository.findById(input.professionalId);
+        console.log(professional);
         const eventsOrNone =await this.calendarService.findEventByDate(professional.id, professional.calendarId, input.date);
         if (eventsOrNone.none) return new Ok(this.output);
         const events = eventsOrNone.unwrap();

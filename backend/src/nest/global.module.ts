@@ -7,6 +7,11 @@ export const repositoryFactory = {
     useValue: FactoryBuilder.getDefaultFactoryRepository()
 }
 
+export const repositoryFactoryTest = {
+    provide: 'IRepositoryFactory',
+    useValue: FactoryBuilder.getTestsRepositoryFactory()
+}
+
 export const googleCalendarService  = {
     provide: 'IGoogleCalendarService',
     useValue: ServiceFactory.getGoogleCalendarService()

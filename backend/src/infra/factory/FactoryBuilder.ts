@@ -9,9 +9,10 @@ export default class FactoryBuilder {
     private static memoryRepository: IRepositoryFactory;
 
 
+    //usado pela app em prod
     public static getDefaultFactoryRepository(): IRepositoryFactory {
-        return this.getMemoryRepositoryFactory();
-        //return this.getMongoFactoryRepository();
+        //return this.getMemoryRepositoryFactory();
+        return new MongoRepositoryFactory(MongoDB.getInstance());
     }
 
     public static getMemoryRepositoryFactory(): IRepositoryFactory {
@@ -19,6 +20,11 @@ export default class FactoryBuilder {
     }
 
     public static getMongoRepositoryFactory(): IRepositoryFactory {
+        return new MongoRepositoryFactory(MongoDB.getInstance());
+    }
+
+    //usado nos testes do controller
+    public static getTestsRepositoryFactory(): IRepositoryFactory {
         return new MongoRepositoryFactory(MongoDB.getInstance());
     }
 }

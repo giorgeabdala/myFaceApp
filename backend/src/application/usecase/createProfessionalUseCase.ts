@@ -16,13 +16,15 @@ export class CreateProfessionalUseCase {
     public async execute(input: CreateProfessionalInput): Promise<Result<CreateProfessionalOutput, string>> {
         const id = uuidv4();
         if (!id) return new Err('Erro ao criar ID de funcionário');
-        const professionalOrError = Professional.create(id, input.firstName, input.lastName, input.DDD, input.phone, input.email);
+        const professionalOrError = Professional.create(id, input.firstName, input.lastName, input.DDD, input.phone, input.email, input?.calendarId);
         if (professionalOrError.err) return new Err(professionalOrError.val);
         await this.professionalRepository.save(professionalOrError.unwrap());
-        const output = new CreateProfessionalOutput(id, input.firstName, input.lastName, input.DDD, input.phone, input.email);
+        const output = new CreateProfessionalOutput(id, input.firstName, input.lastName, input.DDD, input.phone, input.email, input?.calendarId);
         if (!output) return new Err('Error creating professional');
         return Ok<CreateProfessionalOutput>(output);
     }
+
+
 
 }
 

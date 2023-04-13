@@ -66,7 +66,7 @@ export class AppointmentController {
     async delete(@Param('id') id: string) {
       try {
             const usecase = new DeleteAppointmentUseCase(this.factoryRepository);
-            const appointmentOrError = await usecase.execute( '1');
+            const appointmentOrError = await usecase.execute( id);
             if(appointmentOrError.err) return badRequest(appointmentOrError.val);
             return okHttp(appointmentOrError.unwrap());
       } catch (err) {

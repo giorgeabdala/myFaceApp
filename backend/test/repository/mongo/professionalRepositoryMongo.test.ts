@@ -1,9 +1,9 @@
-import {professionalFake, professionalFake2, professionalFake3} from "./dateFake";
 import IRepositoryFactory from "../../../src/domain/factory/IRepositoryFactory";
 import {IProfessionalRepository} from "../../../src/domain/adapters/IProfessionalRepository";
 import FactoryBuilder from "../../../src/infra/factory/FactoryBuilder";
 import {Professional} from "../../../src/domain/entities/professional";
-import {beforeAll} from "vitest";
+import {afterAll, beforeAll} from "vitest";
+import {professionalFake, professionalFake2, professionalFake3} from "test/dataFake/dateFake";
 
 let factoryRepository: IRepositoryFactory;
 let professionalRepository: IProfessionalRepository;
@@ -26,6 +26,7 @@ describe('ProfessionalRepositoryMongo', () => {
         expect(professional.cellPhone.DDD).toEqual(professionalFake.cellPhone.DDD);
         expect(professional.cellPhone.phone).toEqual(professionalFake.cellPhone.phone);
         expect(professional.email).toEqual(professionalFake.email);
+        expect(professional.calendarId).toEqual(professionalFake.calendarId);
         await professionalRepository.delete(professional);
     });
 
@@ -105,7 +106,7 @@ describe('ProfessionalRepositoryMongo', () => {
 
 });
 
-afterEach(async () => {
+afterAll(async () => {
     await professionalRepository.delete(professionalFake);
     await professionalRepository.delete(professionalFake2);
     await professionalRepository.delete(professionalFake3);

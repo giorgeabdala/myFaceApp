@@ -1,7 +1,8 @@
 import IClientRepository from "../../../domain/adapters/IClientRepository";
 import IConnection from "../../../domain/adapters/IConnection";
 import {Client} from "../../../domain/entities/client";
-import ClientSchema from "../../db/mongo/clientSchema";
+import ClientSchema, {IClientSchema} from "../../db/mongo/clientSchema";
+import mongoose from "mongoose";
 
 
 export default class ClientRepositoryMongo implements IClientRepository {
@@ -70,9 +71,20 @@ export default class ClientRepositoryMongo implements IClientRepository {
         await clientModel.deleteOne({"_id": client.id});
     }
 
-    async update(client: Client): Promise<void> {
+
+    async update(client: Client): Promise<Client> {
         const clientModel = await this.getClientModel();
-        return clientModel.updateOne({"_id": client.id}, new ClientSchema().getClientObject(client));
+        const clientDocument = await clientModel.findById(client.id);
+        if (!clientDocument) return null;
+        clientDocument.overwrite(new ClientSchema().getClientObject(client));
+        await clientDocument.save();
+
+        return Client.create(clientDocument.id,
+            clientDocument.name.firstName,
+            clientDocument.name.lastName,
+            clientDocument.cellPhone.DDD,
+            clientDocument.cellPhone.phone,
+            clientDocument.email).unwrap();
     }
 
     async findByEmail(email: string): Promise<Client> {

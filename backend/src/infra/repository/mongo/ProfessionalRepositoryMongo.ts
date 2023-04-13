@@ -75,9 +75,20 @@ export default class ProfessionalRepositoryMongo implements IProfessionalReposit
 
     }
 
-    async update(professional: Professional): Promise<void> {
+    async update(professional: Professional): Promise<Professional> {
         const professionalModel = await this.getProfessionalModel();
-        await professionalModel.updateOne({"_id": professional.id}, new ProfessionalSchema().getProfessionalObject(professional));
+        const professionalDocument = await professionalModel.findById(professional.id);
+        if (!professionalDocument) return null;
+
+        professionalDocument.overwrite(new ProfessionalSchema().getProfessionalObject(professional));
+        await professionalDocument.save();
+        return Professional.create(professionalDocument.id,
+            professionalDocument.name.firstName,
+            professionalDocument.name.lastName,
+            professionalDocument.cellPhone.DDD,
+            professionalDocument.cellPhone.phone,
+            professionalDocument.email,
+            professionalDocument.calendarId).unwrap();
     }
 
 

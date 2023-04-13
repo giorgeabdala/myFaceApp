@@ -3,18 +3,16 @@ import IRepositoryFactory from "../../../src/domain/factory/IRepositoryFactory";
 import FactoryBuilder from "../../../src/infra/factory/FactoryBuilder";
 import {IAppointmentRepository} from "../../../src/domain/adapters/IAppointmentRepository";
 import {beforeAll} from "vitest";
-import {
-    appointmentFake,
-    appointmentFake2,
-    appointmentFake3,
-    clientFake,
-    clientFake2,
-    professionalFake, professionalFake2
-} from "./dateFake";
 import {Appointment, Status} from "../../../src/domain/entities/appointment";
 import {IProfessionalRepository} from "../../../src/domain/adapters/IProfessionalRepository";
 import IClientRepository from "../../../src/domain/adapters/IClientRepository";
-
+import {
+    appointmentFake,
+    appointmentFake2, clientFake,
+    clientFake2,
+    professionalFake,
+    professionalFake2
+} from "test/dataFake/dateFake";
 
 let factoryRepository: IRepositoryFactory;
 let appointmentRepositoryMongo: IAppointmentRepository;
@@ -117,16 +115,11 @@ describe('AppointmentRepositoryMongo', () => {
          await professionalRepositoryMongo.delete(professionalFake);
     } );
 
-
-
-
-
     } );
 
 afterEach(async () => {
     await appointmentRepositoryMongo.delete(appointmentFake);
     await appointmentRepositoryMongo.delete(appointmentFake2);
-    await appointmentRepositoryMongo.delete(appointmentFake3);
     await clientRepositoryMongo.delete(clientFake);
     await clientRepositoryMongo.delete(clientFake2);
     await professionalRepositoryMongo.delete(professionalFake);

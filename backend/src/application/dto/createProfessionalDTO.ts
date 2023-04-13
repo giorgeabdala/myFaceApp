@@ -4,7 +4,8 @@ export  class CreateProfessionalInput {
         readonly lastName: string,
         readonly DDD: string,
         readonly phone: string,
-        readonly email: string
+        readonly email: string,
+        readonly calendarId?: string
     ) {}
 
 }
@@ -15,6 +16,7 @@ export class CreateProfessionalOutput {
                  readonly lastName: string,
                  readonly DDD: string,
                  readonly phone: string,
-                 readonly email: string)
+                 readonly email: string,
+                 readonly calendarId?: string)
     {}
 }

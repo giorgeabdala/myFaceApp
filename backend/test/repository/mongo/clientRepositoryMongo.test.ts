@@ -1,8 +1,8 @@
 import FactoryBuilder from "../../../src/infra/factory/FactoryBuilder";
-import {clientFake, clientFake2, clientFake3} from "./dateFake";
 import IClientRepository from "../../../src/domain/adapters/IClientRepository";
 import IRepositoryFactory from "../../../src/domain/factory/IRepositoryFactory";
 import {Client} from "../../../src/domain/entities/client";
+import {clientFake, clientFake2, clientFake3} from "test/dataFake/dateFake";
 
 
 let factoryRepository: IRepositoryFactory;

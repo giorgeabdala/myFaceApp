@@ -17,7 +17,7 @@ describe('Deve testar a criação de profissionais', () => {
         const createProfessionalUseCase = new CreateProfessionalUseCase(factoryRepository);
 
         const input = new CreateProfessionalInput('Giorge',
-            'Abdala', '41', '985691112', 'giorgeabdala@gmai.com');
+            'Abdala', '41', '985691112', 'giorgeabdala@gmai.com', '5');
 
         const outputOrError = await createProfessionalUseCase.execute(input);
         expect(outputOrError.ok).toBe(true);
@@ -29,6 +29,7 @@ describe('Deve testar a criação de profissionais', () => {
         expect(output.DDD).toBe(input.DDD);
         expect(output.phone).toBe(input.phone);
         expect(output.email).toBe(input.email);
+        expect(output.calendarId).toBe(input.calendarId);
     });
 
     it('Deve lançar um erro ao criar um profissional com nome inválido', async () => {

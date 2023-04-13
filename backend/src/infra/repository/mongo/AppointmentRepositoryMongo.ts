@@ -96,12 +96,21 @@ export default class AppointmentRepositoryMongo implements IAppointmentRepositor
        await appointmentDocument.save();
     }
 
-    async update(appointment: Appointment): Promise<void> {
+    async update(appointment: Appointment): Promise<Appointment> {
         const appointmentModel = await this.getAppointmentModel();
-        await appointmentModel.updateOne({_id: appointment.id}, new AppointmentSchema().getAppointmentObject(appointment));
+        const appointmentDocument = await appointmentModel.findById(appointment.id);
+        if (!appointmentDocument) return null;
+        appointmentDocument.overwrite(new AppointmentSchema().getAppointmentObject(appointment));
+        const saved = await appointmentDocument.save();
 
+        return Appointment.create(saved.id,
+            saved.startDate,
+            saved.endDate,
+            saved.price,
+            saved.professionalId,
+            saved.clientId,
+            saved.status,
+            saved.paymentStatus).unwrap();
     }
-
-
 
 }
