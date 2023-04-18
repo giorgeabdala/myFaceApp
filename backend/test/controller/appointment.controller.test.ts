@@ -54,9 +54,7 @@ describe('AppointmentController', () => {
         const endDate = new Date() ; //enddate menor que startdate
         const startDate = new Date();
         const newInput: CreateAppointmentInput = {...appointmentFakeController, startDate, endDate}
-        const output = await controller.create(newInput);
-        expect(output.success).toBe(false);
-
+        await expect(controller.create(newInput)).rejects.toThrowError();
     } );
 
     it ('Deve buscar todos os appointments de um cliente', async () => {

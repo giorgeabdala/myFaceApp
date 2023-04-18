@@ -1,10 +1,8 @@
 import {Controller, Get, Post, Body, Patch, Param, Delete, Inject} from '@nestjs/common';
 import SendWhatsAppNotificationUseCase, {WhatsAppNotificationInput} from "../application/usecase/sendWhatsAppNotificationUseCase";
 import IWhatsAppNotificationService from "../domain/adapters/IWhatsAppNotificationService";
-import ServiceFactory from "../infra/factory/ServiceFactory";
-import {badRequest, HttpResponse, okHttp} from "../utils/helpers/http-helper";
-import FactoryBuilder from "../infra/factory/FactoryBuilder";
 import IRepositoryFactory from "../domain/factory/IRepositoryFactory";
+import {badRequest, okHttp} from "../utils/helpers/http-helper";
 
 @Controller('phone-notification')
 export class PhoneNotificationController {
@@ -16,7 +14,7 @@ export class PhoneNotificationController {
     try {
       const usecase  = new SendWhatsAppNotificationUseCase(this.factoryRepository, this.serviceWhats);
         const outputOrError = await usecase.execute(input);
-        if(outputOrError.err) return badRequest(outputOrError.val);
+        if(outputOrError.err)  badRequest(outputOrError.val);
         return okHttp(outputOrError.unwrap());
     } catch (err) {
         console.log(err);

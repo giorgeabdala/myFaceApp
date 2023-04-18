@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Body, Param, Delete, Inject, Patch} from '@nestjs/common';
+import {Controller, Get, Post, Body, Param, Delete, Inject, Patch, HttpException, HttpStatus} from '@nestjs/common';
 import CreateClientUseCase from "../application/usecase/createClientUseCase";
 import {CreateClientInput} from "../application/dto/createClientDTO";
 import {badRequest, okHttp, serverError} from "../utils/helpers/http-helper";
@@ -23,7 +23,7 @@ export class ClientController {
             return okHttp(outputOrError.unwrap());
         } catch (err) {
             console.log(err);
-            return serverError('Internal Error: ' + err);
+            serverError('Internal Error: ' + err);
         }
     }
 
@@ -36,7 +36,7 @@ export class ClientController {
             return okHttp(outputOrError.unwrap());
         } catch (err) {
             console.log(err);
-            return serverError('Internal Error: ' + err);
+            serverError('Internal Error: ' + err);
         }
     }
 
@@ -49,7 +49,7 @@ export class ClientController {
             return okHttp(outputOrError.unwrap());
         } catch (err) {
             console.log(err);
-            return serverError('Internal Error: ' + err);
+             serverError('Internal Error: ' + err);
         }
     }
 
@@ -63,7 +63,8 @@ export class ClientController {
       return okHttp(outputOrError.unwrap());
     } catch (err) {
         console.log(err);
-      return serverError('Internal Error: ' + err);
+        serverError('Internal Error: ' + err);
+
     }
 
   }

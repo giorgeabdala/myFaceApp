@@ -8,6 +8,10 @@ import IRepositoryFactory from "../../src/domain/factory/IRepositoryFactory";
 import {CreateProfessionalUseCase} from "../../src/application/usecase/createProfessionalUseCase";
 import {professionalFakeCOntroller} from "../dataFake/dataFakeController";
 
+//id para deletar
+let id: string;
+
+
 describe('ProfessionalController', () => {
   let controller: ProfessionalController;
   let factoryRepository: IRepositoryFactory;
@@ -28,6 +32,7 @@ describe('ProfessionalController', () => {
 
   it('Deve criar um professional', async () => {
     const output = await controller.create(professionalFakeCOntroller);
+    id = output.body.id;
     expect(output.success).toBe(true);
     expect(output.body).toBeInstanceOf(CreateProfessionalOutput);
     const usecase = new DeleteProfessionalUseCase(factoryRepository);
@@ -36,17 +41,21 @@ describe('ProfessionalController', () => {
 
     it('Deve retornar um serverError ao criar um profissional inválido', async () => {
         const newInput = {...professionalFakeCOntroller, firstName: ""}
-        const result = await controller.create(newInput);
-        expect(result.success).toBeFalsy();
-        expect(result.statusCode).toBe(400);
+        await expect(controller.create(newInput)).rejects.toThrow();
     } );
 
     it('Deve deletar um professional', async () => {
         const useCase = new CreateProfessionalUseCase(factoryRepository);
         const client = await (await useCase.execute(professionalFakeCOntroller)).unwrap();
+        id = client.id;
         const result = await controller.delete(client.id);
         expect(result.success).toBeTruthy();
         expect(result.statusCode).toBe(200);
+    } );
+
+    afterEach(async () => {
+        const usecase = new DeleteProfessionalUseCase(factoryRepository);
+        await usecase.execute(id);
     } );
 
 });

@@ -23,7 +23,7 @@ export class AppointmentController {
     }
     catch (err) {
         console.log(err);
-        return serverError('Internal Error: ' + err);
+        serverError('Internal Error: ' + err);
     }
   }
 
@@ -36,7 +36,7 @@ export class AppointmentController {
       return okHttp(appointmentOrError.unwrap());
     } catch (err) {
         console.log(err);
-        return serverError('Internal Error: ' + err);
+        serverError('Internal Error: ' + err);
     }
   }
 
@@ -49,7 +49,7 @@ export class AppointmentController {
             return okHttp(appointmentOrError.unwrap());
         } catch (err) {
             console.log(err);
-            return serverError('Internal Error: ' + err);
+            serverError('Internal Error: ' + err);
         }
   }
 
@@ -62,7 +62,7 @@ export class AppointmentController {
             return okHttp(appointmentOrError.unwrap());
       } catch (err) {
             console.log(err);
-            return serverError('Internal Error: ' + err);
+            serverError('Internal Error: ' + err);
       }
   }
 
@@ -75,7 +75,7 @@ export class AppointmentController {
             return okHttp(appointmentOrError.unwrap());
       } catch (err) {
             console.log(err);
-            return serverError('Internal Error: ' + err);
+            serverError('Internal Error: ' + err);
       }
 
     }

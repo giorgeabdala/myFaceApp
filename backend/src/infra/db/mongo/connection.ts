@@ -6,7 +6,6 @@ export default class MongoDB implements IConnection {
     private static instance: MongoDB;
 
     //TODO: trocar para .env
-    //private MONGODB_URI = 'mongodb://192.168.0.2:27017/myface';
     private MONGODB_URI = process.env.MONGODB_URI;
 
 

@@ -17,9 +17,9 @@ const professionalTest = Professional.create('99',
 
 
 
-export default class DropCollection {
+export default class PopulateCollections {
 
-    private static instance: DropCollection;
+    private static instance: PopulateCollections;
 
     //TODO: trocar para .env
     private MONGODB_URI = 'mongodb://localhost:27017/myface';
@@ -33,11 +33,11 @@ export default class DropCollection {
         // pass: DB_PASS// Maintain up to 10 socket connections
     };
 
-    public static getInstance(): DropCollection {
-        if (!DropCollection.instance) {
-            DropCollection.instance = new DropCollection();
+    public static getInstance(): PopulateCollections {
+        if (!PopulateCollections.instance) {
+            PopulateCollections.instance = new PopulateCollections();
         }
-        return DropCollection.instance;
+        return PopulateCollections.instance;
     }
 
 
@@ -53,18 +53,27 @@ export default class DropCollection {
     }
 
 
-    public async dropCollection(collectionName: string) {
-        const db = await this.connect();
-        await db.collection(collectionName).deleteMany({});
-    }
 
+    public async populateCollection() {
+        const db = await this.connect();
+        const clientSchema = new ClientSchema();
+        const clientModel = db.model('ClientSchema', clientSchema.getSchema(), 'client');
+        const professionalSchema = new ProfessionalSchema();
+        const professionalModel = db.model('ProfessionalSchema', professionalSchema.getSchema(), 'professional');
+
+        await clientModel.create(clientSchema.getClientObject(clientTest));
+        await professionalModel.create(professionalSchema.getProfessionalObject(professionalTest));
+
+
+    }
 }
 
-const drop =  DropCollection.getInstance();
 
-drop.dropCollection('professional').then(r => console.log(r));
-drop.dropCollection('client').then(r => console.log(r));
-drop.dropCollection('appointment').then(r => console.log(r));
+const drop =  PopulateCollections.getInstance();
+
+
+
+drop.populateCollection().then(r => console.log(r));
 
 
 

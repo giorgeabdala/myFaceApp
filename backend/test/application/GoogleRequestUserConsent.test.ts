@@ -4,7 +4,6 @@ import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRe
 import { describe } from 'vitest'
 import {Ok, Result} from "ts-results";
 import IGoogleCalendarService from "../../src/domain/adapters/IGoogleCalendarService";
-import GoogleCalendarService from "../../src/infra/service/googleCalendar/GoogleCalendarService";
 import settings from "../../src/infra/service/googleCalendar/settings";
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 import ServiceFactory from "../../src/infra/factory/ServiceFactory";

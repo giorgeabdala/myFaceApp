@@ -19,7 +19,7 @@ export class ProfessionalController {
       return okHttp(professionalOrError.unwrap());
     } catch (err) {
         console.log(err);
-        return serverError('Internal Error: ' + err);
+        serverError('Internal Error: ' + err);
     }
   }
 
@@ -32,7 +32,7 @@ export class ProfessionalController {
         return okHttp(result);
     } catch (err) {
         console.log(err);
-        return serverError('Internal Error: ' + err);
+        serverError('Internal Error: ' + err);
     }
 
   }

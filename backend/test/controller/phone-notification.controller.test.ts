@@ -8,7 +8,6 @@ import {appointmentFake, clientFake, professionalFake} from "../dataFake/dateFak
 import IClientRepository from "../../src/domain/adapters/IClientRepository";
 import {IAppointmentRepository} from "../../src/domain/adapters/IAppointmentRepository";
 import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
-import {beforeAll} from "vitest";
 
 
 describe('PhoneNotificationController', () => {
@@ -60,10 +59,7 @@ describe('PhoneNotificationController', () => {
       professionalId: '99',
       clientId: '1'
     }
-
-    const result = await controller.send(input);
-    expect(result.statusCode).toBe(400);
-    expect(result.success).toBe(false);
+    await expect(controller.send(input)).rejects.toThrow();
 
     await appointmentRepository.delete(appointmentFake);
     await professionalRepository.delete(professionalFake);

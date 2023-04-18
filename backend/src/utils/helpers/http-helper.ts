@@ -1,29 +1,58 @@
-export interface HttpResponse {
-    statusCode: number
-    success: boolean,
-    body: any
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class ForbiddenException extends HttpException {
+    constructor(error: string) {
+        super(
+            {
+                statusCode: HttpStatus.FORBIDDEN,
+                success: false,
+                body: error,
+            },
+            HttpStatus.FORBIDDEN,
+        );
+    }
 }
 
-export const okHttp = (data: any): HttpResponse => ({
-    statusCode: 200,
+export class BadRequestException extends HttpException {
+    constructor(error: string) {
+        super(
+            {
+                statusCode: HttpStatus.BAD_REQUEST,
+                success: false,
+                body: error,
+            },
+            HttpStatus.BAD_REQUEST,
+        );
+    }
+}
+
+export class ServerErrorException extends HttpException {
+    constructor(error: string) {
+        super(
+            {
+                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+                success: false,
+                body: error,
+            },
+            HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+    }
+}
+
+export const okHttp = (data: any) => ({
+    statusCode: HttpStatus.OK,
     success: true,
-    body: data
-})
+    body: data,
+});
 
-export const forbidden = (error: string): HttpResponse => ({
-    statusCode: 403,
-    success: false,
-    body: error
-})
+export const forbidden = (error: string) => {
+    throw new ForbiddenException(error);
+};
 
-export const badRequest = (error: string): HttpResponse => ({
-    statusCode: 400,
-    success: false,
-    body: error
-})
+export const badRequest = (error: string) => {
+    throw new BadRequestException(error);
+};
 
-export const serverError = (error: string): HttpResponse => ({
-    statusCode: 500,
-    success: false,
-    body: error
-})
+export const serverError = (error: string) => {
+    throw new ServerErrorException(error);
+};

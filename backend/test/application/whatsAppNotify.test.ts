@@ -1,11 +1,9 @@
-import {IAppointmentRepository} from "../../src/domain/adapters/IAppointmentRepository";
-import IClientRepository from "../../src/domain/adapters/IClientRepository";
 import SendWhatsAppNotificationUseCase, {WhatsAppNotificationInput} from "../../src/application/usecase/sendWhatsAppNotificationUseCase";
-import {IProfessionalRepository} from "../../src/domain/adapters/IProfessionalRepository";
 import IWhatsAppNotificationService from "../../src/domain/adapters/IWhatsAppNotificationService";
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 import ServiceFactory from "../../src/infra/factory/ServiceFactory";
 import IRepositoryFactory from "../../src/domain/factory/IRepositoryFactory";
+import {Ok, Result} from "ts-results";
 
 let service: IWhatsAppNotificationService;
 let factoryRepository: IRepositoryFactory;
@@ -23,10 +21,18 @@ Por gentileza, confirme sua presença.`
 beforeEach(() => {
     factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
     service = ServiceFactory.getWhatsAppNotificationService();
-} );
+
+    const buildMessage = service.buildMessage;
+
+    service = <IWhatsAppNotificationService>{send: async (DDD: string, number: string, message: string)
+            : Promise<Result<Response, Response>> => {return Ok(new Response(''))},
+        buildMessage: (clientName: string, appointmentDate: string, appointmentHour: string) => {return buildMessage(clientName, appointmentDate, appointmentHour);
+}
+}  } );
 
 describe('Deve testar o envio de notificação via WhatsApp', () => {
     it('Deve enviar uma notificação de agendamento para o cliente', async () => {
+        //mock de SendWhatsAppNotificationUseCase
         const useCase = new SendWhatsAppNotificationUseCase(factoryRepository, service );
         const input : WhatsAppNotificationInput = {
             appointmentId: '1',

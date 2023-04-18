@@ -55,7 +55,7 @@ services:
     build:
       context: whatsapp-api
     volumes:
-      - ~/server/volumes/whatsapp-api:/var/run/docker.sock
+      - ~/server/volumes/whatsapp-api:/codechat/instances
     networks:
       - nest-mongo
     ports:

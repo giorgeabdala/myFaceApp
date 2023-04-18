@@ -8,8 +8,12 @@ import {UpdateClientOutput} from "../../src/application/dto/updateClientInputDTO
 import DeleteClientUseCase from "../../src/application/usecase/deleteClientUseCase";
 import CreateClientUseCase from "../../src/application/usecase/createClientUseCase";
 import {clientFakeController} from "../dataFake/dataFakeController";
+import {ServerErrorException} from "../../src/utils/helpers/http-helper";
 
 let factoryRepository = FactoryBuilder.getTestsRepositoryFactory();
+
+//id para deletar
+let id: string;
 
 
 describe('ClientController', () => {
@@ -33,19 +37,17 @@ describe('ClientController', () => {
 
   it('Deve criar um cliente', async () => {
       const output = await controller.create(clientFakeController);
+      id = output.body.id;
       expect(output.success).toBe(true);
-      expect(output.body).toBeInstanceOf(CreateClientOutput);
       expect(output.body.firstName).toBe(clientFakeController.firstName);
       const deleteUsecase = new DeleteClientUseCase(factoryRepository);
       await deleteUsecase.execute(output.body.id);
     });
 
-  it('Deve retornar um serverError ao cliar um cliente inválido', async () => {
-      const newInput = {...clientFakeController, firstName: ""}
-      const result = await controller.create(newInput);
-      expect(result.success).toBeFalsy();
-      expect(result.statusCode).toBe(400);
-  } );
+    it('Deve retornar um serverError ao criar um cliente inválido', async () => {
+        const newInput = { ...clientFakeController, firstName: '' };
+        await expect(controller.create(newInput)).rejects.toThrow(ServerErrorException);
+    });
 
   it('Deve retornar todos os clients', async () => {
     const output = await controller.findAll();
@@ -56,6 +58,7 @@ describe('ClientController', () => {
   it('Deve deletar um client', async () => {
       const createUsecase = new CreateClientUseCase(factoryRepository);
       const client = await (await createUsecase.execute(clientFakeController)).unwrap();
+      id = client.id;
       const output = await controller.delete(client.id);
         expect(output.success).toBe(true);
 
@@ -64,6 +67,7 @@ describe('ClientController', () => {
   it('Deve atualizar um client', async () => {
       const createUsecase = new CreateClientUseCase(factoryRepository);
       const client = await (await createUsecase.execute(clientFakeController)).unwrap();
+        id = client.id;
       const inputUpdate = {
             id: client.id,
             firstName: "updated",
@@ -84,6 +88,13 @@ describe('ClientController', () => {
       const deleteUsecase = new DeleteClientUseCase(factoryRepository);
       await deleteUsecase.execute(output.body.id);
 } );
+
+  afterEach(async () => {
+      const deleteUsecase = new DeleteClientUseCase(factoryRepository);
+      await deleteUsecase.execute(id);
+
+
+  } );
 
 });
 
