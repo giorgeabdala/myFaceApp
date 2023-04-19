@@ -18,7 +18,7 @@ interface Client {
     firstName: string;
     lastName: string;
     DDD: string;
-    number: string;
+    phone: string;
     email: string;
 }
 
@@ -45,8 +45,10 @@ function ClientListChacra() {
 
     async function handleUpdateClient(client: Client) {
         try {
-            const updatedClient = { id: client.id, firstName: client.firstName, DDD: client.DDD, number: client.number };
-            await axios.patch("http://localhost:3000/client/", updatedClient);
+            const updatedClient = { id: client.id, firstName: client.firstName, lastName: client.lastName, DDD: client.DDD, phone: client.phone, email: null };
+            console.log(updatedClient);
+            const patch = await axios.patch("http://localhost:3000/client/", updatedClient);
+
             // @ts-ignore
             setClients(clients.map((c) => (c.id === client.id ? updatedClient : c)));
             toast({
@@ -67,6 +69,41 @@ function ClientListChacra() {
         }
     }
 
+    function handleFirstNameChange(event: React.ChangeEvent<HTMLInputElement>, client: Client) {
+        const updatedClients = clients.map((c) => {
+            if (c.id === client.id) {
+                return { ...c, firstName: event.target.value };
+            }
+            return c;
+        });
+        setClients(updatedClients);
+    }
+
+    function handleDDDChange(event: React.ChangeEvent<HTMLInputElement>, client: Client) {
+        const updatedClients = clients.map((c) => {
+            if (c.id === client.id) {
+                return { ...c, DDD: event.target.value };
+            }
+            return c;
+        });
+        setClients(updatedClients);
+    }
+
+    function handleNumberChange(event: React.ChangeEvent<HTMLInputElement>, client: Client) {
+        const updatedClients = clients.map((c) => {
+            if (c.id === client.id) {
+                return { ...c, phone: event.target.value };
+            }
+            return c;
+        });
+        setClients(updatedClients);
+    }
+
+
+
+
+
+
     return (
         <ChakraProvider>
             <Box textAlign="center" fontSize="xl">
@@ -76,11 +113,12 @@ function ClientListChacra() {
                         {clients.map((client : Client) => (
                             <Tr key={client.id}>
                                 <Td>{client.id}</Td>
-                                <Td> <Input placeholder={client.firstName} _placeholder={{ color: 'black' }} onChange={(e) => setFirstName(e.target.value)}/> </Td>
+                                <Td> <Input value={client.firstName} onChange={(event) => handleFirstNameChange(event, client)}
+                                /> </Td>
                                 <Td>
-                                    <Input placeholder={client.DDD} _placeholder={{ color: 'black' }} onChange={(e) => setDDD(e.target.value)} /></Td>
+                                    <Input value={client.DDD} onChange={(event) => handleDDDChange(event, client)}/></Td>
                                 <Td>
-                                    <Input placeholder={client.number} _placeholder={{ color: 'black' }} onChange={(e) => setNumber(e.target.value)} /> </Td>
+                                    <Input value={client.phone} onChange={(event) => handleNumberChange(event, client)}/> </Td>
                                 <Td>
                                     <Button colorScheme="pink" onClick={() => handleUpdateClient(client)}>
                                         Atualizar
