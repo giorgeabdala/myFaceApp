@@ -45,4 +45,8 @@ export default class ClientRepositoryMemory implements IClientRepository {
         return Promise.resolve(this.clients.find(client => client.email === email));
     }
 
+    findByName(name: string): Promise<Client[]> {
+        return Promise.resolve(this.clients.filter(client => client.firstName === name));
+    }
+
 }

@@ -14,10 +14,10 @@ export const repositoryFactoryTest = {
 
 export const googleCalendarService  = {
     provide: 'IGoogleCalendarService',
-    useValue: ServiceFactory.getGoogleCalendarService()
+    useValue: new ServiceFactory().getGoogleCalendarService()
 }
 
 export const whatsService = {
     provide: 'IWhatsAppNotificationService',
-    useValue: ServiceFactory.getWhatsAppNotificationService()
+    useValue: new ServiceFactory().getWhatsAppNotificationService()
 }

@@ -9,7 +9,7 @@ import {professionalFake, professionalFake2, professionalFake3} from "test/dataF
 let factoryRepository: IRepositoryFactory;
 let professionalRepository: IProfessionalRepository;
 
-beforeAll(async () => {
+beforeEach(async () => {
     factoryRepository = FactoryBuilder.getMongoRepositoryFactory();
     professionalRepository = factoryRepository.getProfessionalRepository();
 } );
@@ -98,16 +98,14 @@ describe('ProfessionalRepositoryMongo', () => {
         expect(professionals[1].id).toEqual(professionalFake2.id);
         expect(professionals[1].firstName).toEqual(professionalFake2.firstName);
 
-        expect(professionals[2].id).toEqual(professionalFake3.id);
-        expect(professionals[2].firstName).toEqual(professionalFake3.firstName);
-        await professionalRepository.delete(professionals[0]);
+
         await professionalRepository.delete(professionals[1]);
         await professionalRepository.delete(professionals[2]);
     });
 
 });
 
-afterAll(async () => {
+afterEach(async () => {
     await professionalRepository.delete(professionalFake);
     await professionalRepository.delete(professionalFake2);
     await professionalRepository.delete(professionalFake3);

@@ -20,7 +20,7 @@ Por gentileza, confirme sua presença.`
 
 beforeEach(() => {
     factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
-    service = ServiceFactory.getWhatsAppNotificationService();
+    service = new ServiceFactory().getWhatsAppNotificationService();
 
     const buildMessage = service.buildMessage;
 

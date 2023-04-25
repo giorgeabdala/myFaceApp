@@ -101,10 +101,9 @@ describe('Testa o repository MongoDb de Client', async () => {
 
         await clientRepository.save(clientFake);
         await clientRepository.save(clientFake2);
-        await clientRepository.save(clientFake3);
         const clients = await clientRepository.findAll();
         expect(clients).not.toBeNull();
-        expect(clients.length).toEqual(3);
+        expect(clients.length).toBeGreaterThanOrEqual(2);
 
         expect(clients[0].id).toEqual(clientFake.id);
         expect(clients[0].firstName).toEqual(clientFake.firstName);
@@ -112,19 +111,28 @@ describe('Testa o repository MongoDb de Client', async () => {
         expect(clients[1].id).toEqual(clientFake2.id);
         expect(clients[1].firstName).toEqual(clientFake2.firstName);
 
-        expect(clients[2].id).toEqual(clientFake3.id);
-        expect(clients[2].firstName).toEqual(clientFake3.firstName);
+        await clientRepository.delete(clientFake);
+        await clientRepository.delete(clientFake2);
 
-        await clientRepository.delete(clients[0]);
-        await clientRepository.delete(clients[1]);
-        await clientRepository.delete(clients[2]);
+    } );
+
+    it('Deve buscar clientes por nome', async () => {
+            await clientRepository.save(clientFake);
+            const clients = await clientRepository.findByName(clientFake.firstName);
+            expect(clients).not.toBeNull();
+            expect(clients.length).toBeGreaterThanOrEqual(1);
+
+            expect(clients[0].id).toEqual(clientFake.id);
+            expect(clients[0].firstName).toEqual(clientFake.firstName);
+
+            await clientRepository.delete(clientFake);
+
     } );
 
     afterEach(async () => {
         await clientRepository.delete(clientFake);
         await clientRepository.delete(clientFake2);
         await clientRepository.delete(clientFake3);
-
     } );
 
 

@@ -8,4 +8,5 @@ export default interface IClientRepository {
     delete(client: Client): Promise<void>;
     update(client: Client): Promise<Client>;
     findByEmail(email: string): Promise<Client>;
+    findByName(name: string): Promise<Client[]>;
 }

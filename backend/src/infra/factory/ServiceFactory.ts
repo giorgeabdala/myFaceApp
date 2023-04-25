@@ -6,11 +6,11 @@ import WhatsAppNotificationServiceCodeChat from "../service/whatsApp/whatsAppNot
 
 export default class ServiceFactory {
 
-    static getGoogleCalendarService(): IGoogleCalendarService {
+     getGoogleCalendarService(): IGoogleCalendarService {
         return  new GoogleCalendarService();
     }
 
-    static getWhatsAppNotificationService(): IWhatsAppNotificationService {
+     getWhatsAppNotificationService(): IWhatsAppNotificationService {
         return new WhatsAppNotificationServiceCodeChat();
     }
 

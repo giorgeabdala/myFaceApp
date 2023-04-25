@@ -12,7 +12,7 @@ let professionalRepository: IProfessionalRepository;
 const factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
 
 beforeEach(() => {
-    googleService = ServiceFactory.getGoogleCalendarService();
+    googleService = new ServiceFactory().getGoogleCalendarService();
     professionalRepository =factoryRepository.getProfessionalRepository();
     const hoje = new Date();
 

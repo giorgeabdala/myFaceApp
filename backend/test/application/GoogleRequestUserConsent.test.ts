@@ -16,7 +16,7 @@ beforeEach(() => {
     //definir timeout ppara 5 minutos
     professionalRepository = factoryRepository.getProfessionalRepository();
 
-    userRequestService = ServiceFactory.getGoogleCalendarService();
+    userRequestService = new ServiceFactory().getGoogleCalendarService();
     //mock do servico
     userRequestService = <IGoogleCalendarService>{requestAuthorization: async (credentialsPath: string, tokenPath: string): Promise<Result<string, string>> => {return Ok('token');}}
 } );

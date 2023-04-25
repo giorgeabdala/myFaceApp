@@ -21,9 +21,8 @@ export default class GoogleCalendarService implements IGoogleCalendarService {
     public async findEventByDate(professionalId: string, calendarId: string, date: string): Promise<Option<Schema$Event[]>> {
         const tokenFullPath = settings.TOKEN_PATH + professionalId + '.json';
         await this.autenticate(tokenFullPath);
-        const timeMin = dayjs(date).toDate();
-        const nextDay = new Date(timeMin.getTime());
-        nextDay.setDate(timeMin.getDate() + 1);
+        const timeMin  = dayjs(date).toDate();
+        const nextDay = dayjs(date).add(1, 'day').toDate();
         const events = await this.calendar.events.list({
             calendarId: calendarId,
             timeMin: timeMin.toISOString(),

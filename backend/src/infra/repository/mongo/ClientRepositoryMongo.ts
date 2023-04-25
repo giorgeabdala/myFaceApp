@@ -99,4 +99,16 @@ export default class ClientRepositoryMongo implements IClientRepository {
             clientDocument.email).unwrap();
     }
 
+    async findByName(name: string): Promise<Client[]> {
+        const clientModel = await this.getClientModel();
+        const clientDocuments = await clientModel.find({"name.firstName": name});
+        if (!clientDocuments) return null;
+        return clientDocuments.map(clientDocument => Client.create(clientDocument.id,
+            clientDocument.name.firstName,
+            clientDocument.name.lastName,
+            clientDocument.cellPhone.DDD,
+            clientDocument.cellPhone.phone,
+            clientDocument.email).unwrap());
+    }
+
 }

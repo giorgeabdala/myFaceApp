@@ -12,7 +12,7 @@ export default class FindAllClientsUseCase {
 
     public async execute(): Promise<Result<FindAllClientsOutput[],string>> {
         const clients = await this.clientRepository.findAll();
-        if (!clients) return new Err('Erro ao buscar Clientes');
+        if (!clients) return new Ok([]);
         const clientsOtput: FindAllClientsOutput[] = [];
         clients.forEach(client => {
             clientsOtput.push(new FindAllClientsOutput(
