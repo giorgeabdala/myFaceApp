@@ -21,3 +21,8 @@ export const whatsService = {
     provide: 'IWhatsAppNotificationService',
     useValue: new ServiceFactory().getWhatsAppNotificationService()
 }
+
+export const serviceFactory = {
+    provide: 'ServiceFactory',
+    useValue: new ServiceFactory()
+}

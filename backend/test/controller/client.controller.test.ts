@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ClientController } from '../../src/controller/client.controller';
-import {CreateClientOutput} from "../../src/application/dto/createClientDTO";
 import FindAllClientsOutput from "../../src/application/dto/findAllClientsOutput";
 import FactoryBuilder from "../../src/infra/factory/FactoryBuilder";
 import {ClientModuleTest} from "../../src/nest/client.module";

@@ -25,6 +25,6 @@ export default class FactoryBuilder {
 
     //usado nos testes do controller
     public static getTestsRepositoryFactory(): IRepositoryFactory {
-        return new MongoRepositoryFactory(MongoDB.getInstance());
+        return this.getMongoRepositoryFactory();
     }
 }
