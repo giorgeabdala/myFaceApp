@@ -22,13 +22,10 @@ beforeEach(() => {
     factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
     service = new ServiceFactory().getWhatsAppNotificationService();
 
-    const buildMessage = service.buildMessage;
-
     service = <IWhatsAppNotificationService>{send: async (DDD: string, number: string, message: string)
-            : Promise<Result<Response, Response>> => {return Ok(new Response(''))},
-        buildMessage: (clientName: string, appointmentDate: string, appointmentHour: string) => {return buildMessage(clientName, appointmentDate, appointmentHour);
-}
-}  } );
+            : Promise<Result<Response, Response>> => {return Ok(new Response(''))},};
+});
+
 
 describe('Deve testar o envio de notificação via WhatsApp', () => {
     it('Deve enviar uma notificação de agendamento para o cliente', async () => {
@@ -49,10 +46,12 @@ describe('Deve testar o envio de notificação via WhatsApp', () => {
 
 
     it("Deve testar a construção da mensagem para envio", () => {
-        const message = service.buildMessage('Lu', '13/14/2023', '19:24');
+        const useCase = new SendWhatsAppNotificationUseCase(factoryRepository, service );
+        const message = useCase.buildMessage('Lu', '13/14/2023', '19:24');
 
         console.log(message);
         console.log(mensagemEsperada);
         expect(message).toBe(mensagemEsperada);
     } );
-} );
+
+});

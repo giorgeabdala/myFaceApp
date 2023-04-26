@@ -31,19 +31,25 @@ export default class SendWhatsAppNotificationUseCase {
 
     public async execute(input: WhatsAppNotificationInput): Promise<Result<WhatsAppNotificationOutput,string>> {
         const appointment = await this.appointmentRepository.findById(input.appointmentId);
-        const professional = await this.professionalRepository.findById(input.professionalId);
-        const client = await this.clientRepository.findById(input.clientId);
         if (!appointment) return new Err('Não foi possível enviar a notificação. Agendamento não encontrado');
-        if (!professional) return new Err('Não foi possível enviar a notificação. Profissional não encontrado');
-        if (!client) return new Err('Não foi possível enviar a notificação. Cliente não encontrado');
-
+        const client = appointment.client;
         const appointmentDate = dayjs(appointment.startDate).format('DD/MM/YYYY');
         const appointmentHour = dayjs(appointment.startDate).format('HH:mm');
-        const message = this.notification.buildMessage(client.firstName, appointmentDate, appointmentHour);
+        const message = this.buildMessage(client.firstName, appointmentDate, appointmentHour);
         const send = await this.notification.send(client.cellPhone.DDD, client.cellPhone.phone, message);
 
         if (send.err) return new Err('Não foi possível enviar a notificação. ' + send.err);
         return Ok<WhatsAppNotificationOutput>({result: true, msg: MSG});
+    }
+
+    //marcado como publico para poder testar
+    public buildMessage(clientName: string, appointmentDate: string, appointmentHour: string): string {
+        return `Oi ${clientName}
+Tudo bem?
+Passando para lembrar que *Amanhã, ${appointmentDate} as ${appointmentHour}hrs* você tem um horário agendado para extensão de cílios.
+Rua Rio Xingu, 625 - Sobrado 8 Bairro Alto.
+            
+Por gentileza, confirme sua presença.`;
     }
 
 }

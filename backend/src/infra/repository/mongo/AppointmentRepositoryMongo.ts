@@ -55,7 +55,6 @@ export default class AppointmentRepositoryMongo implements IAppointmentRepositor
         const appointmentModel = await this.getAppointmentModel();
         const appointmentDocument = await appointmentModel.findById(id);
         if (!appointmentDocument) return null;
-
         const client = await this.clientRepository.findById(appointmentDocument.clientId);
         const professional = await this.professionalRepository.findById(appointmentDocument.professionalId);
         return Appointment.create(appointmentDocument.id,

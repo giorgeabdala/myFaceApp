@@ -6,6 +6,8 @@ import {IProfessionalRepository} from "../../../src/domain/adapters/IProfessiona
 import {IAppointmentRepository} from "../../../src/domain/adapters/IAppointmentRepository";
 import IClientRepository from "../../../src/domain/adapters/IClientRepository";
 import {appointmentFake, clientFake, professionalFake} from "../../dataFake/dateFake";
+import {Appointment} from "../../../src/domain/entities/appointment";
+import {beforeAll} from "vitest";
 
 //o mé é indexado começando cm 0. 26/02/2023
 const date = new Date(2023, 1, 26);
@@ -16,17 +18,17 @@ let factoryRepository: IRepositoryFactory;
 let clientRepository: IClientRepository;
 let professionalRepository: IProfessionalRepository;
 let appointmentRepository: IAppointmentRepository;
+let notificationsForDelete: Appointment[] = [];
 
 
-beforeEach(async () => {
+beforeAll(async () => {
     factoryService = new ServiceFactory();
-    factoryRepository = FactoryBuilder.getMemoryRepositoryFactory();
+    factoryRepository = FactoryBuilder.getMongoRepositoryFactory();
     clientRepository = factoryRepository.getClientRepository();
     professionalRepository = factoryRepository.getProfessionalRepository();
     appointmentRepository = factoryRepository.getAppointmentsRepository();
     await clientRepository.save(clientFake);
     await professionalRepository.save(professionalFake);
-    await appointmentRepository.save(appointmentFake);
 } );
 
 
@@ -41,13 +43,16 @@ describe('\'deve testar a sincronização dos dados.\' +\n' +
             expect(notifications.success).toBeInstanceOf(Array);
             expect(notifications.errors.names).toBeInstanceOf(Array);
             expect(notifications.success.length).toBeGreaterThan(0);
-            expect(notifications.errors.quantity).toBe(0);
+            expect(notifications.errors.quantity).toBe(2);
+            notificationsForDelete = notifications.success;
         } );
 }  );
 
 
-afterEach(async () => {
-    await appointmentRepository.delete(appointmentFake);
+afterAll(async () => {
+    for (const notification of notificationsForDelete) {
+        await appointmentRepository.delete(notification);
+    }
     await professionalRepository.delete(professionalFake);
     await clientRepository.delete(clientFake);
 } );

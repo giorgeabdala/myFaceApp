@@ -50,7 +50,6 @@ export default class SyncronizeUseCase {
         const eventsOrError = await this.findEventsCalendar(input.professionalId, input.date);
         if (eventsOrError.err) return new Err("Erro ao recuperar eventos no google calendar" + eventsOrError.err);
         const events = eventsOrError.unwrap();
-
         const appointments = await this.saveAppointments(events, professional, this.factoryRepository);
         const notifications = await this.sendWhatsAppNotifications(appointments);
 
@@ -138,7 +137,4 @@ export default class SyncronizeUseCase {
         const name = event.clientName.match(regex);
         if (name) return name[1].trim();
     }
-
-
-
 }

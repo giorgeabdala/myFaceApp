@@ -23,13 +23,6 @@ export default class WhatsAppNotificationServiceCodeChat implements IWhatsAppNot
         return new Err(response);
     }
 
-    buildMessage(clientName: string, appointmentDate: string, appointmentHour: string): string {
-        return `Oi ${clientName}
-Tudo bem?
-Passando para lembrar que *Amanhã, ${appointmentDate} as ${appointmentHour}hrs* você tem um horário agendado para extensão de cílios.
-Rua Rio Xingu, 625 - Sobrado 8 Bairro Alto.
-            
-Por gentileza, confirme sua presença.`;
-  }
+
 
 }
