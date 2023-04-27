@@ -23,6 +23,9 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 
+const BACKEND_URI = import.meta.env.VITE_BACKEND_URI || "http://localhost:3000/client";
+
+
 interface Client {
     id: number;
     firstName: string;
@@ -47,7 +50,7 @@ function ClientListChacra() {
         async function fetchClients() {
             try {
                 console.log("Fetching clients");
-                const response = await axios.get("http://localhost:3000/client");
+                const response = await axios.get(BACKEND_URI);
                 setClients(response.data.body);
             } catch (error) {
                 console.log(error);
@@ -60,7 +63,7 @@ function ClientListChacra() {
         try {
             const updatedClient = { id: client.id, firstName: client.firstName, lastName: client.lastName, DDD: client.DDD, phone: client.phone, email: null };
             console.log(updatedClient);
-            const patch = await axios.patch("http://localhost:3000/client/", updatedClient);
+            const patch = await axios.patch(BACKEND_URI, updatedClient);
 
             // @ts-ignore
             setClients(clients.map((c) => (c.id === client.id ? updatedClient : c)));
@@ -85,7 +88,7 @@ function ClientListChacra() {
     async function handleAddClient() {
         try {
             const newClient = { firstName, lastName, DDD, phone, email };
-            const response = await axios.post("http://localhost:3000/client", newClient);
+            const response = await axios.post(BACKEND_URI, newClient);
             setClients([...clients, response.data.body]);
             toast({
                 title: "Cliente adicionado com sucesso!",
