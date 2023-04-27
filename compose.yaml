@@ -42,16 +42,21 @@ services:
   whatsapp-api:
     container_name: whatsapp-api
     restart: always
-    build:
-      context: whatsapp-api
-    volumes:
-      - ~/server/volumes/whatsapp-api:/codechat/instances
-    networks:
-      - nest-mongo
+    image: codechat/api:latest
     ports:
       - 8083:8083
+    volumes:
+      - ~/server/volumes/whatsapp-api:/codechat/instances
+    command: ['node', './dist/src/main.js']
+    networks:
+      - nest-mongo
+    environment:
+      CONFIG_SESSION_PHONE_CLIENT: 'myface'
+      AUTHENTICATION_TYPE: 'apikey'
+
 
 
 networks:
   react-nest:
   nest-mongo:
+
