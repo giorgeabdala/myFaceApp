@@ -2,6 +2,7 @@
 #builda por padrão para o target dev. Para mudar para o target prod, define a variavem de ambiente TARGET=prod
 services:
   frontend:
+    container_name: myface_frontend
     build:
       context: frontend
       target: ${TARGET:-dev}
@@ -16,6 +17,7 @@ services:
 
 
   backend:
+    container_name: myface_backend
     restart: always
     build:
       context: backend
@@ -29,7 +31,7 @@ services:
       - 3000:3000
 
   mongo:
-    container_name: mongo
+    container_name: myface_mongo
     restart: always
     image: mongo:6.0.3
     volumes:
