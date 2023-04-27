@@ -25,7 +25,7 @@ import makeWASocket, {
   WAMediaUpload,
   WAMessageUpdate,
   WASocket,
-} from '@adiwajshing/baileys';
+} from '@codechat/base';
 import {
   ConfigService,
   ConfigSessionPhone,
@@ -38,7 +38,7 @@ import {
 } from '../../config/env.config';
 import { Logger } from '../../config/logger.config';
 import { INSTANCE_DIR, ROOT_DIR } from '../../config/path.config';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import axios from 'axios';
 import { v4 } from 'uuid';
@@ -384,28 +384,25 @@ export class WAStartupService {
     }
   }
 
-  public async connectToWhatsapp(): Promise<WASocket> {
-    this.loadWebhook();
-
+  private async defineAuthState() {
     const db = this.configService.get<Database>('DATABASE');
     const redis = this.configService.get<Redis>('REDIS');
 
-    if (db.ENABLED && db.SAVE_DATA.INSTANCE) {
-      this.instance.authState = await useMultiFileAuthStateDb(this.instance.name);
+    if (redis?.ENABLED) {
+      return await useMultiFileAuthStateRedisDb(redis.URI, this.instance.name);
     }
 
-    if (redis.ENABLED && !db.SAVE_DATA.INSTANCE) {
-      this.instance.authState = await useMultiFileAuthStateRedisDb(
-        redis.URI,
-        this.instance.name,
-      );
+    if (db.SAVE_DATA.INSTANCE && db.ENABLED) {
+      return await useMultiFileAuthStateDb(this.instance.name);
     }
 
-    if (!redis.ENABLED) {
-      this.instance.authState = await useMultiFileAuthState(
-        join(INSTANCE_DIR, this.instance.name),
-      );
-    }
+    return await useMultiFileAuthState(join(INSTANCE_DIR, this.instance.name));
+  }
+
+  public async connectToWhatsapp(): Promise<WASocket> {
+    this.loadWebhook();
+
+    this.instance.authState = await this.defineAuthState();
 
     const { version } = await fetchLatestBaileysVersion();
     const session = this.configService.get<ConfigSessionPhone>('CONFIG_SESSION_PHONE');
@@ -430,7 +427,7 @@ export class WAStartupService {
         const requiresPatch = !!(message.buttonsMessage || message.listMessage);
         if (requiresPatch) {
           message = {
-            editedMessage: {
+            viewOnceMessageV2: {
               message: {
                 messageContextInfo: {
                   deviceListMetadataVersion: 2,

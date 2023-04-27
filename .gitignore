@@ -11,3 +11,5 @@ data
 /backend/src/credentials/
 
 backend/.env
+
+whatsapp-api/docker-compose.yml

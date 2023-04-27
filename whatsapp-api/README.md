@@ -112,7 +112,7 @@ pm2 start 'npm run start:prod' --name ApiCodechat
 ```
 ## Authentication
 
-You can define two authentication **types** for the routes in the **[env file](./src/env.yml)**.
+You can define two authentication **types** for the routes in the **[env file](./src/dev-env.yml)**.
 Authentications must be inserted in the request header.
 
 1. **apikey**
@@ -202,8 +202,10 @@ curl --location --request GET 'http://localhost:8080/instance/connect/codechat' 
 ```
 
 ### App in Docker
-  - [Dockerfile](./Dockerfile)
-  - [.env for docker](./Docker/dev.env)
+  - [docker run](./docker.sh)
+  - [docker-compose](./docker-compose.yml)
+  - [env for docker](./Docker/.env)
+  - [DockerHub-codechat/api](https://hub.docker.com/r/codechat/api)
 
 After building the application, in the same directory as the files above, run the following command:
 ```sh
@@ -251,7 +253,7 @@ docker-compose up
 
 ## Env File
 
-See additional settings that can be applied through the **env** file by clicking **[here](./src/env.yml)**.
+See additional settings that can be applied through the **env** file by clicking **[here](./src/dev-env.yml)**.
 
 > **⚠️Attention⚠️:** rename the **dev-env.yml** file to **env.yml**.
 

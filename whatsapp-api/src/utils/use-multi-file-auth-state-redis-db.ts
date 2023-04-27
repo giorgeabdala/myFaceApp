@@ -4,10 +4,9 @@ import {
   initAuthCreds,
   proto,
   SignalDataTypeMap,
-} from '@adiwajshing/baileys';
+} from '@codechat/base';
 import { RedisCache } from '../db/redis.client';
 import { Logger } from '../config/logger.config';
-import { Env } from '../config/env.config';
 
 export async function useMultiFileAuthStateRedisDb(
   redisUri: string,
@@ -18,7 +17,7 @@ export async function useMultiFileAuthStateRedisDb(
 }> {
   const logger = new Logger(useMultiFileAuthStateRedisDb.name);
 
-  const cache = new RedisCache(instanceName, redisUri);
+  const cache = new RedisCache(redisUri, instanceName);
 
   const writeData = async (data: any, key: string): Promise<any> => {
     try {

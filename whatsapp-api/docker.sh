@@ -1,6 +1,7 @@
 #!/bin/bash
 
 NET='codechat-net'
+IMAGE='codechat/api:git'
 
 if !(docker network ls | grep ${NET} > /dev/null)
 then
@@ -9,11 +10,8 @@ fi
 
 sudo mkdir -p /data/instances
 
-docker build -t whatsappapi/codechat .
+docker build -t ${IMAGE} .
 
-docker run --restart 'always' --name 'whatsapp-api' --mount 'type=bind,source=/data/instances,target=/home/api/instances' --publish '8083:8083' --hostname 'whatsapp-api' --network ${NET} whatsappapi/codechat:latest
+# docker run --restart 'always' --name 'codechat_api' --mount 'type=bind,source=/data/instances,target=/home/api/instances' --publish '8083:8083' --hostname 'codechat' --network ${NET} ${IMAGE}
 
-# docker run --restart 'always' -d --name 'api-codechat' --mount 'type=bind,source=/data/instances,target=/home/api/instances' --publish '8083:8083' --hostname 'codechat-api' --network ${NET} whatsappapi/codechat:latest
-
-
-
+docker run -d --restart 'always' --name 'codechat_api' --mount 'type=bind,source=/data/instances,target=/codechat/instances' --publish '8083:8083' --hostname 'codechat' --network ${NET} ${IMAGE}
