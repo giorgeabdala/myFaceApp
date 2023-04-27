@@ -1,6 +1,6 @@
 FROM node:16.19.0
 
-LABEL version="1.2.0" description="Api to control whatsapp features through http requests." 
+LABEL version="2.0.0" description="Api to control whatsapp features through http requests."
 LABEL maintainer="Cleber Wilson" git="https://github.com/jrCleber"
 LABEL contact="contato@codechat.dev"
 
@@ -11,22 +11,27 @@ WORKDIR /codechat
 
 COPY ./package.json .
 
-# See https://github.com/code-chat-br/whatsapp-api/blob/main/Docker/dev.env
-# This file composes an image from the data in this repository.
-# Check here the official image of this api: https://hub.docker.com/r/codechat/api
+# see https://github.com/code-chat-br/whatsapp-api/blob/main/Docker/dev.env
 
+# Set "true" to dynamically insert environment variables as described in the "./dev.env" file
 ENV DOCKER_ENV=true
 
-ENV CORS_ORIGIN='*' 
+ENV SERVER_TYPE='http'
+ENV SERVER_PORT=8083
+
+ENV CORS_ORIGIN='*'
 ENV CORS_METHODS='POST,GET,PUT,DELETE'
 ENV CORS_CREDENTIALS=true
+
+ENV SSL_CONF_PRIVKEY='/etc/letsencrypt/live/<domain>/privkey.pem'
+ENV SSL_CONF_FULLCHAIN='/etc/letsencrypt/live/<domain>/fullchain.pem'
 
 ENV LOG_LEVEL='ERROR,WARN,DEBUG,INFO,LOG,VERBOSE,DARK'
 ENV LOG_COLOR=true
 
-ENV DEL_INSTANCE=5
+ENV DEL_INSTANCE=0
 
-ENV STORE_CLEANING_INTERVAL=7200 
+ENV STORE_CLEANING_INTERVAL=7200
 ENV STORE_MESSAGE=true
 ENV STORE_CONTACTS=false
 ENV STORE_CHATS=false
@@ -34,7 +39,7 @@ ENV STORE_CHATS=false
 ENV DATABASE_ENABLED=false
 ENV DATABASE_CONNECTION_URI='mongodb://<USER>:<PASSWORD>@<HOST>/?authSource=admin&readPreference=primary&ssl=false&directConnection=true'
 ENV DATABASE_CONNECTION_DB_PREFIX_NAME='codechat'
-ENV DATABASE_SAVE_DATA_INSTANCE=false
+ENV DATABASE_SAVE_DATA_INSTANCE=true
 ENV DATABASE_SAVE_DATA_OLD_MESSAGE=false
 ENV DATABASE_SAVE_DATA_NEW_MESSAGE=true
 ENV DATABASE_SAVE_MESSAGE_UPDATE=true
@@ -67,20 +72,24 @@ ENV WEBHOOK_EVENTS_GROUP_PARTICIPANTS_UPDATE=false
 
 ENV WEBHOOK_EVENTS_NEW_JWT_TOKEN=true
 
-ENV CONFIG_SESSION_PHONE_CLIENT='codechat'
+ENV CONFIG_SESSION_PHONE_CLIENT='myface'
 ENV CONFIG_SESSION_PHONE_NAME='Chrome'
 
-ENV QRCODE_LIMIT=6
+ENV QRCODE_LIMIT=10
 
-ENV AUTHENTICATION_TYPE='jwt' 
+ENV AUTHENTICATION_TYPE='apikey'
 
 ENV AUTHENTICATION_API_KEY='t8OOEeISKzpmc3jjcMqBWYSaJsafdefer'
 
 ENV AUTHENTICATION_JWT_EXPIRIN_IN=3600
 ENV AUTHENTICATION_JWT_SECRET='L0YWtjb2w554WFqPG'
 
-RUN npm install
+RUN npm i
 
 COPY . .
+
+EXPOSE 8083
+
+RUN npm run build
 
 CMD [ "node", "./dist/src/main.js" ]

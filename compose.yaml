@@ -45,7 +45,7 @@ services:
     build:
       context: whatsapp-api
     volumes:
-      - ~/server/volumes/whatsapp-api:/home/api/instances
+      - ~/server/volumes/whatsapp-api:/codechat/instances
     networks:
       - nest-mongo
     ports:
