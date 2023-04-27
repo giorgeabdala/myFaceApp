@@ -6,15 +6,11 @@ services:
       context: frontend
       target: ${TARGET:-dev}
     stdin_open: true
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
     restart: always
     networks:
       - react-nest
     ports:
       - 5173:5173
-    expose:
-      - 5173
     depends_on:
       - backend
 
@@ -24,8 +20,6 @@ services:
     build:
       context: backend
       target: ${TARGET:-dev}
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - mongo
     networks:
@@ -33,8 +27,6 @@ services:
       - react-nest
     ports:
       - 3000:3000
-    expose:
-      - 3000
 
   mongo:
     container_name: mongo
@@ -46,8 +38,6 @@ services:
       - nest-mongo
     ports:
       - 27017:27017
-    expose:
-      - 27017
 
   whatsapp-api:
     container_name: whatsapp-api
@@ -55,13 +45,12 @@ services:
     build:
       context: whatsapp-api
     volumes:
-      - ~/server/volumes/whatsapp-api:/codechat/instances
+      - ~/server/volumes/whatsapp-api:/home/api/instances
     networks:
       - nest-mongo
     ports:
       - 8083:8083
-    expose:
-      - 8083
+
 
 networks:
   react-nest:
