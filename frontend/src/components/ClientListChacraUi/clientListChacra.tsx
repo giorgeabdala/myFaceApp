@@ -23,7 +23,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 
-const BACKEND_URI = import.meta.env.VITE_BACKEND_URI || "http://localhost:3000/client";
+const BACKEND_URI = import.meta.env.VITE_BACKEND_URI;
 
 
 interface Client {
@@ -198,7 +198,7 @@ function ClientListChacra() {
                                 <Input value={DDD} onChange={(e) => setDDD(e.target.value)} />
                             </FormControl>
                             <FormControl>
-                                <FormLabel>TelefoneS</FormLabel>
+                                <FormLabel>Telefone</FormLabel>
                                 <Input
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
