@@ -62,6 +62,7 @@ export default class SyncronizeUseCase {
         const eventsOrError = await new FindEventsCalendarByProfessionalDateUseCase(this.factoryRepository, calendarService)
             .execute({professionalId: professionalId, date: dateFind});
         if (eventsOrError.err) return new Err("Error ao buscar eventos no google" + eventsOrError.err);
+        console.log(eventsOrError.unwrap());
         return eventsOrError;
     }
 

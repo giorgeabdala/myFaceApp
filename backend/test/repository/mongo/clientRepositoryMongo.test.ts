@@ -105,11 +105,14 @@ describe('Testa o repository MongoDb de Client', async () => {
         expect(clients).not.toBeNull();
         expect(clients.length).toBeGreaterThanOrEqual(2);
 
-        expect(clients[0].id).toEqual(clientFake.id);
-        expect(clients[0].firstName).toEqual(clientFake.firstName);
+        const client = clients.find(client => client.id === clientFake.id);
+        const client2 = clients.find(client => client.id === clientFake2.id);
 
-        expect(clients[1].id).toEqual(clientFake2.id);
-        expect(clients[1].firstName).toEqual(clientFake2.firstName);
+        expect(client.id).toEqual(clientFake.id);
+        expect(client.firstName).toEqual(clientFake.firstName);
+
+        expect(client2.id).toEqual(clientFake2.id);
+        expect(client2.firstName).toEqual(clientFake2.firstName);
 
         await clientRepository.delete(clientFake);
         await clientRepository.delete(clientFake2);
