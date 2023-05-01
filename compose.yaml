@@ -33,13 +33,14 @@ services:
   mongo:
     container_name: myface_mongo
     restart: always
-    image: mongo:6.0.3
+    image: ${MONGO_IMAGE}
     volumes:
       - ~/server/volumes/mongo:/data/db
     networks:
       - nest-mongo
     ports:
       - 27017:27017
+    env_file: .env
 
   whatsapp-api:
     container_name: whatsapp-api
