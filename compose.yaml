@@ -12,6 +12,8 @@ services:
       - react-nest
     ports:
       - 5173:5173
+    environment:
+      - TZ=America/Sao_Paulo
     depends_on:
       - backend
 
@@ -29,6 +31,8 @@ services:
       - react-nest
     ports:
       - 3000:3000
+    environment:
+      - TZ=America/Sao_Paulo
 
   mongo:
     container_name: myface_mongo
@@ -40,6 +44,8 @@ services:
       - nest-mongo
     ports:
       - 27017:27017
+    environment:
+      - TZ=America/Sao_Paulo
     env_file: .env
 
   whatsapp-api:
@@ -56,6 +62,8 @@ services:
     environment:
       CONFIG_SESSION_PHONE_CLIENT: 'myface'
       AUTHENTICATION_TYPE: 'apikey'
+      TZ: 'America/Sao_Paulo'
+
 
 
 
