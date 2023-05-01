@@ -55,7 +55,8 @@ services:
     ports:
       - 8083:8083
     volumes:
-      - ~/server/volumes/whatsapp-api:/codechat/instances
+      - ~/server/volumes/whatsapp-api/instances:/codechat/instances
+      - ~/server/volumes/whatsapp-api/store:/codechat/store/
     command: ['node', './dist/src/main.js']
     networks:
       - nest-mongo
