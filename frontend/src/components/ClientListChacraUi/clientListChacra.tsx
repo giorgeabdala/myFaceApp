@@ -61,7 +61,7 @@ function ClientListChacra() {
 
     async function handleUpdateClient(client: Client) {
         try {
-            const updatedClient = { id: client.id, firstName: client.firstName, lastName: client.lastName, DDD: client.DDD, phone: client.phone, email: null };
+            const updatedClient = { id: client.id, firstName: client.firstName, lastName: client.lastName, DDD: client.DDD, phone: client.phone, email: client.email };
             console.log(updatedClient);
             const patch = await axios.patch(BACKEND_URI, updatedClient);
 
