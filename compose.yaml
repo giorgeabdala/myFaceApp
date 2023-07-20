@@ -63,6 +63,7 @@ services:
     environment:
       CONFIG_SESSION_PHONE_CLIENT: 'myface'
       AUTHENTICATION_TYPE: 'apikey'
+      AUTHENTICATION_API_KEY: 't8OOEeISKzpmc3jjcMqBWYSaJsafdefer'
       TZ: 'America/Sao_Paulo'
 
 
