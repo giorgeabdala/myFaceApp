@@ -1,0 +1,1115 @@
+{
+	"info": {
+		"_postman_id": "b1273f88-ef4f-44f1-bed0-535ebe8ead79",
+		"name": "Api Whatsapp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22740868",
+		"_collection_link": "https://orange-water-629973.postman.co/workspace/Team-Workspace~0666648a-5841-4e7c-860f-262519296551/collection/22740868-b1273f88-ef4f-44f1-bed0-535ebe8ead79?action=share&creator=22740868&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Instance Controller",
+			"item": [
+				{
+					"name": "Views",
+					"item": [
+						{
+							"name": "QrCode",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/instance/qrcode/{{instance}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"instance",
+										"qrcode",
+										"{{instance}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create Instance",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "apikey",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{globalApikey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"instanceName\": \"codechat\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/instance/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"instance",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Instances",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "apikey",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{globalApikey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/instance/fetchInstances?instanceName={{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"instance",
+								"fetchInstances"
+							],
+							"query": [
+								{
+									"key": "instanceName",
+									"value": "{{instance}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Instance Connect",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/instance/connect/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"instance",
+								"connect",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Connection Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/instance/connectionState/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"instance",
+								"connectionState",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Instance",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/instance/logout/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"instance",
+								"logout",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Instance",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/instance/delete/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"instance",
+								"delete",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Send Message Controller",
+			"item": [
+				{
+					"name": "Send Text",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"number\": \"5531900000000\",\r\n  \"options\": {\r\n    \"delay\": 1200\r\n  },\r\n  \"textMessage\": {\r\n    \"text\": \"ok\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/message/sendText/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"message",
+								"sendText",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Media",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"number\": \"5531900000000\",\r\n  \"options\": {\r\n    \"delay\": 1200\r\n  },\r\n  \"mediaMessage\": {\r\n    \"mediatype\": \"image | document | video | audio\",\r\n    \"fileName\": \"image.png\",\r\n    \"caption\": \"Description\",\r\n    \"media\": \"url or base64\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/message/sendMedia/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"message",
+								"sendMedia",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Buttons",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"number\": \"5531900000000\",\r\n  \"options\": {\r\n    \"delay\": 1200\r\n  },\r\n  \"buttonMessage\": {\r\n    \"title\": \"Tutle Button\",\r\n    \"description\": \"Description Button\",\r\n    \"footerText\": \"Footer Button\",\r\n    \"buttons\": [\r\n      {\r\n        \"buttonText\": \"Click here 1\",\r\n        \"buttonId\": \"1\"\r\n      },\r\n      {\r\n        \"buttonText\": \"Click here 2\",\r\n        \"buttonId\": \"2\"\r\n      }\r\n    ],\r\n    \"mediaMessage\": {\r\n      \"mediatype\": \"image\",\r\n      \"fileName\": \"image.png\",\r\n      \"media\": \"https://images.freeimages.com/images/large-previews/31c/red-fox-in-the-wild-1-1624832.jpg\"\r\n    }\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/message/sendButtons/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"message",
+								"sendButtons",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Location",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"number\": \"5531900000000\",\r\n  \"locationMessage\": {\r\n    \"name\": \"Moeda - MG\",\r\n    \"address\": \"🗺️ Moeda 🗺️\",\r\n    \"latitude\": -20.32568196333534,\r\n    \"longitude\": -44.016271276581236\r\n  },\r\n  \"options\": {\r\n    \"delay\": 1200\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/message/sendLocation/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"message",
+								"sendLocation",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"number\": \"5531900000000\",\r\n  \"listMessage\": {\r\n    \"title\": \"List Title\",\r\n    \"description\": \"List description\",\r\n    \"buttonText\": \"Click Here\",\r\n    \"footerText\": \"footer list\\nhttps://examplelink.com.br\",\r\n    \"sections\": [\r\n      {\r\n        \"title\": \"Row tilte 01\",\r\n        \"rows\": [\r\n          {\r\n            \"title\": \"Title row 01\",\r\n            \"description\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\",\r\n            \"rowId\": \"rowId 001\"\r\n          },\r\n          {\r\n            \"title\": \"Title row 02\",\r\n            \"description\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\",\r\n            \"rowId\": \"rowId 002\"\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"title\": \"Row tilte 02\",\r\n        \"rows\": [\r\n          {\r\n            \"title\": \"Title row 01\",\r\n            \"description\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\",\r\n            \"rowId\": \"rowId 001\"\r\n          },\r\n          {\r\n            \"title\": \"Title row 02\",\r\n            \"description\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\",\r\n            \"rowId\": \"rowId 002\"\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  },\r\n  \"options\": {\r\n    \"delay\": 1200\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/message/sendList/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"message",
+								"sendList",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Contact",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"number\": \"5531900000000\",\r\n  \"contactMessage\": [\r\n    {\r\n      \"fullName\": \"Contact Name\",\r\n      \"wuid\": \"5531988882222\",\r\n      \"phoneNumber\": \"+55 31 9 8888-2222\"\r\n    },\r\n    {\r\n      \"fullName\": \"Contact Name\",\r\n      \"wuid\": \"5531988882222\",\r\n      \"phoneNumber\": \"+55 31 9 8888-2222\"\r\n    },\r\n    {\r\n      \"fullName\": \"Contact Name\",\r\n      \"wuid\": \"5531922228888\",\r\n      \"phoneNumber\": \"+55 31 9 2222-8888\"\r\n    }\r\n  ],\r\n  \"options\": {\r\n    \"delay\": 1200\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/message/sendContact/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"message",
+								"sendContact",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Reaction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"reactionMessage\": {\r\n    \"key\": {\r\n      \"remoteJid\": \"123@s.whatsapp.net\",\r\n      \"fromMe\": true,\r\n      \"id\": \"BAE5A75CB0F39712\"\r\n    },\r\n    \"reaction\": \"😒\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/message/sendReaction/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"message",
+								"sendReaction",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Audio WhatsApp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"number\": \"5531900000000\",\r\n  \"options\": {\r\n    \"delay\": 1200\r\n  },\r\n  \"audioMessage\": {\r\n    \"audio\": \"https://lp.naturefarm.site/wp-content/uploads/2023/01/WhatsApp-Ptt-2022-12-05-at-13.00.53.ogg\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/message/sendWhatsAppAudio/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"message",
+								"sendWhatsAppAudio",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat Controller",
+			"item": [
+				{
+					"name": "WhatsApp Number",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"numbers\": [\r\n    \"5531900000000\",\r\n    \"5531911111111\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/chat/whatsappNumbers/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"chat",
+								"whatsappNumbers",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Messages",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"readMessages\": [\r\n    {\r\n      \"remoteJid\": \"123@s.whatsapp.net\",\r\n      \"fromMe\": false,\r\n      \"id\": \"80C4CE9B72F797DBC6ECD8D19B247FC9\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/chat/markMessageAsRead/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"chat",
+								"markMessageAsRead",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Archive Chat",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"lastMessage\": {\r\n    \"key\": {\r\n      \"remoteJid\": \"123@s.whatsapp.net\",\r\n      \"fromMe\": false,\r\n      \"id\": \"80C4CE9B72F797DBC6ECD8D19B247FC9\"\r\n    }\r\n  },\r\n  // false: to unarchive\r\n  // true: to archive\r\n  \"archive\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/chat/archiveChat/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"chat",
+								"archiveChat",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Message",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"id\",\r\n  \"remoteJid\": \"remoteJid\",\r\n  \"fromMe\": true,\r\n  // optional\r\n  \"paticipant\": \"paticipant\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/chat/deleteMessageForEveryone/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"chat",
+								"deleteMessageForEveryone",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Profile Picture",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"number\": \"5531900000000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/chat/fetchProfilePictureUrl/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"chat",
+								"fetchProfilePictureUrl",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Contacts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"where\": {\r\n    \"id\": \"5531900000000@s.whatsapp.net\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/chat/findContacts/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"chat",
+								"findContacts",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Base64 From Media Message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n  \"key\": {\r\n    \"id\": \"3EB0AB73CDA6834B7C72\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/chat/getBase64FromMediaMessage/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"chat",
+								"getBase64FromMediaMessage",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Messages",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "/*\r\n  Each of these properties are optional.\r\n  With mongodb disabled, only the \"key.id\" property is available.\r\n  Remove all comments before submitting the request.\r\n*/\r\n{\r\n  \"where\": {\r\n    /* \r\n     * \"key.fromMe\": false,\r\n     * \"key.remoteJid\": \"123@s.whatsapp.net\",\r\n     * \"key.id\": \"1C42B68AFA410DBE198BA54DB7F45762\"\r\n    */\r\n    \"key\": {\r\n      \"fromMe\": false,\r\n      \"remoteJid\": \"123@s.whatsapp.net\",\r\n      \"id\": \"1C42B68AFA410DBE198BA54DB7F45762\"\r\n    },\r\n    \"message.[...]\": { }\r\n  },\r\n  // optional\r\n  \"limit\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/chat/findMessages/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"chat",
+								"findMessages",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Status Message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "/*\r\n  Each of these properties are optional.\r\n  With mongodb disabled, only the \"id\" property is available.\r\n  Remove all comments before submitting the request.\r\n*/\r\n{\r\n  \"where\": {\r\n    \"_id\": \"6390fe2eba512dacefa8ce3a\",\r\n    \"remoteJid\": \"123@s.whatsapp.net\",\r\n    \"id\": \"BAE5959535174C7E\",\r\n    \"fromMe\": true\r\n  },\r\n  // optional\r\n  \"limit\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/chat/findStatusMessage/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"chat",
+								"findStatusMessage",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Chats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/chat/findChats/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"chat",
+								"findChats",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Group Controller",
+			"item": [
+				{
+					"name": "Create Group",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"subject\": \"Test 02\",  \r\n  \"description\": \"optional\",\r\n  \"participants\": [\r\n    \"5531900000000\",\r\n    \"5531900000000\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/group/create/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"group",
+								"create",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Group Picture",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"image\": \"https://i.pinimg.com/736x/25/78/61/25786134576ce0344893b33a051160b1.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/group/updateGroupPicture/{{instance}}?groupJid={{groupJid}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"group",
+								"updateGroupPicture",
+								"{{instance}}"
+							],
+							"query": [
+								{
+									"key": "groupJid",
+									"value": "{{groupJid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/group/findGroupInfos/{{instance}}?groupJid={{groupJid}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"group",
+								"findGroupInfos",
+								"{{instance}}"
+							],
+							"query": [
+								{
+									"key": "groupJid",
+									"value": "{{groupJid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Participants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/group/participants/{{instance}}?groupJid={{groupJid}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"group",
+								"participants",
+								"{{instance}}"
+							],
+							"query": [
+								{
+									"key": "groupJid",
+									"value": "{{groupJid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invite Code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/group/inviteCode/{{instance}}?groupJid={{groupJid}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"group",
+								"inviteCode",
+								"{{instance}}"
+							],
+							"query": [
+								{
+									"key": "groupJid",
+									"value": "{{groupJid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Revoke Invite Code",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/group/revokeInviteCode/{{instance}}?groupJid={{groupJid}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"group",
+								"revokeInviteCode",
+								"{{instance}}"
+							],
+							"query": [
+								{
+									"key": "groupJid",
+									"value": "{{groupJid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Participant",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"action\": \"'add' | 'remove' | 'promote' | 'demote'\",\r\n  \"participants\": [\r\n    \"5531900000000\",\r\n    \"5531911111111\",\r\n    \"5531922222222\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/group/updateParticipant/{{instance}}?groupJid={{groupJid}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"group",
+								"updateParticipant",
+								"{{instance}}"
+							],
+							"query": [
+								{
+									"key": "groupJid",
+									"value": "{{groupJid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Leave Group",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/group/leaveGroup/{{instance}}?groupJid={{groupJid}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"group",
+								"leaveGroup",
+								"{{instance}}"
+							],
+							"query": [
+								{
+									"key": "groupJid",
+									"value": "{{groupJid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "JWT",
+			"item": [
+				{
+					"name": "Refresh Token",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"oldToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnN0YW5jZU5hbWUiOiJjb2RlY2hhdCIsImFwaU5hbWUiOiJ3aGF0c2FwcC1hcGkiLCJ0b2tlbklkIjoiYmYyYTQ1MjQtNzY2Mi00YjBlLTkzNDMtODEwNjNmNmU3MjgwIiwiaWF0IjoxNjczNTI5MDcwLCJleHAiOjE2NzM1MjkwNzAsInN1YiI6ImctdCJ9.RGWWXW_dSQO8yXAeP-UJRLlHR5bSPbGSm3yvcyl5KhE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/instance/refreshToken/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"instance",
+								"refreshToken",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Webhook",
+			"item": [
+				{
+					"name": "Set Webhook",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"enabled\": true,\r\n  \"url\": \"https://webhook.site/67b563b0-92ad-4c83-b622-7cdb52cd3d2b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/webhook/set/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"webhook",
+								"set",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Webhook",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/webhook/find/{{instance}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"webhook",
+								"find",
+								"{{instance}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{apikey}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "apikey",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://api.codechat.dev",
+			"type": "string"
+		},
+		{
+			"key": "instance",
+			"value": "codechat",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnN0YW5jZU5hbWUiOiJjb2RlY2hhdCIsImFwaU5hbWUiOiJ3aGF0c2FwcC1hcGkiLCJ0b2tlbklkIjoiMjgyYjQxZmQtOWQ3OC00YzEwLWI0YTAtMGYzZWYyYzFmYjA5IiwiaWF0IjoxNjczNjk1NjAyLCJleHAiOjE2NzM2OTU2MDIsInN1YiI6ImctdCJ9.TVhYtPJmZfIl4YljfNX9I07B-Gu_VUgj7tUWQxxnLJE",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "apikey",
+			"value": "7259FC4B-2825-402D-9321-022978061B84",
+			"type": "string"
+		},
+		{
+			"key": "globalApikey",
+			"value": "t8OOEeISKzpmc3jjcMqBWYSaJsafdefer",
+			"type": "string"
+		},
+		{
+			"key": "groupJid",
+			"value": "120363046555718472@g.us",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}

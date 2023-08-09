@@ -23,7 +23,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 
-const BACKEND_URI = import.meta.env.VITE_BACKEND_URI;
+const BACKEND_URI = process.env.NEXT_PUBLIC_BACKEND_URI || "http://localhost:3001/clients"
 
 
 interface Client {
@@ -36,6 +36,7 @@ interface Client {
 }
 
 function ClientListChacra() {
+    console.log("Backend_ur:" + process.env.NEXT_PUBLIC_BACKEND_URI);
     const [clients, setClients] = useState<Client[]>([]);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
