@@ -48,23 +48,6 @@ services:
       - TZ=America/Sao_Paulo
     env_file: .env
 
-  whatsapp-api:
-    container_name: whatsapp-api
-    restart: always
-    image: codechat/api:latest
-    ports:
-      - 8083:8083
-    volumes:
-      - ~/server/volumes/whatsapp-api/instances:/codechat/instances
-      - ~/server/volumes/whatsapp-api/store:/codechat/store/
-    command: ['node', './dist/src/main.js']
-    networks:
-      - nest-mongo
-    environment:
-      CONFIG_SESSION_PHONE_CLIENT: 'myface'
-      AUTHENTICATION_TYPE: 'apikey'
-      AUTHENTICATION_API_KEY: 't8OOEeISKzpmc3jjcMqBWYSaJsafdefer'
-      TZ: 'America/Sao_Paulo'
 
 
 
