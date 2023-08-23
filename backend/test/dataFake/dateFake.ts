@@ -15,7 +15,7 @@ export const professionalFake = Professional.create('10',
     '11',
     '999999999',
     'emailfake@gmail.com',
-    'j2ialadmckmcdne2i7bmfvsovs@group.calendar.google.com').unwrap();
+    '2q0v1uhnvlpuksb710nvm0jfv4@group.calendar.google.com').unwrap();
 
 export const professionalFake2 = Professional.create('3',
     'teste3',

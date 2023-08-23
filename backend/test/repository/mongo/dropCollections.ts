@@ -2,18 +2,6 @@ import 'dotenv/config';
 import mongoose, {Connection} from 'mongoose';
 import {Client} from "../../../src/domain/entities/client";
 import {Professional} from "../../../src/domain/entities/professional";
-import FactoryBuilder from "../../../src/infra/factory/FactoryBuilder";
-import ClientSchema from "../../../src/infra/db/mongo/clientSchema";
-import ProfessionalSchema from "../../../src/infra/db/mongo/professionalSchema";
-
-const clientTest = Client.create("99", "client", "fake", "33", "333333333", "email2@email.com").unwrap();
-const professionalTest = Professional.create('99',
-    'teste',
-    'testeLast',
-    '11',
-    '999999999',
-    'email@gmail.com',
-    'j2ialadmckmcdne2i7bmfvsovs@group.calendar.google.com').unwrap();
 
 
 

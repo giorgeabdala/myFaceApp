@@ -8,7 +8,7 @@ export default defineConfig({
     test: {
         globals: true,
         include: ['**/test/entities/**', './test/application/**', './test/controller/**', './test/**/**/**.test.*'],
-      threads: true,
+      threads: false,
         singleThread: false,
         testTimeout: 5000,
         useAtomics: true,

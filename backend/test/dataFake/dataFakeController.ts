@@ -16,7 +16,7 @@ export const professionalFakeCOntroller : CreateProfessionalInput = {
     DDD: '11',
     phone: '999999999',
     email: 'joao@gmail.com',
-    calendarId: 'j2ialadmckmcdne2i7bmfvsovs@group.calendar.google.com'
+    calendarId: '2q0v1uhnvlpuksb710nvm0jfv4@group.calendar.google.com'
 
 };
 
